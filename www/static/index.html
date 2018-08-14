@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="MSc. Computer Science - Master Project">
+    <meta name="author" content="João Carvalho, carvalhj@cs.uni-freiburg.de">
+
+    <title>Master Project</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+    <link href="css/custom-stylesheet.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a target="_blank" rel="noopener noreferrer" class="navbar-brand js-scroll-trigger" href="#page-top">Master Project</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a target="_blank" rel="noopener noreferrer" class="nav-link js-scroll-trigger" href="#introduction">Introduction</a>
+            </li>
+            <li class="nav-item">
+              <a target="_blank" rel="noopener noreferrer" class="nav-link js-scroll-trigger" href="#language_model">Natural Language Processing</a>
+            </li>
+            <li class="nav-item">
+              <a target="_blank" rel="noopener noreferrer" class="nav-link js-scroll-trigger" href="#rnn">Machine Learning</a>
+            </li>
+            <li class="nav-item">
+              <a target="_blank" rel="noopener noreferrer" class="nav-link js-scroll-trigger" href="#text-generation">Text generation</a>
+            </li>
+            <li class="nav-item">
+              <a target="_blank" rel="noopener noreferrer" class="nav-link js-scroll-trigger" href="#concept-neuron">Concept neurons</a>
+            </li>
+            <li class="nav-item">
+              <a target="_blank" rel="noopener noreferrer" class="nav-link js-scroll-trigger" href="#source-code">Code</a>
+            </li>
+            <li class="nav-item">
+              <a target="_blank" rel="noopener noreferrer" class="nav-link js-scroll-trigger" href="#references">References</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+
+    <!-- Content starts here -->
+    <section id="introduction">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mx-auto">
+            <h2>Introduction</h2>
+
+            <p>In this project we explored the capabilities of neural language models. More precisely, we questioned if a neural network would be able to encode Part-of-Speech (POS) tags in its neurons, just by training a simple language model.</p>
+
+            <p>We first trained a byte-level language model with a Long Short-Term Memory (LSTM) network using a large collection of text. Then, taking a sentence, which can be viewed as a byte sequence, we used its inner representations (the cell states of the LSTM), along with its corresponding POS tags, as the inputs and targets to train a logistic regression classifier. Looking at the classifier weights, we observed that some concepts (POS tags) are encoded in one neuron, i.e., the POS tag of a byte can be derived from one neuron's activation value, while others are derived with more than one neuron together with the logistic regression classifier. For some tags, using three neurons yielded satisfactory results.</p>
+
+            <p>The idea for this project started from the openAI paper (Radford et al, 2017). In this article, the authors found a dimension in the cell states (a neuron) that strongly correlates to the semantic concept of sentiment, which they called the Sentiment Neuron. In this project we also replicated their results.</p>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="language_model" class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mx-auto">
+            
+            <h2>Natural Language Processing</h2>
+
+            <p><i>Natural Language</i> is the system humans use to communicate with each other. <i>Natural Language Processing</i> (NLP) is a field of study concerned with the automatic processing of natural language (Manning et al, 1999). Its main focus is to enable machines to independently process the base concepts in linguistics: morphology (word formation); syntax (sentence structure / grammar); and semantics (word / sentence meaning). This means that machines should not only recognize the structure of language, but also <i>understand it</i>.</p>
+
+            <p>When analysing / processing language, there are two fundamentally different approaches (Manning et al, 1999). On the one hand, <i>rationalists</i> (usually connected to Noam Chomksy's ideas) assume language is an innate characteristic of humans, not derived by the senses, but rather somehow encoded in the genome. On the other hand, <i>empiricists</i> assume the brain has some initial cognitive ability to learn and organize language, but ultimately the structure is not innate, but rather something that needs to be learned. The difference between these views can sometimes be subtle, but a clear distinction can be found, because the two parties describe different things. <i>Rationalists</i> seek to describe how the human mind modules language, for instance in the form of grammars, by viewing written or spoken language as an indirect method. <i>Empiricists</i> describe language as it occurs.</p>
+
+            <p>In this work we will analyse language from the <i>empiricists'</i> perspective. Due to large amount of written and spoken language in a digital form, which can be easily used by computers, we can employ statistical methods to analyse it. This approach is commonly referred as Statistical NLP, since it performs statistical inference in natural language. In this setting, we model language using probability distributions instead of formal grammars (Manning et al, 1999).</p>
+
+
+            <h3>Language model</h3>
+
+            <p>In the context of NLP, a <i>language model</i> is a function that assigns a probability measure to a sequence of tokens drawn from a vocabulary (Bengio et al, 2016). These tokens can be of multiple forms: in a word-language model, they are words; in a character-language model, they are characters; and in a byte-language model, they are bytes. In this work we deal with models at the byte-level. However, to keep the explanation simple and more intuitive, we will describe language models at the word-level.</p>
+
+            <p>Consider a string \(s\) composed by \(n\) words \(s = w_1 w_2 \ldots w_n \), where \(w_i\) is a word from an alphabet \(\Sigma\). We can define the probability of string \(s\) using the chain rule of probability:<p>
+            
+            \begin{align}
+            P(s) & = P( w_1 w_2 \ldots w_n) = P(\bigcap_{i=1}^{n} w_i) = \prod_{k=1}^{n} P(w_k | \bigcap_{j=1}^{k-1} w_j) \\
+                 & = P(w_1) \cdot P(w_2 | w_1) \cdot P(w_3 | w_1 w_2) \cdot \ldots \cdot P(w_n | w_1 \ldots w_{n-1})
+            \end{align}
+
+            <p>If the ordering of words is not random, then we can assume that there exists an underlying probability distribution that models the language, and that can be computed with the expression above. As result, it is possible to compare how likely two sentences are. For instance, in the English language we should be able to observe that:</p>
+
+            $$
+            P(\text{I am going to the gym today}) > P(\text{To the gym today going I am})
+            $$
+
+            <p>By modelling this probability distribution, we can use it to infer the most probable word after a sequence of words. For instance, in the sentence \(s = \text{I am going to the gym to [x]} \), \(\text{[x]}\) is to be replaced by the word (from the seen vocabulary) that maximizes \(P(s)\) (for example, exercise).</p>
+
+            <p>The goal of Statistical NLP is to model the language by finding the underlying conditional probability distribution inherent to it, such that the inference of a new word giving a previous set of words is maximized. For that we present two different approaches: n-grams and neural language models.</p>
+
+
+            <h3>n-gram models</h3>
+
+            <p><i>N-gram</i> models are based on the Markov assumption that given a sequence of words \(s = w_1 w_2 \ldots w_{\tau} \), the probability of the word \(w_{\tau}\) appearing after \(w_1 w_2 \ldots w_{\tau-1} \) is only dependent on the previous \(n-1\) words: \( P(w_{\tau} | w_1 \ldots w_{\tau - 1}) \approx P(w_{\tau} | w_{\tau-(n-1)} \ldots w_{\tau - 1}) \) (Bengio et al, 2016). Thus, the probability of the sequence \(s\) is given by:</p>
+
+            $$
+            P(w_1 \ldots w_{\tau}) = P(w_1 \ldots w_{n-1}) \prod_{i=n}^{\tau} P(w_i | w_{i - (n-1)} \ldots w_{i-1})
+            $$
+
+            <p>To train n-gram models we use the principle of Maximum Likelihood Estimation (MLE) to derive the underlying conditional probabilities that maximize the likelihood function. For n-gram models this is straight forward, since the conditional probabilities can be estimated by counting the number of times each n-gram occurs in the training set, and store the computed probabilities to use at prediction time (Jurafsky et al, 2017). For instance, with bi-gram models (\(n=2\)):</p>
+
+            $$
+            P(w_n | w_{n-1}) = C(w_{n-1}w_n) / \sum_{w} C(w_{n-1}w)
+            $$
+
+            <p>Where \(C(xy)\) is the number of times the bi-gram \(xy\) is found in the training set.</p>
+
+            <p>Naturally, since not all n-grams will be in the training set, this raises a problem when making predictions, and thus techniques like smoothing are employed (Jurafsky et al, 2017). To infer what is the most probable word after a previous sequence of words, we just need to look up the stored probabilities computed during training and pick the most probable word, given the previous \(n-1\) words.</p>
+
+            <p>N-grams have been used extensively to model language not only because of their simple training and sampling methods, but also because they are easy to understand.</p>
+
+
+            <h3>Neural language models</h3>
+
+            <p>N-gram models suffer from the <i>curse of dimensionality</i>, a problem encountered when solving machine learning problems with a large number of features (Domingos, 2015). Particularly, for a vocabulary \(V\) of size \(|V|\), there are \(|V|^n\) possible n-grams, i.e., the number of possible n-grams grows exponentially for a fixed-size vocabulary. Since not all n-grams occur in the training set, at prediction time the model is just doing a nearest-neighbor look up on the input space (Bengio et al, 2016).</p>
+            
+            <p>To overcome this problem, a solution proposed by (Bengio et al, 2013) does not represent words as traditional n-gram models in a one-hot representation, but uses a <i>distributed representation</i>. In the literature, these are also called <i>word embeddings</i>. In this approach, a word is represented as a vector of real numbers of dimension \(D\). In a one-hot vector representation, words like "father", "mother" and "sun" would be at an euclidean distance of \(\sqrt{2} \) of each other, whilst in a distributed representation we expect the distance between "father" and "mother" to be closer than "father" and "sun". This desire has some roots in neuroscience, but more importantly, because empirically, learning algorithms achieve better performances in language tasks if similar words are closer in the feature space (Mikolov et al, 2013).</p>
+
+            <p>In neural language models there are two (not separate) tasks: learning the mapping from the input-space (word) to the feature-space (word-embedding); and learning the underlying joint probability distribution of a sequence of words, in terms of the word-embeddings. The model can be seen as a function \(h(w) = g(f(w))\), in which \(f\) maps a word to its embedding, and \(g\), which transforms an embedding into a probability distribution.</p>
+
+            $$
+            f : \mathbb{N}^{|V|} \rightarrow \mathbb{R}^D \text{, } g : \mathbb{R}^D \rightarrow \mathbb{R}^{|V|} \text{, } h : \mathbb{N}^{|V|} \rightarrow \mathbb{R}^{|V|}
+            $$
+
+            <p>\(\mathbb{N}^{|V|}\) indicates that in the input-space a word is represented in a one-hot vector of dimension \(|V|\), and \(\mathbb{R}^D\) specifies a real-valued embedding of size \(D\).</p>
+
+            <p>More concretely, taking a sequence of tokens \(X = {x_1, \ldots, x_n}\), a neural language model finds the set of parameters \(\theta\) of a function \(h\) that maximizes the likelihood of a token \(x_i\), given the previous \(k\) tokens and the model parameters:</p>
+
+            \begin{align}
+            & \theta = \underset{\theta}{\arg\max} \text{ } L(X) \\
+            & L(X) = \prod_i P(x_i | x_{i-k}, \ldots, x_{i-1}; \theta)
+            \end{align}
+
+            <p>In a neural language model, \(h\) is represented as a neural network (NN) and \(\theta\) are its internal weights and biases.</p>
+
+
+            <h3>Byte-level language models</h3>
+
+            <p>In this project we used byte-level language models instead of word-level models (all the details above are nevertheless aplicable). There are some reasons to prefer these models over character or word-level ones (Baisa, 2016):
+                <ul>
+                    <li>In English, character-level models are already byte-level models, since each English character is encoded in one byte (ASCII encoding);</li>
+                    <li>The input-space of a byte is \(2^8 = 256\), and thus smaller than a character space, since its vocabulary does not change with the number of unique characters;</li>
+                    <li>Since any character of any language can be encoded in its byte representation (for instance, via UTF-8 encoding), the model can be applied to any language;</li>
+                    <li>For some languages, the input-space (equal to the number of unique characters) is very large (Chinese has around 100,000 different characters);</li>
+                    <li>In digital computers, data is directly represented in bytes, so there's no need for special pre-processing.</li>
+                </ul>
+
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="rnn">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mx-auto">
+            <h2>Machine Learning</h2>
+
+            <p>We describe here the basic neural language models used to model language - Recurrent Neural Networks. For this part and the remaining work, we represent scalars with normal font \( x\), vectors in bold \(\boldsymbol{x}\), and matrices in capitalized bold \( \boldsymbol{X} \).</p>
+
+            <h3>Recurrent Neural Networks (RNNs)</h3>
+
+            <p>To learn the parameters of neural language models we used Recurrent Neural Networks (RNNs), which are a type of neural networks designed to process sequential data, where the input's size does not need to be fixed (Bengio et al, 2016). Since language shows an inherent sequential structure, and by empiricists' believe, it has an underlying joint probability distribution, RNNs are well suited for the language modelling task.</p>
+
+            <p>A RNN is a feed forward neural network extended over time, governed essentially by the equation that relates the hidden state \(\boldsymbol{h}\) of the network at time \(t\), with the previous hidden state at time \(t-1\), the current input \(\boldsymbol{x}\) at time \(t\) and the set of network parameters \(\theta\):</p>
+
+            $$
+            \boldsymbol{h}^{(t)} = f(\boldsymbol{h}^{(t-1)}, \boldsymbol{x}^{(t)}; \theta)
+            $$
+
+            <p>From this relation we notice that a RNN is by construction a recursive function, where the hidden state changes with time, but the parameters are fixed and shared. Morevover, since \(\boldsymbol{h}^{(t)}\) depends on  \(\boldsymbol{h}^{(t-1)}\), the hidden state is sometimes regarded as model's memory, because (in theory) it stores the information from all the previously processed inputs.</p>
+
+            <p>In the byte-level language modelling problem we are interested in describing how a byte is deduced from previous ones. Such architecture produces an output at each time step and has recurrent connections between hidden units. The following picture and equations depict this idea:</p>
+
+            <figure class="figure-center text-center">
+                  <img src="/img/RNN.png" class="figure-img img-fluid" alt="Recurrent Neural Network." width="512" height="342">
+                  <figcaption class="figure-caption" style="text-align: center;">RNN architecture for general language modelling tasks (computational graph unfolded) (Bengio et al, 2016).</figcaption>
+            </figure>            
+
+            \begin{align}
+            \boldsymbol{h}^{(t)} & = \tanh(\boldsymbol{Ux}^{(t)} + \boldsymbol{Wh}^{(t-1)}) \\
+            \boldsymbol{o}^{(t)} & = \boldsymbol{Vh}^{(t)} \\
+            \boldsymbol{\hat{y}}^{(t)} & = \text{softmax}(\boldsymbol{o}^{(t)})
+            \end{align}
+
+            <p style="margin-top: 40px;">Here the set of parameters \(\theta\) to be learned are the matrices \(\boldsymbol{U}\), \(\boldsymbol{W}\) and \(\boldsymbol{V}\) (we do not account biases separetely), which represent the input-to-hidden, hidden-to-hidden and hidden-to-output linear connections. As with feed forward neural networks, the hidden state is the result of linear transformations (given by matrices \(\boldsymbol{U}\) and \(\boldsymbol{W}\)) followed by a non-linear activation function (hyperbolic tangent). To clarify the dimensions of these matrices, consider that \(V\) is the input / ouput vocabulary size and \( D \) is the size of the hidden-state. Then, the input-space is in \(\mathbb{N}^{V}\), the feature-space in \(\mathbb{R}^{D}\) and the output-space in \(\mathbb{R}^{V}\). Also, for simplicity, we assume that only one input is fed at a time (in constrast to a batch of inputs). We obtain \(\boldsymbol{x} \in \mathbb{N}^{V}\), \(\boldsymbol{h} \in \mathbb{R}^{D}\), \(\boldsymbol{o} \in \mathbb{R}^{D}\), \(\boldsymbol{y} \in \mathbb{R}^{D}\), \(\boldsymbol{U} \in \mathbb{R}^{D \times V}\), \(\boldsymbol{W} \in \mathbb{R}^{D \times D}\) and \(\boldsymbol{V} \in \mathbb{R}^{V \times D}\).</p>
+
+            <p>Considering \(\boldsymbol{X} = \boldsymbol{x}^{(1)} \ldots \boldsymbol{x}^{(n)} \) as the network input and \(\boldsymbol{Y} = \boldsymbol{y}^{(1)} \ldots \boldsymbol{y}^{(n)} \) the network output, the loss we want to minimize is the sum of the losses at each time \( t \),  \(L^{(t)}\), which is the cross-entropy between \(\boldsymbol{y}\) and \(\hat{\boldsymbol{y}}\):</p>
+
+
+            \begin{align}
+            L (\boldsymbol{y}^{(1)} \ldots \boldsymbol{y}^{(n)}; \boldsymbol{x}^{(1)} \ldots \boldsymbol{x}^{(n)}) & = \sum_{t=1}^n L^{(t)} \\
+                                                               & = -\sum_{t=1}^n \log p (\boldsymbol{y}^{(t)} |  \boldsymbol{x}^{(1)} \ldots \boldsymbol{x}^{(t)}) \\
+                                                               & = -\sum_{t=1}^n \log (\hat{\boldsymbol{y}}^{(t)}[\boldsymbol{y}^{(t)} == 1])
+            \end{align}
+
+            <p>In the equation above \(\hat{\boldsymbol{y}}^{(t)}[\boldsymbol{y}^{(t)} == 1]\) denotes the entry of \(\hat{\boldsymbol{y}}^{(t)}\) where \(\boldsymbol{y}^{(t)}\) is equal to 1. Minimizing the cross-entropy loss is the same as maximizing the log-likelihood (the logarithm is used to increase numerical stability). Intuitively, the cross-entropy between random variables \(p\) and \(q\), denoted by \(H(p, q)\), measures the average number of bits needed to represent a symbol from \(p\), given that its coding scheme was derived with the probability distribution governing the random variable \(q\). If \(q\) follows the exact same distribution as \(p\), then the cross entropy is the entropy itself. Moreover, this also yields the minimization of the Kullback–Leibler divergence - a measure of how distant two probability distribution are. In the end, we want the estimated probability distribution \(\hat{\boldsymbol{y}}^{(t)}\) to be as close as possible to the true one \(\boldsymbol{y}^{(t)}\).</p>
+
+
+            <h4>Training RNNs</h4>
+
+            <p>Similar to feed forward neural networks, RNNs parameters are updated by a gradient descent method. For example, parameter \(\boldsymbol{W}\) is updated as:</p>
+
+            $$
+            \boldsymbol{W} \leftarrow \boldsymbol{W} - \eta \nabla_{\boldsymbol{W}} L
+            $$            
+
+            <p>Where \(\eta\) is the learning rate and \(\nabla_{\boldsymbol{W}} L\) the derivative of the loss with respect to the weigths \(\boldsymbol{W}\). In our experiments we used a variation of the traditional gradient descent, the ADAM method (Kingma et al, 2014). Also, from the multiple ways to update the learning rate during training, we chose to linearly  decay the initial learning rate to zero throughout the iterations. In feed forward NNs, the gradients \( \nabla_{\boldsymbol{W}}\) are computed using a dynamic programming approach called back-propagation (Bengio et al, 2016). The difference of computing gradients of RNNs and feed forward NNs is that the back-propagation is done through time - Back-Propagation Through Time (BPTT). This means that a parameter is updated by summing all the contributions to the loss over time. For instance, the derivative of the loss with respect to the output matrix \(\boldsymbol{V}\) is given by (Bengio et al, 2016):</p>
+
+            $$
+            \nabla_{\boldsymbol{V}}L = \sum_{t}(\nabla_{\boldsymbol{o}^{(t)}}L)\boldsymbol{h}^{(t)}
+            $$
+
+            <p>Two problems related to the gradient computation arise when training RNNs (Pascanu et al, 2013). The two issues appear because when computing the gradient of the loss at time \(t\) with respect to the parameters, a sum over \(k\) of the terms \( \frac{\partial \boldsymbol{h}^{(t)}}{\partial \boldsymbol{h}^{(k)}} = \prod_{t \geq i > k} \frac{\partial \boldsymbol{h}^{(t)}}{\partial \boldsymbol{h}^{(i-1)}} \) arises. Since \( \frac{\partial \boldsymbol{h}^{(t)}}{\partial \boldsymbol{h}^{(t-1)}} = \boldsymbol{W} \tanh'(\boldsymbol{W} \boldsymbol{h}^{(t-1)}) \), the product from the previous equation has a term equal to \( \boldsymbol{W}^{t-k} \). The <i>vanishing gradient</i> problem comes from the fact that, assuming \(\boldsymbol{W}\) to have an eigendecomposition, the <i>eigenvalues</i> of \(\boldsymbol{W}\) that are less than 1 decrease exponentially to zero with \( t \), while the <i>exploding gradient</i> problem exists if the <i>eingenvalues</i> are greater than 1. Both situations are not desirable when training the network. The first one leads to a slower convergence, while the latter can move the gradient descent trajectory out of the descent path.</p>
+
+            <p>A practical solution for the <i>exploding gradients</i> proposed in (Pascanu et al, 2013) is to clip the gradients if they are higher than a <i>threshold</i> (empirical value), by scaling the gradient, but keeping its direction. A solution to the <i>vanishing gradients</i> is to not propagate the loss through all time steps, but to perform a Truncated Back-Propagation Through Time (TBPTT). In this setting, instead of training a whole sequence \(\boldsymbol{X} = {\boldsymbol{x}_1, \ldots, \boldsymbol{x}_n}\) from \(1\) to \(n\), we choose a value \( 1 \leq \tau \leq n \), for which when computing the loss we only consider the sequence from \(\tau\) to \(n\). Naturally, TBPTT also accelerates the training procedure. A second approach is to use another type of RNN architecture, the Long Short-Term Memory (LSTM) architecture, which we will briefly mention.</p>
+
+            <p>Using Truncated Back-Propagation Through Time there are two possibilities to deal with hidden state of the RNN when moving between training batches. In <i>stateful</i> RNNs we have reason to believe that the dependencies in the data span over the truncated sequence, so we keep the hidden state across batches in order to simulate a full back-propagation. While in <i>stateless</i> RNNs, the hidden state is reseted after processing a training sequence, if the there are no long term dependencies in the data.</p>
+
+            <p>In our experiments, we used the TBPTT to solve the vanishing gradient and memory related problems, and we used stateful RNNs, because in a language modelling task, we wish to keep the information from previously processed text.</p>
+
+
+            <h4>Sampling RNNs</h4>
+
+            <p>In the context of language modelling, <i>sampling</i> means generating the next word (or byte) based on the history processed so far. The inputs are a text to start sampling from, denoted by <i>prime</i> \(\boldsymbol{P} = \boldsymbol{p}_1 \ldots \boldsymbol{p}_m \), where \( \boldsymbol{p}_i \) is a one-hot encoded vector of the vocabulary's size, and the number of words to sample \(n > m\). With the pre-trained parameters, we begin with an initial hidden state \( \boldsymbol{h}^{(0)} = \boldsymbol{0} \) and input \( \boldsymbol{x}^{(1)} = \boldsymbol{p}_1 \), and compute the hidden states until \(m\) by using the previous hidden state and by taking each input from \( \boldsymbol{P} \) sequentially. To process the words after the \(m^{\text{th}}\) word, we predict the words \( m+1 \) to \( n \) as an index \(k\) of the prediction vector \( \hat{\boldsymbol{y}}^{(j)} \), which we use as input to the prediction of the next word, i.e., \( \forall j > m \text{, } \boldsymbol{x}^{(j+1)} = \boldsymbol{\hat{y}}^{(j)} \).</p>
+
+            <p>For every time step \(t\) we pick a value from \(\hat{\boldsymbol{y}}^{(t)}\), the vector resulting from the softmax operation of the output vector \(\boldsymbol{o}^{(t)}\). The softmax function is used as an extension of the sigmoid function to multiple variables, transforming its input into a probability distribution over the possible discrete outputs:</p>
+
+            $$
+            \hat{y}_i^{(t)} = \text{softmax}(o_i^{(t)}) = \frac{\exp(o_i^{(t)})}{\sum_{i=1}^V \exp(o_i^{(t)})}
+            $$
+
+            <p>Thus, \(\hat{\boldsymbol{y}}^{(t)}\) represents the probability distribution over the words indexed with \(0 \leq i \leq V-1\). Our language model will then pick a word from this probability distribution. For that we found two different approaches:</p>
+
+            <p>
+              <ul>
+                <li>Take the word with <b>maximum probability</b>. Simply choose the index of \(\hat{\boldsymbol{y}}^{(t)}\) as \( i =  \underset{i}{\arg\max} \text{ } \hat{\boldsymbol{y}}^{(t)} \). With this approach we observed that the sampling process enter a looping state and starts to repeat itself after some time steps.</li>
+                <li>Take the word as a sample from the <b>multinomial distribution</b> represented by \( \hat{\boldsymbol{y}}^{(t)} \). In this case the model picks the index \( i \) with probability \( \hat{\boldsymbol{y}}_i^{(t)} \). We observed that, contrary to taking the maximum probability, this approach prevents the sample to loop. Additionally, for sampling, one can introduce another parameter called <i>temperature</i> (Hinton et al, 2015). <i>Temperature</i> (\( T \)) is a parameter used to control the randomness of the predictions. With this parameter each entry of the vector \( \hat{\boldsymbol{y}}^{(t)} \) is modified to:
+
+                $$
+                \hat{y}_i^{(t)} = \text{softmax}(o_i^{(t/T)}) = \frac{\exp(o_i^{(t/T)})}{\sum_{i=1}^V \exp(o_i^{(t/T)})}
+                $$
+
+                <p>If \( T \) grows to infinity, \( \boldsymbol{\hat{y}} \) results in an uniform distribution and all predictions are equally likely. If \( T\) is equal to 1, we obtain the traditional model. If \( T\) tends to 0, we obtain the sampling from the <b>maximum probability</b> variant. Thus, with lower temperatures the model is more conservative, and is not likely to generate random sentences. On the other hand, higher temperatures result in more diversity in the output, at the cost of more syntax mistakes.</p>
+
+                </li>
+              </ul>
+            </p>
+
+
+            <h3>Long Short-Term Memory Networks (LSTMs)</h3>
+
+            <p>As previously explained, simple RNNs suffer from the <i>vanishing</i> and <i>exploding</i> gradient problems. LSTM networks (Schmidhuber et al, 1997) share the same principles of RNNs, but have an architecture that prevents these two identified problems. So, they are capable of learning long-term dependencies more effectively than traditional RNNs. For this reason, we used in our language model this type of architecture.</p>
+
+            <p>While RNNs' hidden states are computed using a linear transformation followed by a non-linearity, LSTMs replace this computation with LSTM cells, and additionally to the hidden state they introduce a <i>cell state</i>. Intuitively, the hidden state can be perceived as the working memory and the cell state as the long term memory. The inputs to LSTMs cell are: the previous hidden state \(\boldsymbol{h}^{(t-1)}\); the previous cell state \(\boldsymbol{c}^{(t-1)}\); and the current input \(\boldsymbol{x}^{(t)}\). The outputs are: the current hidden state \(\boldsymbol{h}^{(t)}\); and the current cell state \(\boldsymbol{c}^{(t)}\). The output prediction is computed as with RNNs by performing a linear operation with the hidden states followed by a softmax function. The following equations define LSTMs in general:</p>
+
+            \begin{align}
+            \boldsymbol{f}^{(t)} & = \sigma (\boldsymbol{W}_f [\boldsymbol{h}^{(t-1)}, \boldsymbol{x}^{(t)}]) \\
+            \boldsymbol{i}^{(t)} & = \sigma (\boldsymbol{W}_i [\boldsymbol{h}^{(t-1)}, \boldsymbol{x}^{(t)}]) \\
+            \boldsymbol{c}^{(t)} & = \boldsymbol{f}^{(t)} \cdot \boldsymbol{c}^{(t-1)} + \boldsymbol{i}^{(t)} \cdot \tanh (\boldsymbol{W}_c [\boldsymbol{h}^{(t-1)}, \boldsymbol{x}^{(t)}]) \\
+            \boldsymbol{o}^{(t)} & = \sigma (\boldsymbol{W}_o [\boldsymbol{h}^{(t-1)}, \boldsymbol{x}^{(t)}]) \\
+            \boldsymbol{h}^{(t)} & = \boldsymbol{o}^{(t)} \cdot \tanh(\boldsymbol{c}^{(t)})
+            \end{align}
+
+            <p>Where \( [\boldsymbol{h}^{(t-1)}, \boldsymbol{x}^{(t)}] \in \mathbb{R}^{D+V} \) represents the concatenation of hidden states and input. \( \sigma (.) \) is the sigmoid function. \( \boldsymbol{W}_f, \boldsymbol{W}_i, \boldsymbol{W}_c, \boldsymbol{W}_o \in \mathbb{R}^{D \times (D+V)} \) are the parameters to be learned. \( \boldsymbol{f}^{(t)}, \boldsymbol{i}^{(t)}, \boldsymbol{c}^{(t)}, \boldsymbol{o}^{(t)}, \boldsymbol{h}^{(t)} \in \mathbb{R}^{D} \).</p>
+
+            <p>The training and sampling processes of LSTMs are very similar to RNNs, and so we won't detail them here. For further information we redirect the reader to (Bengio et al, 2016).</p>
+
+
+            <h3>Logistic Regression</h3>
+
+            <p>Logistic regression is a model used for supervised classification tasks, based on a linear model followed by a non-linearity. In a binary classification setting with classes 0 and 1, the output of the logistic regression can be interpreted as a probability of belonging to one of the classes. Specifically, if \( \boldsymbol{x} \in \mathbb{R}^{1 \times D} \) is our input vector, the estimated output \( \hat{y} \in \mathbb{R} \) is given by:</p>
+
+            $$
+            \hat{y} = \sigma(\boldsymbol{x}\boldsymbol{W} + b)
+            $$
+
+            <p>Where \( \boldsymbol{W} \in \mathbb{R}^{D \times 1} \) and \( b \in \mathbb{R} \) are model parameters, and \( \sigma(a) = 1 / (1 + e^{-a}) \) is the sigmoid function, which forces the output to be in the interval \( [0, 1] \).</p>
+
+            <p>For \( N \) data points, the loss function to minimize is given by the negative log-likelihood, or as explained before, the cross-entropy:</p>
+
+            $$
+            L(\boldsymbol{y}, \boldsymbol{\hat{y}}) = \sum_{i=1}^{N} -y_i\log(\hat{y}_i) - (1-y_i) \log(1 - \hat{y}_i)
+            $$
+
+            <p>To overcome overfitting it is common practice to use a regularizer to penalize the loss function. We used a \( L_1 \) regularizer to enforce sparse models, which results in the loss:</p>
+
+            $$
+            L_R = L(\boldsymbol{y}, \boldsymbol{\hat{y}}) + \lambda \sum_{i=1}^D |W_i|
+            $$
+
+            <p>Where \( \lambda \) is the regularization coefficient. With this loss function there is no analytical solution for deriving the parameters. However, they can be efficiently computed using a gradient descent approach.</p>
+
+
+            <h4>Multiclass logistic regression</h4>
+
+            <p>In the multiclass setting there are labels with \(C\) distinct classes. One way to train such a model is to separately train \( C \) classifiers in a One-vs-All approach, which can be trained in parallel. To infer the class \(j \in \{1, \ldots, C\}\) of a new unseen datapoint \( \boldsymbol{x} \) we simply compute:</p>
+
+            $$
+            j = \underset{j = 1, \ldots, C}{\arg\max} \text{ } \boldsymbol{x} \boldsymbol{W}_n^{(j)} + b_n^{(j)}
+            $$
+
+            <p>Where \( \boldsymbol{W}_n^{(j)} = \boldsymbol{W}^{(j)} / \left\lVert \boldsymbol{W}^{(j)} \right\rVert _2 \)   and \( b_n^{(j)} = b^{(j)} / \left\lVert \boldsymbol{W}^{(j)} \right\rVert _2 \) are the normalized parameters.</p>
+
+
+
+            <h3>Evaluation metrics</h3>
+
+            <p>To evaluate the results of a classifier we used three common metrics: accuracy; precision; and recall. In the next table we show the confusion matrix, and how each metric is computed.</p>
+
+            <div class='col-md-6'>
+                <table class="table">
+                  <caption></caption>
+                <!--Table head-->
+                  <thead>
+                    <tr>
+                        <th colspan="2" style="border:none;"></th>
+                        <th colspan="2" style="text-align:center; border:none;">True class</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2" style="border:none;"></th>
+                        <th style="text-align:center; border:none;">Correct</th>
+                        <th style="text-align:center; border:none;">Not Correct</th>
+                    </tr>
+                  </thead>
+                  <!--Table body-->
+                  <tbody>
+                    <tr>
+                        <th rowspan="2" style="vertical-align: middle; text-align:center; border:none;">Predicted class</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align:center; border:none;">Selected</th>
+                        <td style="text-align:center;">True Positives (TP)</td>
+                        <td style="text-align:center;">False Positives (FP)</td>
+                    </tr>
+                    <tr>
+                        <th style="border:none;"></th>
+                        <th style="text-align:center; border:none;">Not Selected</th>
+                        <td style="text-align:center;">False Negatives (FN)</td>
+                        <td style="text-align:center;">True Negatives (TN)</td>                    
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+            <p>\( \text{Accuracy} = \frac{\text{TP + TN}}{\text{TP + FP + TN + FN}} \), is the fraction of predictions the model got right.</p>
+
+            <p>\( \text{Precision} = \frac{\text{TP}}{\text{TP + FP}} \), is the fraction of selected items that are correct.</p>
+
+            <p>\( \text{Recall} = \frac{\text{TP}}{\text{TP + FN}} \), is the fraction of correct items that are selected.</p>
+
+
+
+            <h3>Implementation details</h3>
+
+            <p>The language models based on LSTMs were implemented in <a target="_blank" href="https://www.tensorflow.org/">Tensorflow</a> with simple matrix multiplications (we only left the gradient computation to the Tensorflow optimizer routine). We used a mini-batch <i>stochastic gradient descent</i>, with \( m \) as the batch size, and updated the parameters (here \(\boldsymbol{W}\) as an example) with:</p>
+
+            $$
+            \boldsymbol{W} \leftarrow \boldsymbol{W} - \eta \frac{1}{m} \sum_{i=1}^{m} \nabla_{\boldsymbol{W}} L(\boldsymbol{x}_i, \boldsymbol{y}_i, \boldsymbol{W})
+            $$
+
+            <p>For classification tasks, we used the logistic regression classifier from the PYTHON package sickit-learn.</p>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="text-generation" class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mx-auto">
+            <h2>Text-generation</h2>
+
+            <p>In this section we train and sample a byte-level language model using a LSTM network.</p>
+
+            <h4>Dataset</h4>
+
+            <p>The data was obtained from the <a target="_blank" rel="noopener noreferrer" href="https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset">Wikitext-103</a> dataset (Merity et al, 2016). It contains a collection of <i>good</i> and <i>featured</i> Wikipedia articles, well suited for language modeling.</p>
+
+            <p>The training data contains 28,475 articles, with 103,227,021 tokens (a token is a word or punctuation); the validation data contains 60 articles, with 217,646 tokens; and the testing data contains 60 articles, with 245,569 tokens. The approximate size of the whole dataset is close to 518 MB.</p>
+
+            <p>The following is a sample from this dataset: </p>
+
+
+            <div class="card card-body">
+              <div class="card-text">
+                <p>
+                = Gold dollar =
+                <br>
+                <br>
+                 The gold dollar or gold one @-@ dollar piece was a coin struck as a regular issue by the United States Bureau of the Mint from 1849 to 1889 . The coin had three types over its lifetime , all designed by Mint Chief Engraver James B. Longacre . The Type 1 issue had the smallest diameter of any United States coin ever minted .<br>
+                 A gold dollar had been proposed several times in the 1830s and 1840s , but was not initially adopted . Congress was finally galvanized into action by the increased supply of bullion caused by the California gold rush , and in 1849 authorized a gold dollar . In its early years , silver coins were being hoarded or exported , and the gold dollar found a ready place in commerce . Silver again circulated after Congress in 1853 required that new coins of that metal be made lighter , and the gold dollar became a rarity in commerce even before federal coins vanished from circulation because of the economic disruption caused by the American Civil War .<br>
+                 Gold did not again circulate in most of the nation until 1879 ; once it did , the gold dollar did not regain its place . In its final years , it was struck in small numbers , causing speculation by hoarders . It was also in demand to be mounted in jewelry . The regular issue gold dollar was last struck in 1889 ; the following year , Congress ended the series .<br>
+                </p>
+              </div>
+            </div>
+
+            <p>To facilitate training, the dataset was split into 98 parts (shards), with 96 used for training, 1 for validation and 1 for testing. We removed the lines containing headers and sub-headers (the ones containing = X =, = =  XX ==, ...). Other than that, as previously explained, byte-level language models do not require any special pre-processing task.</p>
+
+            
+            <h4>LSTM and training parameters</h4>
+
+            <p>
+              <ul>
+                <li>Hidden / Cell state size: 2048</li>
+                <li>Batch size: 128</li>
+                <li>Sequence length: 128</li>
+                <li>Epochs per shard: 10</li>
+                <li>Initial learning rate: 5e-4, decayed linearly to zero over the training set</li>
+                <li>Gradient clipping threshold: 5.0</li>
+                <li>States were kept during batches (stateful LSTM) and reset between epochs and shards</li>
+              </ul>
+            </p>
+
+            
+            <h4>Results</h4>
+
+            <p>At the end of training, the model achieved training and validation losses close to 1.37 and 1.31 bits, respectively, and accuracies close to 0.72 and 0.73, respectively. It is important to refer that accuracy is computed by picking the entry of the estimated vector \(\boldsymbol{\hat{y}}\) with the max probability. In the following figure we can see the evolution of these quantities during training. We observe that by the end of training, the training loss starts to increase. An explanation for this could be that the learning rate is not small enough, and so the model starts to escape a local minima. This can be altered further by ajdusting the learning rate decreasing schedule. However, we left the model as is, since we our goal was not to obtain the best possible model, but rather one with <i>reasonable</i> loss / accuracy that could be the basis for further analysis.</p>
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-6">
+                    <figure class="figure">
+                        <img src="/img/lm_losses.png" class="figure-img img-fluid" alt="Losses." width="640" height="480">
+                        <figcaption class="figure-caption" style="text-align: center;">Losses.</figcaption>
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <figure class="figure">
+                        <img src="/img/lm_accuracies.png" class="figure-img img-fluid" alt="Accuracies." width="640" height="480">
+                        <figcaption class="figure-caption" style="text-align: center;">Accuracies.</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+
+            <h3>Sampling</h3>
+              <p>Here it is possible to sample the pre-trained model and observe the empirical results of language generation by playing with the previously explained parameters. In most experiments we observed that model clearly learned the syntactic structure of language, but sometimes failed to produce a sentence with a clear meaning.</p>
+
+              <div class="form-row">
+                <div class="form-group col-md-2">
+                  <label for="n_samples"><b>Bytes to sample</b></label>
+                  <input type="number" class="form-control" id="n_samples" placeholder="500" value="500" min="0" step="1">
+                </div>
+
+                <div class="form-group col-md-1"></div>
+
+                <div class="form-group col-md-4">
+                  <p><b>Sample type</b></p>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sample_type_option" id="sample_type_max_prob">
+                    <label class="form-check-label" for="sample_type_max_prob">Max probability</label>
+                    <input class="form-check-input" type="radio" name="sample_type_option" id="sample_type_multinomial" checked="checked">
+                    <label class="form-check-label" for="sample_type_multinomial">Multinomial distribution</label>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-1"></div>
+
+                <div class="form-group col-md-2">
+                  <label for="temperature"><b>Temperature</b></label>
+                  <input type="number" class="form-control" id="temperature" value="1.0" min="0.0" max="1.0" step="0.05">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="prime_text"></label>
+                <textarea class="form-control" id="prime_text" rows="1">Insert here text to begin sampling from...</textarea>
+              </div>
+
+              <button class="btn btn-primary" onclick="sample_model()">Sample</button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Display the result of sampling -->
+      <div class="container">
+        <div class="row" style="margin-top: 10px">
+          <div class="container">  
+            <div class="card card-body">
+              <div class="card-text">
+                <div id="sample_model_result"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+
+    <section id="concept-neuron">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mx-auto">
+            <h2>Concept neurons</h2>
+
+            <h3>Sentiment neuron</h3>
+              
+            <p>During this project we implemented and tried to replicate to some extent the results from the openAI paper (Radford et al, 2017), which discovered a dimension of the cell state (a neuron) that is closely related to sentiment.</p>
+
+            <p>The approach by openAI was to first train a large unsupervised byte-level language model from a collection of reviews (around 80 million) from the Amazon product reviews dataset (He et al, 2016), and to train a logistic regression classifier on top of the cell state representation of a review. The inputs for the classifier are then the LSTM cell states obtained after processing a review, and the target is the review score (positive or negative).</p>
+
+            <p>Surprisingly, there was a dimension in the logistic regression classifier that showed a much larger weight. They called this dimension the sentiment neuron, since alone it showed impressive results to determine the strength of the sentiment of a sentence, even at the byte level.</p>
+
+
+            <h4>Dataset - language model</h4>
+
+            <p>The dataset used is the Amazon product reviews dataset (He et al, 2016). It contains approximatelly 80 million product reviews, classified between 1 (negative) and 5 (positive), although their are not used for the language modelling task. Each review is preprocessed with the steps:
+              <ul>
+                <li>Replace newline characters with spaces;</li>
+                <li>Remove spaces from the beggining and end;</li>
+                <li>Insert a newline at the end;</li>
+                <li>Insert a newline plus a space at the beggining.</li>
+              </ul>
+            </p>
+
+            
+            <h4>Dataset - logistic regression classifier</h4>
+
+            <p>To test the ability of the model to generalize to data from another dataset, the logistic regression classifier was trained using the binary version of the Stanford Sentiment Treebank (SST) dataset (Socher et al). This dataset is composed of 9613 movie reviews (train, valid, test: 6921, 873, 1822), with binary sentiment classification (positive, negative).</p>
+
+      
+            <h4>LSTM and training parameters</h4>
+
+            <p>
+              <ul>
+                <li>Hidden / Cell state size: 2048 (vs openAI's 4096)</li>
+                <li>Batch size: 128</li>
+                <li>Sequence length: 128 (vs openAI's 256)</li>
+                <li>Epochs per shard: 1</li>
+                <li>Initial learning rate: 5e-4, decayed linearly to zero over the training set</li>
+                <li>Gradient clipping threshold: 5.0</li>
+                <li>States were kept during batches (stateful LSTM) and reset between epochs and shards</li>
+              </ul>
+            </p>
+
+            <p>To overcome memory exhaustion, the full set of 80 million reviews was splitted into 995 shards (993 for training, 1 for validation, 1 for testing), each containing approximatelly 80,000 reviews.</p>
+
+            
+            <h4>Logistic regression classifier</h4>
+
+            <p>The binary logistic regression classifier was trained with a L1 penalty, using a regularization coeficient of 0.25.</p>
+
+
+            <h4>Results</h4>
+
+            <p>Training the language model on this giant dataset takes a lot of time (for openAI it took approximately a month). So, we stopped training after processing around 65 million reviews (22 days of training). We obtained a loss close to the results from openAI (~1.21 vs ~1.18 - LSTM, for ~1 900 000 updates) (these values are not directly comparable due to the different LSTM internal sizes and backpropagation length used. Although they provide a guideline).</p>
+
+            <figure class="figure-center text-center">
+              <img src="/img/sentiment_losses.png" class="figure-img img-fluid" alt="Language model training loss." width="640" height="480">
+            </figure>            
+
+            <p>The trained logistic regression classifier obtained an 84.8% accuracy on the SST dataset (vs 91.8% obtained by openAI). The sentiment neuron alone achieves an 80% accuracy. The following figure shows the value of each weight after training the logistic regression classifier. We observe that one weight stands out, namely the one at dimension 981.</p>
+
+            <figure class="figure-center text-center">
+              <img src="/img/sentiment_classifier_weights.png" class="figure-img img-fluid" alt="Logistic regression classifier weights." width="640" height="480">
+            </figure>
+
+            <p>Taking the value of the largest weight as our sentiment neuron, we can see in the next figure that its value alone is a good indicator of the sentiment present in a review. This figure is produced by taking each review from the SST training dataset, compute its LSTM cell state representation, and take the cell state value at dimension 981. We then plot how often this value arised from processing all reviews. Furthermore, we color positive reviews in blue, and negative ones in red. By visual inspection we see that this neuron value alone is able to separate positive from negative reviews. If the neuron value is less than 0 we classify the review as positive, and if it is greater than 0 we classify it as negative.</p>
+
+            <figure class="figure-center text-center">
+              <img src="/img/sentiment_unit.png" class="figure-img img-fluid" alt="Logistic regression classifier weights." width="640" height="480">
+            </figure>
+
+            <p>The reviews that overlap are also not easy for humans to decipher. The following is a set of missclassified reviews by just taking the sentiment neuron's value:</p>
+
+            <div class="card card-body">
+              <div class="card-text">
+                <p>
+                Predicted, Label, Review<br>
+                0, 1, Sometimes, nothing satisfies like old-fashioned swashbuckling.<br>
+                1, 0, Enough similarities to Gymkata and Howie Long's Firestorm that my fingernails instinctively crawled towards my long-suffering eyeballs.<br>
+                0, 1, Here's a British flick gleefully unconcerned with plausibility, yet just as determined to entertain you.<br>
+                0, 1, While not as aggressively impressive as its American counterpart, "In the Bedroom," Moretti's film makes its own, quieter observations<br>
+                1, 0, Imagine if you will a Tony Hawk skating video interspliced with footage from Behind Enemy Lines and set to Jersey shore techno.
+                </p>
+              </div>
+            </div>
+
+
+            <h4>Sampling reviews</h4>
+
+            <p>Here it is possible to sample the pre-trained model to generate reviews, using the common parameters.</p>
+
+            <div id="sampling_reviews">
+
+                <div class="form-row">
+                  <div class="form-group col-md-2">
+                    <label for="n_samples_reviews"><b>Bytes to sample</b></label>
+                    <input type="number" class="form-control" id="n_samples_reviews" placeholder="500" value="500" min="0" step="1">
+                  </div>
+
+                  <div class="form-group col-md-1"></div>
+
+                  <div class="form-group col-md-4">
+                    <p><b>Sample type</b></p>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="sample_type_option_reviews" id="sample_type_max_prob_reviews">
+                      <label class="form-check-label" for="sample_type_max_prob_reviews">Max probability</label>
+                      <input class="form-check-input" type="radio" name="sample_type_option_reviews" id="sample_type_multinomial_reviews" checked="checked">
+                      <label class="form-check-label" for="sample_type_multinomial_reviews">Multinomial distribution</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-1"></div>
+
+                  <div class="form-group col-md-2">
+                    <label for="temperature_reviews"><b>Temperature</b></label>
+                    <input type="number" class="form-control" id="temperature_reviews" value="1.0" min="0.0" max="1.0" step="0.05">
+                  </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="sample_reviews()" id="sample_reviews">Sample</button>
+
+                
+                <br>
+                <div class="row" style="margin-top: 10px">
+                  <div class="col-md-12">
+                    <p>Each byte in the generated text is colored with the hyperbolic tangent (places the values in the range [-1, 1]) of the cell state value of neuron 981, where -1 is blue, indicating positive sentiment, and +1 is red, indicating negative sentiment.</p>
+                  </div>
+                  <div class="container">  
+                    <div class="card card-body">
+                      <div class="vis">
+                      </div>
+                    </div>
+                  </div>    
+                </div>                  
+
+            </div>
+
+
+
+            <h4>Classify reviews</h4>
+
+            <p>Here it is possible to classify a review by using the pre-trained logistic regression classifier and using only the sentiment neuron value.</p>
+
+            <div id="classify_review">
+
+                <div class="form-group">
+                <label for="review_text"></label>
+                    <textarea class="form-control" id="review_text" rows="1">This is a very good book.</textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="classify_review()">Classify</button>
+
+                <p style="margin-top:10px;">Each byte in the generated text is colored with the hyperbolic tangent (places the values in the range [-1, 1]) of the cell state value of neuron 981, where -1 is blue, indicating positive sentiment, and +1 is red, indicating negative sentiment.</p>
+                <br>
+                <div class="row" style="margin-top: 10px">
+                  <div class="container">  
+                    <div class="card card-body">
+                      <div class="vis">
+                      </div>
+                    </div>
+                  </div>    
+                </div>                  
+
+                <h5>Sentiment Neuron</h5>
+
+                <p>A negative (blue) value is indicative of a positive sentiment. A positive (red) value is indicative of a negative sentiment.</p>
+
+                <div id="sentiment_bar">
+                    <div id="sentiment_value_base"></div>
+                    <div id="sentiment_value_pos">-1</div>
+                    <div id="sentiment_value_neg">+1</div>
+                </div>
+
+                <h5 style="margin-top:20px;">Logistic Regression</h5>
+
+                <p>The blue (red) bar indicates how probable is the review to be positive (negative).</p>
+
+                <div id="prob_bar">
+                    <div id="prob_value_pos">50%</div>
+                </div>
+
+                <div id="prob_bar">
+                    <div id="prob_value_neg">50%</div>
+                </div>
+              
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="container">
+        <div class="row" style="margin-top: 70px">
+          <div class="col-lg-12 mx-auto">
+            
+            <h2>Concept neurons for Part-of-Speech (POS) tags</h2>
+
+            <p>Following the idea of finding a sentiment neuron (Radford et al, 2017), we questioned if it would be possible to find wether and how other concepts are represented in the cell states of a LSTM network. We chose as concepts a set of POS tags from the <a target="_blank" rel="noopener noreferrer" href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">Penn Treebank tagset</a>, and our hope was to observe if there was a particular neuron (or set of neurons), which alone encoded the information of a particular tag.</p>
+
+
+            <h4>Methodology</h4>
+
+            <p>We used the approach of (Radford et al, 2017) using the cell states of a pre-trained unsupervised LSTM neural language model as an input to a supervised classification task. More recently, the idea of using language models as a pre-processing step to solve language related tasks has shown empirical advances (Radford et al, 2018).</p>
+
+            <p>Our method works as follows:</p>
+
+            <ol>
+                <li>Take a sentence as a byte sequence \( \boldsymbol{X} = \boldsymbol{x}_1, \ldots, \boldsymbol{x}_n\), where \(\boldsymbol{x}_i\) is a byte represented as a one-hot-vector of an integer in the range [0, 255];</li>
+                <li>Use a POS-tagger to obtain the tags for each word in the sentence. We used the tagger from the PYTHON package <i>Natural Language Toolkit</i> (nltk), which outputs tags from the <a target="_blank" rel="noopener noreferrer" href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">Penn Treebank tagset</a>, by implementing a <a target="_blank" rel="noopener noreferrer" href="https://explosion.ai/blog/part-of-speech-pos-tagger-in-python"> Greedy Averaged Perceptron</a>. This tagger works on tokenized sentences and does not include whitespace characters. So, after tagging, we add the additional tag \( \text{SPACE} \) between each word or punctuation, to represent these kind of characters. Therefore, we associate each byte with a POS tag and we have a sequence \(X_{\text{tag}} = x_{1_{\text{tag}}}, \ldots, x_{n_{\text{tag}}} \), where \(x_{i_{\text{tag}}}\) is the tag of byte \(\boldsymbol{x}_i\). Alternatively, we can use a set of manually tagged sentences;</li>
+                <li>Obtain the cell states of each byte by transforming \(\boldsymbol{X}\) through a previously trained LSTM language model, obtaining a sequence of cell states \( \boldsymbol{X}_{t} = \boldsymbol{x}_{1_{t}}, \ldots, \boldsymbol{x}_{n_{t}} \), where \(\boldsymbol{x}_{i_{t}} \in \mathbb{R}^{D} \) (\(D\) is the LSTM cell state size);</li>
+                <li>For each identified POS tag (or the set of desired POS tags to analyse), train a binary logistic regression classifier \( \mathcal{L} = \text{LRC}(\boldsymbol{X}_{\text{LRC}}, \boldsymbol{Y}_{\text{LRC}}) \) in a One-vs-All manner. The input data \(\boldsymbol{X}_{\text{LRC}}\) is the collection of cell states of each processed byte. The target data \(\boldsymbol{Y}_{\text{LRC}}\) are the corresponding POS tags. With \(n\) processed bytes, \( \boldsymbol{X}_{\text{LRC}} \in \mathbb{R}^{n \times D} \) and \( \boldsymbol{Y}_{\text{LRC}} \in \mathbb{R}^{n} \). The classifier \( \mathcal{L} \) produces a vector of weights \(\boldsymbol{W}_{c} \in \mathbb{R}^{D}\) for each unique class \(c\) from the set of POS tags of \( \boldsymbol{Y}_{\text{LRC}} \).</li>
+                <li>Note the dimensions of top \( k \) weights, i.e., the weights with the largest absolute values and sort them by decreasing value in \( \text{largest_weights} = [d_1, \ldots, d_j, \ldots, d_k] \) (we used in our experiments \( k = 3\));</li>
+                <li>Train further \(k\) logistic regression classifiers as \( \mathcal{L}_j = \text{LRC}(\boldsymbol{X}^{(1 \ldots j)}_{\text{LRC}}, \boldsymbol{Y}_{\text{LRC}}) \), where the input \( \boldsymbol{X}^{(1 \ldots j)}_{\text{LRC}} \in \mathbb{R}^{j} \) are the entries of \( \boldsymbol{X}_{\text{LRC}} \) indexed by \( [d_1, \ldots, d_j] \), i.e., the cell state values corresponding to the largest absolute weights of \( \mathcal{L} \).</li>
+            </ol>
+
+            <p>The method above is described using only one sentence. Naturally, it is easily extended to use more sentences, by concatenating them to \( \boldsymbol{X}_{\text{LRC}} \) .</p>
+
+
+            <h4>Language model - parameters and dataset</h4>
+
+            <p>As a neural language model we used the one previously trained on the Wikitext-103 dataset.</p>
+
+
+            <h4>Logistic regression classifier - parameters and dataset</h4>
+
+            <p>We trained the logistic regression classifiers on three different datasets:</p>
+
+            <ul>
+                <li>The first 250 lines of the validation dataset of Wikitext-103 (approximatelly 122,000 pairs of bytes and tags), splitted into training / validation / testing (80% / 10% / 10%). This way we are in the domain of the language model dataset, but using a part of the data we did not use to build the model;</li>
+                <li>The first 500 lines of the validation dataset of Wikitext-103 (approximatelly 260,000 pairs of bytes and tags), splitted into training / validation / testing (80% / 10% / 10%);</li>
+                <li>The first 1000 sentences of the nltk treebank corpus (approximatelly 137,000 pairs of bytes and tags), splitted into training / validation / testing (80% / 10% / 10%). The nltk treebank corpus contains a 5% fragment of the <a target="_blank" href="https://catalog.ldc.upenn.edu/LDC95T7" >Penn Treebank, (C) LDC 1995</a>, containing manually tagged sentences from the Wall Street Journal (WSJ). When using this dataset it is not necessary to perform the first two steps of the method presented above.</li>
+            </ul>
+
+            <p>Additionally, we also opted to train the classifiers with the option of grouping (or not) several tags into one. We thought this step could lead to better results, since some tags are separated into singular or plural, and our language model could not have captured those nuances. For instance, if a neuron captures the tag \( \text{NNP} \) (proper noun singular), probably that same neuron also captured the tag \( \text{NNPS} \) (proper noun plural). With this option selected we have a set of tags \( \text{{ ( ; ) ; , ; . ; CC ; CD ; DT ; IN ; JJ ; MD ; NN ; NNP ; PRP ; RB ; TO ; VB }} \), which we may group as follows:</p>
+
+            <ul>
+                <li>Group all verb tags into \( \text{VB} \). If tag \( \in  \text{{VB, VBD, VBG, VBN, VBP, VBZ}} \), set tag to \( \text{VB} \);</li>
+                <li>Group all adjective tags into \( \text{JJ} \). If tag \( \in  \text{{JJ, JJR, JJS}} \), set tag to \( \text{JJ} \);</li>
+                <li>Group all noun tags into \( \text{NN} \). If tag \( \in \text{{NN, NNS}} \), set tag to \( \text{NN} \);</li>
+                <li>Group all proper noun tags into \( \text{NNP} \). If tag \( \in \text{{NNP, NNPS}} \), set tag to \( \text{NNP} \);</li>
+                <li>Group all adverb tags into \( \text{RB} \). If tag \( \in \text{{RB, RBR, RBS}} \), set tag to \( \text{RB} \);</li>
+                <li>If a tag is not in the set of tags, tag it with \( \text{OTHER} \). We found a large portion of tags have a low frequency, so we don't train a separate classifier for them, but group them in this tag;</li>
+                <li>Tag spaces as  \( \text{SPACE} \).</li>
+            </ul>
+
+
+            <h4>Results</h4>
+
+            <p>To evaluate the overall results of the classifiers we take a sentence, transform each byte into its cell state representation, and predicted the label (POS tag) using the full or the top 1, 2 or 3 dimensions as input to the \( C \) classifiers \( \mathcal{L} \) (assuming there are \(|C|\) unique classes). In the multiclass classification setting, we take the label of the most probable tag as the predicted one. The results obtained in the test set of each experiment are depicted in the next table. The individual results for each classifier can be consulted in table further down.</p>
+
+            <div class="container">
+                <div class='col-md-10'>
+                    <table class="table">
+                      <caption>Results on the test set of different datasets and grouping options. Acc stands for accuracy; Prec for precision; Recall for recall. The precision and recall in the multiclass task are computed by averaging the metrics for each class and performing a weighted average with the number of the true instances of each class. In this way, we account for results in imbalanced datasets.</caption>
+                      <thead>
+                        <tr>
+                          <th colspan="2" style="text-align:center;"></th>
+                          <th style="text-align:center;">k = All</th>
+                          <th style="text-align:center;">k = 1</th>
+                          <th style="text-align:center;">k = 2</th>
+                          <th style="text-align:center;">k = 3</th>
+                        </tr>
+                        <tr>
+                          <th style="text-align:left;">Dataset</th>
+                          <th style="text-align:center;">Group tags</th>
+                          <th style="text-align:center;">Acc | Prec | Recall</th>
+                          <th style="text-align:center;">Acc | Prec | Recall</th>
+                          <th style="text-align:center;">Acc | Prec | Recall</th>
+                          <th style="text-align:center;">Acc | Prec | Recall</th>
+                        </tr>
+                      </thead>
+                      <!--Table body-->
+                      <tbody>
+                        <tr>
+                          <td rowspan="2" style="text-align:left;">250 lines Wikitext-103</td>
+                          <td style="text-align:center;">yes</td>
+                          <td style="text-align:center;">0.873 | 0.869 | 0.873</td>
+                          <td style="text-align:center;">0.526 | 0.417 | 0.526</td>
+                          <td style="text-align:center;">0.604 | 0.519 | 0.526</td>
+                          <td style="text-align:center;">0.617 | 0.534 | 0.617</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;">no</td>
+                          <td style="text-align:center;">0.839 | 0.834 | 0.839</td>
+                          <td style="text-align:center;">0.399 | 0.308 | 0.399</td>
+                          <td style="text-align:center;">0.544 | 0.447 | 0.544</td>
+                          <td style="text-align:center;">0.565 | 0.482 | 0.565</td>
+                        </tr>
+                        <tr>
+                          <td rowspan="2" style="text-align:left;">500 lines Wikitext-103</td>
+                          <td style="text-align:center;">yes</td>
+                          <td style="text-align:center;">0.864 | 0.859 | 0.864</td>
+                          <td style="text-align:center;">0.466 | 0.343 | 0.466</td>
+                          <td style="text-align:center;">0.540 | 0.433 | 0.540</td>
+                          <td style="text-align:center;">0.617 | 0.513 | 0.617</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;">no</td>
+                          <td style="text-align:center;">0.825 | 0.820 | 0.825</td>
+                          <td style="text-align:center;">0.376 | 0.267 | 0.376</td>
+                          <td style="text-align:center;">0.463 | 0.377 | 0.463</td>
+                          <td style="text-align:center;">0.550 | 0.471 | 0.550</td>
+                        </tr>
+                          <td rowspan="2" style="text-align:left;">1000 sentences nltk treebank corpus</td>
+                          <td style="text-align:center;">yes</td>
+                          <td style="text-align:center;">0.844 | 0.838 | 0.844</td>
+                          <td style="text-align:center;">0.425 | 0.269 | 0.425</td>
+                          <td style="text-align:center;">0.523 | 0.425 | 0.523</td>
+                          <td style="text-align:center;">0.579 | 0.425 | 0.579</td>
+                        </tr>
+                        <tr>
+                          <td style="text-align:center;">no</td>
+                          <td style="text-align:center;">0.797 | 0.792 | 0.797</td>
+                          <td style="text-align:center;">0.407 | 0.258 | 0.407</td>
+                          <td style="text-align:center;">0.439 | 0.340 | 0.439</td>
+                          <td style="text-align:center;">0.496 | 0.426 | 0.496</td>
+                        </tr>                    
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+
+            
+
+            <p>The best result obtained was an overall accuracy of 87%, which is not very impressive considering that other methods achieve around 97% (Manning, 2011). However, we were interested if with this method we could discover how different tags are represented in the network, which we observe by looking at the classifier weights. Consider, for instance, the classifier for the tag \(\text{VB}\), trained on the first 250 lines of the Wikitext-103 validation set without grouping tags (not_group_tags_250_lines). Inspecting the classifier weights for this concept (following figure on the left), we observe that the weight along dimension 1961 stands out from the others. We conjecture that this could be a neuron that encodes the information for the \(\text{VB}\) concept. The figure on the right shows the histogram of activation values for neuron 1961, where <i>match</i> are activations with true tag \(\text{VB}\), while <i>no-match</i> are activations with a tag different from \(\text{VB}\). We can see that, just like with the sentiment neuron, the dimension 1961 of the cell state alone could be a good indication for the POS tag of the current processed byte. Namely, in this particular case, if the activation is negative, the network might be processing a byte that is part of a verb.</p> 
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-6">
+                    <figure class="figure">
+                        <img src="/results/not_group_tags_250_lines/classifier_weights_VB_cell_states.png" class="figure-img img-fluid" alt="Logistic Regression weights for concept 'VB'." width="640" height="480">
+                        <figcaption class="figure-caption" style="text-align: center;">Logistic Regression Weights for concept \(\text{VB}\) of the model not_group_tags_250_lines</figcaption>
+                    </figure>
+                </div>
+
+                <div class="col-md-6">
+                    <figure class="figure">
+                        <img src="/results/not_group_tags_250_lines/concept_unit_VB_cell_states.png" class="figure-img img-fluid" alt="Histogram of neuron 1961 activation." width="640" height="480">
+                        <figcaption class="figure-caption" style="text-align: center;">Histogram of neuron 1961 activations</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-12">
+                    <p>In the following figure we use a sample of text to visualize the discovered neuron. Each byte is colored with the hyperbolic tangent (places the values in the range [-1, 1]) of the cell state value of neuron 1961, where -1 is red, +1 is blue. Under each byte we place the corresponding identified POS tag, and color in yellow the one we are analysing. By visual inspection, we observe that the neuron's value alone is at some extent able to distinguish if the current byte belongs to a tag \(\text{VB}\).</p>
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-12">
+                    <figure class="figure">
+                        <img src="/img/sample_activation_VB.png" class="figure-img img-fluid" alt="Activation of neuron 1961 for tag VB.">
+                        <figcaption class="figure-caption" style="text-align: center;">Activation of neuron 1961 for tag \(\text{VB}\)</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+
+            <p>Unfortunatelly, this behavior observed for the \(\text{VB}\) tag is not observed for all tags. For instance, for the tag \(\text{RB}\) - adverb - there is no clear dimension which is larger then the rest. Also, with the help of the histogram, we see that the neuron alone cannot identify if the byte belongs to an adverb.</p>
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-6">
+                    <figure class="figure">
+                        <img src="/results/not_group_tags_250_lines/classifier_weights_RB_cell_states.png" class="figure-img img-fluid" alt="Logistic Regression weights for concept RB - adverb." width="640" height="480">
+                        <figcaption class="figure-caption" style="text-align: center;">Logistic Regression Weights for concept \(\text{RB}\) of the model not_group_tags_250_lines</figcaption>
+                    </figure>
+                </div>
+
+                <div class="col-md-6">
+                    <figure class="figure">
+                        <img src="/results/not_group_tags_250_lines/concept_unit_RB_cell_states.png" class="figure-img img-fluid" alt="Histogram of neuron 261 activation." width="640" height="480">
+                        <figcaption class="figure-caption" style="text-align: center;">Histogram of neuron 261 activation</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <p style="margin-top: 50px">There are concepts that do not have a clear neuron that encodes them, but which can be predicted through a combination of neurons. For instance, the tag \(\text{SPACE}\) is one of such. Inspecting the classifier weights for this concept (following figure on the left), we observe that no weight clearly stands out. Nevertheless, we take the neuron 289, the one with largest absolute value, and plot its histogram of activations. We can see that, just like for the \(\text{RB}\) tag, the neuron alone cannot identify if the byte it is processing belongs to a space. This can be further visualized in text right under the figures, where we color each byte with the hyperbolic tangent of the cell state value of neuron 289. By visual inspection, we observe that the neuron's value alone is not a good predictor.</p> 
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-6">
+                    <figure class="figure">
+                        <img src="/results/not_group_tags_250_lines/classifier_weights_SPACE_cell_states.png" class="figure-img img-fluid" alt="Logistic Regression weights for concept 'VB'." width="640" height="480">
+                        <figcaption class="figure-caption" style="text-align: center;">Logistic Regression Weights for concept \(\text{SPACE}\) of the model not_group_tags_250_lines</figcaption>
+                    </figure>
+                </div>
+
+                <div class="col-md-6">
+                    <figure class="figure">
+                        <img src="/results/not_group_tags_250_lines/concept_unit_SPACE_cell_states.png" class="figure-img img-fluid" alt="Histogram of neuron 1961 activation." width="640" height="480">
+                        <figcaption class="figure-caption" style="text-align: center;">Histogram of neuron 289 activations</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-12">
+                    <figure class="figure">
+                        <img src="/img/sample_activation_SPACE.png" class="figure-img img-fluid" alt="Activation of neuron 289 for tag SPACE.">
+                        <figcaption class="figure-caption" style="text-align: center;">Activation of neuron 289 for tag \(\text{SPACE}\)</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px">However, when using the three dimensions corresponding to the top three largest weights of the trained classifier, we obtain very satisfying results. For the test set of the model group_tags_250_lines, when using a logistic regression classifier with three input dimensions we achieve an accuracy, precision and recall equal to 0.978, 0.936 and 0.944, respectively. In the following figure we see the same text as before, but each byte is now colored with the output probability of the three-dimensional classifier associated with the tag \(\text{SPACE}\).</p> 
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-12">
+                    <figure class="figure">
+                        <img src="/img/sample_activation_SPACE_top3_classifier.png" class="figure-img img-fluid" alt="Activation of neuron 289 for tag SPACE.">
+                        <figcaption class="figure-caption" style="text-align: center;">Coloring of the probability of a byte belonging to the tag \(\text{SPACE}\) (0 is white, 1 is blue)</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-top: 50px">
+              <div class="col-md-12">
+                <h4>Demo</h4>
+                <!--Concept neuron experiments-->
+                    <p>In this section it is possible to experiment with the trained classifiers by following the steps:</p>
+                    <ol>
+                        <li>Select a trained classifier. You can see at the end of the demo a table with the results for the individual classifiers;</li>
+                        <li>Select a POS tag from the list to analyse (consult its meaning in the <a target="_blank" rel="noopener noreferrer" href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">Penn Treebank tagset</a>);</li>
+                        <li>Visualize the activation of a particular neuron for the given text;</li>
+                        <li>Visualize the probability of the classifiers using all or up to three dimensions.</li>
+                    </ol>
+                  
+                  <div class="form-row" style="margin-top: 50px;">
+                    <div class="col-md-1">
+                      <label for="dataset"><b>Dataset</b></label>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-control" id="dataset">
+                        <!--Concepts are inserted here via javascript-->
+                      </select>
+                    </div>
+                    <div class="col-md-1">
+                      <button class="btn btn-primary" onclick="set_dataset()">1. Submit</button>
+                    </div>
+                  </div>
+
+                  <div class="form-row" style="margin-top: 50px;">
+                    <div class="col-md-1">
+                      <label for="concept"><b>Concept</b></label>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-control" id="concept">
+                        <!--Concepts are inserted here via javascript-->
+                      </select>
+                    </div>
+                    <div class="col-md-1">
+                      <button class="btn btn-primary" onclick="concept_neuron_lr_results()">2. Submit</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+     
+
+            <div class="row" style="margin-top: 50px">
+              <div class="col-md-6">
+                <figure class="figure">
+                      <img src="" class="figure-img img-fluid" alt="Logistic Regression weights." id="lr_weights_fig" width="640" height="480">
+                      <figcaption class="figure-caption" style="text-align: center;">Logistic Regression Weights</figcaption>
+                </figure>
+              </div>
+              <div class="col-md-6">
+                <figure class="figure">
+                      <img src="" class="figure-img img-fluid" alt="Histogram of cell state activations." id="concept_neuron_fig" width="640" height="480">
+                      <figcaption class="figure-caption" style="text-align: center;">Histogram of activations for the dimension with largest weight</figcaption>
+                </figure>
+              </div>
+            </div>
+
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea class="form-control" style="width:1000px;" id="concept_text" rows="3">The British fleet weighed anchor at Cape Fear on May 31 , and arrived outside Charleston Harbor the next day . Moultrie noticed a British scout boat apparently looking for possible landing points on nearby Long Island ( now known as the Isle of Palms ) , just a few hundred yards from Sullivan 's Island ; troops were consequently sent to occupy the northern end of Sullivan 's.</textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-1">
+                  <label for="concept_neuron"><b>Neuron</b></label>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" id="concept_neuron" value="0" min="0" max="2048" step="1">
+                </div>
+                <div class="col-md-1">
+                  <button class="btn btn-primary" onclick="sample_concept_neuron()">3. Submit</button>
+                </div>                
+            </div>
+
+
+            <div class="row" style="margin-top: 50px">
+                <div class="col-md-1">
+                  <label for="concept_classifier"><b>Classifier</b></label>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" id="concept_classifier">
+                        <option value='all'>all</option>
+                        <option value='top1'>top1</option>
+                        <option value='top2'>top2</option>
+                        <option value='top3'>top3</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                  <button class="btn btn-primary" onclick="sample_concept_classifier()">4. Submit</button>
+                </div>                
+            </div>
+
+
+            <div class="row" style="margin-top: 10px">
+              <div class="col-md-12" style="margin-top: 30px">
+                <p style="font-size: 12px;" >If the neuron is selected, each byte is colored with the hyperbolic tangent of the cell state value of the selected neuron, where -1 is red, +1 is blue. If the classifier is selected, each byte is colored with the output probability of the classifier associated with the tag  (0 is white, 1 is blue). Under each byte we place the corresponding identified POS tag and color in yellow the selected one.</p>
+              </div>
+              <div class="container">  
+                <div class="card card-body">
+                  <div class="card-text">
+                    <div id="concept_text_vis"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!--Table logistic regression results -->
+      <div class="container" style="margin-top: 20px;">
+            <!--Table-->
+            <table class="table">
+              <caption style="font-size:12px;">Each line includes the results of the trained logistic regression classifier for a given concept. The Data column shows the distribution of points (counts and percentage), belonging to the concept class (for instance JJ), and not belonging to that class (for instance JJ - NOT). Acc stands for accuracy; Prec for precision; Recall for recall. Features used indicate the number of weights of the classifier different from zero. Top 3 features are the top 3 dimensions ordered by the largest weight absolute value. k = i represents the input dimensions used. For k = All, all dimensions from the cell state of the LSTM are used. For k = i, the top i dimensions of the cell state are used. All values of Acc, Prec and Recall are computed with the test set.
+              </caption>
+            <!--Table head-->
+              <thead>
+                <tr>
+                  <th style="text-align:center;">Concept</th>
+                  <th colspan="2" style="text-align:center;">Data</th>
+                  <th colspan="3" style="text-align:center;">k = All</th>
+                  <th style="text-align:center;">k = 1</th>
+                  <th style="text-align:center;">k = 2</th>
+                  <th style="text-align:center;">k = 3</th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th style="text-align:center;">Acc | Prec | Recall</th>
+                  <th style="text-align:center;">Features used</th>
+                  <th style="text-align:center;">Top 3 features</th>
+                  <th style="text-align:center;">Acc | Prec | Recall</th>
+                  <th style="text-align:center;">Acc | Prec | Recall</th>
+                  <th style="text-align:center;">Acc | Prec | Recall</th>
+                </tr>
+              </thead>
+              <!--Table body-->
+              <tbody id="table_results_classifier">
+              </tbody>
+            </table>
+      </div>
+
+    </section>
+
+
+
+
+    <section id="source-code" class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mx-auto">
+            <h2>Code</h2>
+            <p>The developed code can be found in the SVN repository <a target="_blank" href="https://ad-websvn.informatik.uni-freiburg.de/student-projects/joao-carvalho/">https://ad-websvn.informatik.uni-freiburg.de/student-projects/joao-carvalho/</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="references">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mx-auto">
+            <h2>References</h2>
+            <ol>
+              <li> Baisa, V. (2016).
+                <cite>PhD Thesis - Byte Level Language Models.</cite>
+                Masaryk University, Brno, Czech Republic
+              </li>
+              <li> Bengio, Y., Ducharme, R., Vincent, P., Jauvin, C. (2003). 
+                <cite>A Neural Probabilistic Language Model.</cite>
+                Journal of Machine Learning Research 3, 1137-1155
+              </li>
+              <li> Bengio, Y., Goodfellow, I., Courville, A. (2016). 
+                <cite>Deep Learning.</cite>
+                Cambridge, Massachussets: MIT Press
+              </li>
+              <li> Domingos, P. (2015). 
+                <cite>The Master Algorithm.</cite>
+                Basic Books
+              </li>
+              <li> He, R., McAuley, J. (2016).
+                <cite>Ups and downs: Modeling the visual evolution of fashion trends with one-class collaborative filtering.</cite>
+                WWW
+              </li>
+              <li> Hinton, G., Vinyals, O., Dean, J. (2015).
+                <cite>Distilling the Knowledge in a Neural Network.</cite>
+                NIPS Deep Learning and Representation Learning Workshop
+              </li>
+              <li> Jurafsky, D., Martin, J. (2017). 
+                <cite>Speech and Language Processing.</cite>
+                Third Edition draft
+              </li>
+              <li> Kingma, D., Jimmy, B. (2014).
+                <cite>Adam: A Method for Stochastic Optimization.</cite>
+                Proceedings of the 3rd International Conference on Learning Representations (ICLR)
+              </li>
+              <li> Manning, C., Shuetze, H. (1999). 
+                <cite>Foundations of Statistical Natural Language Processing.</cite>
+                Cambridge, Massachussets: MIT Press
+              </li>
+              <li> Manning, C. (2011).
+                <cite>Part-of-speech tagging from 97% to 100%: is it time for some linguistics?</cite>
+                Proceedings of the 12th international conference on Computational linguistics and intelligent text processing - Volume Part I, 171-189 
+              </li>
+              <li> Merity, S., Xiong, C., Bradbury, J., Socher, R. (2016).
+                <cite>Pointer Sentinel Mixture Models.</cite>
+                arXiv:1609.07843
+              </li>
+              <li> Mikolov, T., Sutskever, I., Chen, K., Corrado, G., Dean, J. (2013). 
+                <cite>Distributed Representations of Words and Phrases and their Compositionality.</cite>
+                Advances in Neural Information Processing Systems 26, 3111-3119
+              </li>
+              <li> Pascanu, R., Mikolov, T., Bengio, Y. (2013).
+                <cite>On the difficulty of training recurrent neural networks.</cite>
+                Proceedings of the 30th International Conference on International Conference on Machine Learning - Volume 28, Pages III-1310-III-1318 
+              </li>
+              <li> Radford, A., Jozefowicz, R., Sutskever, I. (2017).
+                <cite>Learning to Generate Reviews and Discovering Sentiment.</cite>
+                arXiv:1704.01444
+              </li>
+              <li> Radford, A., Narasimhan, K., Salimans, T., Sutskever, I. (2018)
+                <cite>Improving Language Understanding by Generative Pre-Training.</cite>
+                https://blog.openai.com/language-unsupervised/
+              </li>
+              <li> Schmidhuber, J., Hochreiter S., (1997).
+                <cite>Long Short-Term Memory.</cite>
+                Neural Computation, Volume 9 Issue 8, November 15, 1997, 1735-1780 
+              </li>
+              <li> Socher, R., Perelygin, A., Wu, J., Chuang, J., Manning, C., Ng, A., Potts, C. (2013).
+                <cite>Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank.</cite>
+                Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing, 1631–1642 
+              </li>              
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; <a href="mailto:carvalhj@cs.uni-freiburg.de">João Carvalho</a> 2018</p>
+        <p class="m-0 text-center text-white">University of Freiburg</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- MathJax JavaScript -->
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="js/scrolling-nav.js"></script>
+
+    <!-- Other JavaScript -->
+    <script src="vendor/sprintf/sprintf.min.js"></script> 
+
+    <!-- Custom JavaScript -->
+    <script src="js/app.js"></script>
+
+  </body>
+
+</html>

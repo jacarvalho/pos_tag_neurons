@@ -1,0 +1,3696 @@
+Reading file and POS tagging...
+...completed.
+
+POS tag distribution
+Identified pairs (word, tag): 50368
+SPACE  	-  	25184  	-  	0.500
+NN  	-  	3202  	-  	0.064
+NNP  	-  	2548  	-  	0.051
+IN  	-  	2534  	-  	0.050
+DT  	-  	2089  	-  	0.041
+JJ  	-  	1545  	-  	0.031
+NNS  	-  	1535  	-  	0.030
+,  	-  	1161  	-  	0.023
+.  	-  	999  	-  	0.020
+VBD  	-  	850  	-  	0.017
+CD  	-  	697  	-  	0.014
+RB  	-  	675  	-  	0.013
+VB  	-  	579  	-  	0.011
+VBZ  	-  	557  	-  	0.011
+CC  	-  	552  	-  	0.011
+TO  	-  	517  	-  	0.010
+VBN  	-  	515  	-  	0.010
+PRP  	-  	453  	-  	0.009
+VBG  	-  	355  	-  	0.007
+VBP  	-  	341  	-  	0.007
+POS  	-  	235  	-  	0.005
+PRP$  	-  	208  	-  	0.004
+``  	-  	194  	-  	0.004
+''  	-  	191  	-  	0.004
+MD  	-  	187  	-  	0.004
+:  	-  	126  	-  	0.003
+$  	-  	124  	-  	0.002
+WDT  	-  	99  	-  	0.002
+WP  	-  	80  	-  	0.002
+RP  	-  	69  	-  	0.001
+JJR  	-  	69  	-  	0.001
+NNPS  	-  	51  	-  	0.001
+JJS  	-  	50  	-  	0.001
+WRB  	-  	49  	-  	0.001
+RBR  	-  	46  	-  	0.001
+EX  	-  	20  	-  	0.000
+RBS  	-  	7  	-  	0.000
+WP$  	-  	4  	-  	0.000
+PDT  	-  	4  	-  	0.000
+FW  	-  	2  	-  	0.000
+SYM  	-  	1  	-  	0.000
+UH  	-  	1  	-  	0.000
+
+1174.189 seconds to transform 1000 examples
+Identified pairs (bytes, tag): 136784
+SPACE  	-  	25184  	-  	0.184
+NN  	-  	20825  	-  	0.152
+NNP  	-  	15265  	-  	0.112
+JJ  	-  	11369  	-  	0.083
+NNS  	-  	11169  	-  	0.082
+IN  	-  	7339  	-  	0.054
+DT  	-  	5459  	-  	0.040
+VBD  	-  	4274  	-  	0.031
+RB  	-  	3506  	-  	0.026
+VBN  	-  	3470  	-  	0.025
+VBG  	-  	2823  	-  	0.021
+VB  	-  	2760  	-  	0.020
+CD  	-  	2737  	-  	0.020
+VBZ  	-  	2185  	-  	0.016
+CC  	-  	1578  	-  	0.012
+VBP  	-  	1409  	-  	0.010
+PRP  	-  	1234  	-  	0.009
+,  	-  	1162  	-  	0.008
+TO  	-  	1034  	-  	0.008
+.  	-  	999  	-  	0.007
+MD  	-  	791  	-  	0.006
+PRP$  	-  	711  	-  	0.005
+POS  	-  	449  	-  	0.003
+WDT  	-  	437  	-  	0.003
+NNPS  	-  	419  	-  	0.003
+JJR  	-  	392  	-  	0.003
+``  	-  	386  	-  	0.003
+''  	-  	380  	-  	0.003
+JJS  	-  	301  	-  	0.002
+WP  	-  	260  	-  	0.002
+RBR  	-  	215  	-  	0.002
+:  	-  	210  	-  	0.002
+RP  	-  	206  	-  	0.002
+WRB  	-  	200  	-  	0.001
+$  	-  	130  	-  	0.001
+EX  	-  	100  	-  	0.001
+RBS  	-  	28  	-  	0.000
+WP$  	-  	20  	-  	0.000
+PDT  	-  	13  	-  	0.000
+FW  	-  	10  	-  	0.000
+UH  	-  	2  	-  	0.000
+SYM  	-  	1  	-  	0.000
+
+
+-----> CONCEPT: $
+
+Dataset statistics
+-- Data: trY
+$-NOT  	-  	110693  	-  	0.999
+$  	-  	101  	-  	0.001
+-- Data: vaY
+$-NOT  	-  	12301  	-  	0.999
+$  	-  	10  	-  	0.001
+-- Data: teY
+$-NOT  	-  	13660  	-  	0.999
+$  	-  	19  	-  	0.001
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 1.000
+Test recall: 0.842
+
+Features used: 40.000
+Largest features: [424 236 213]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: ''
+
+Dataset statistics
+-- Data: trY
+''-NOT  	-  	110483  	-  	0.997
+''  	-  	311  	-  	0.003
+-- Data: vaY
+''-NOT  	-  	12287  	-  	0.998
+''  	-  	24  	-  	0.002
+-- Data: teY
+''-NOT  	-  	13634  	-  	0.997
+''  	-  	45  	-  	0.003
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.125
+
+Test accuracy:  1.000
+Test precision: 0.977
+Test recall: 0.956
+
+Features used: 57.000
+Largest features: [1100 1743 2009]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.998
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.998
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.998
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 1.000
+Test recall: 0.022
+
+Features used: 3.000
+Largest feature: [1 2 0]
+
+
+-----> CONCEPT: ,
+
+Dataset statistics
+-- Data: trY
+,-NOT  	-  	109853  	-  	0.992
+,  	-  	941  	-  	0.008
+-- Data: vaY
+,-NOT  	-  	12217  	-  	0.992
+,  	-  	94  	-  	0.008
+-- Data: teY
+,-NOT  	-  	13552  	-  	0.991
+,  	-  	127  	-  	0.009
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 1.000
+Test recall: 1.000
+
+Features used: 45.000
+Largest features: [ 912 1311  641]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.990
+Valid accuracy: 0.991
+Test  accuracy: 0.989
+Regularization coef: 0.062
+
+Test accuracy:  0.989
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.990
+Valid accuracy: 0.990
+Test  accuracy: 0.989
+Regularization coef: 0.125
+
+Test accuracy:  0.989
+Test precision: 0.262
+Test recall: 0.087
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.998
+Test  accuracy: 0.997
+Regularization coef: 0.500
+
+Test accuracy:  0.997
+Test precision: 0.911
+Test recall: 0.803
+
+Features used: 3.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: .
+
+Dataset statistics
+-- Data: trY
+.-NOT  	-  	109972  	-  	0.993
+.  	-  	822  	-  	0.007
+-- Data: vaY
+.-NOT  	-  	12219  	-  	0.993
+.  	-  	92  	-  	0.007
+-- Data: teY
+.-NOT  	-  	13594  	-  	0.994
+.  	-  	85  	-  	0.006
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 1.000
+
+Test accuracy:  1.000
+Test precision: 1.000
+Test recall: 1.000
+
+Features used: 126.000
+Largest features: [1833  432 1006]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.993
+Valid accuracy: 0.993
+Test  accuracy: 0.994
+Regularization coef: 0.062
+
+Test accuracy:  0.994
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.992
+Valid accuracy: 0.992
+Test  accuracy: 0.993
+Regularization coef: 0.062
+
+Test accuracy:  0.993
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.993
+Valid accuracy: 0.994
+Test  accuracy: 0.995
+Regularization coef: 0.125
+
+Test accuracy:  0.995
+Test precision: 0.644
+Test recall: 0.341
+
+Features used: 3.000
+Largest feature: [1 2 0]
+
+
+-----> CONCEPT: :
+
+Dataset statistics
+-- Data: trY
+:-NOT  	-  	110620  	-  	0.998
+:  	-  	174  	-  	0.002
+-- Data: vaY
+:-NOT  	-  	12297  	-  	0.999
+:  	-  	14  	-  	0.001
+-- Data: teY
+:-NOT  	-  	13657  	-  	0.998
+:  	-  	22  	-  	0.002
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.250
+
+Test accuracy:  1.000
+Test precision: 0.952
+Test recall: 0.909
+
+Features used: 112.000
+Largest features: [1926 1807 1951]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.998
+Regularization coef: 0.062
+
+Test accuracy:  0.998
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.998
+Regularization coef: 0.062
+
+Test accuracy:  0.998
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.998
+Regularization coef: 0.062
+
+Test accuracy:  0.998
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [1 2 0]
+
+
+-----> CONCEPT: CC
+
+Dataset statistics
+-- Data: trY
+CC-NOT  	-  	109525  	-  	0.989
+CC  	-  	1269  	-  	0.011
+-- Data: vaY
+CC-NOT  	-  	12172  	-  	0.989
+CC  	-  	139  	-  	0.011
+-- Data: teY
+CC-NOT  	-  	13509  	-  	0.988
+CC  	-  	170  	-  	0.012
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.995
+Valid accuracy: 0.996
+Test  accuracy: 0.995
+Regularization coef: 0.062
+
+Test accuracy:  0.995
+Test precision: 0.911
+Test recall: 0.665
+
+Features used: 181.000
+Largest features: [1867  611  355]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.989
+Valid accuracy: 0.989
+Test  accuracy: 0.988
+Regularization coef: 0.062
+
+Test accuracy:  0.988
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.989
+Valid accuracy: 0.989
+Test  accuracy: 0.988
+Regularization coef: 0.062
+
+Test accuracy:  0.988
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.989
+Valid accuracy: 0.989
+Test  accuracy: 0.988
+Regularization coef: 0.062
+
+Test accuracy:  0.988
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: CD
+
+Dataset statistics
+-- Data: trY
+CD-NOT  	-  	108582  	-  	0.980
+CD  	-  	2212  	-  	0.020
+-- Data: vaY
+CD-NOT  	-  	12053  	-  	0.979
+CD  	-  	258  	-  	0.021
+-- Data: teY
+CD-NOT  	-  	13412  	-  	0.980
+CD  	-  	267  	-  	0.020
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.998
+Test  accuracy: 0.996
+Regularization coef: 0.125
+
+Test accuracy:  0.996
+Test precision: 0.936
+Test recall: 0.873
+
+Features used: 376.000
+Largest features: [1475 1092 1696]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.980
+Valid accuracy: 0.979
+Test  accuracy: 0.980
+Regularization coef: 0.062
+
+Test accuracy:  0.980
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.980
+Valid accuracy: 0.979
+Test  accuracy: 0.980
+Regularization coef: 0.062
+
+Test accuracy:  0.980
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.980
+Valid accuracy: 0.979
+Test  accuracy: 0.980
+Regularization coef: 0.062
+
+Test accuracy:  0.980
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [1 2 0]
+
+
+-----> CONCEPT: DT
+
+Dataset statistics
+-- Data: trY
+DT-NOT  	-  	106406  	-  	0.960
+DT  	-  	4388  	-  	0.040
+-- Data: vaY
+DT-NOT  	-  	11798  	-  	0.958
+DT  	-  	513  	-  	0.042
+-- Data: teY
+DT-NOT  	-  	13121  	-  	0.959
+DT  	-  	558  	-  	0.041
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.991
+Valid accuracy: 0.988
+Test  accuracy: 0.988
+Regularization coef: 0.500
+
+Test accuracy:  0.988
+Test precision: 0.844
+Test recall: 0.871
+
+Features used: 1057.000
+Largest features: [1900  921 1841]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.960
+Valid accuracy: 0.958
+Test  accuracy: 0.959
+Regularization coef: 0.062
+
+Test accuracy:  0.959
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.960
+Valid accuracy: 0.958
+Test  accuracy: 0.959
+Regularization coef: 0.062
+
+Test accuracy:  0.959
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.960
+Valid accuracy: 0.958
+Test  accuracy: 0.959
+Regularization coef: 0.062
+
+Test accuracy:  0.959
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [1 2 0]
+
+
+-----> CONCEPT: EX
+
+Dataset statistics
+-- Data: trY
+EX-NOT  	-  	110716  	-  	0.999
+EX  	-  	78  	-  	0.001
+-- Data: vaY
+EX-NOT  	-  	12302  	-  	0.999
+EX  	-  	9  	-  	0.001
+-- Data: teY
+EX-NOT  	-  	13666  	-  	0.999
+EX  	-  	13  	-  	0.001
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.250
+
+Test accuracy:  1.000
+Test precision: 1.000
+Test recall: 0.615
+
+Features used: 76.000
+Largest features: [1180 1097 1504]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: FW
+
+Dataset statistics
+-- Data: trY
+FW-NOT  	-  	110785  	-  	1.000
+FW  	-  	9  	-  	0.000
+-- Data: vaY
+FW-NOT  	-  	12310  	-  	1.000
+FW  	-  	1  	-  	0.000
+-- Data: teY
+FW-NOT  	-  	13679  	-  	1.000
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest features: [1426  831 1443]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: IN
+
+Dataset statistics
+-- Data: trY
+IN-NOT  	-  	104820  	-  	0.946
+IN  	-  	5974  	-  	0.054
+-- Data: vaY
+IN-NOT  	-  	11654  	-  	0.947
+IN  	-  	657  	-  	0.053
+-- Data: teY
+IN-NOT  	-  	12971  	-  	0.948
+IN  	-  	708  	-  	0.052
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.984
+Valid accuracy: 0.979
+Test  accuracy: 0.980
+Regularization coef: 0.250
+
+Test accuracy:  0.980
+Test precision: 0.836
+Test recall: 0.770
+
+Features used: 1317.000
+Largest features: [1824  375 1466]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.946
+Valid accuracy: 0.947
+Test  accuracy: 0.948
+Regularization coef: 0.062
+
+Test accuracy:  0.948
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.946
+Valid accuracy: 0.947
+Test  accuracy: 0.948
+Regularization coef: 0.062
+
+Test accuracy:  0.948
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.946
+Valid accuracy: 0.947
+Test  accuracy: 0.948
+Regularization coef: 0.062
+
+Test accuracy:  0.948
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [2 1 0]
+
+
+-----> CONCEPT: JJ
+
+Dataset statistics
+-- Data: trY
+JJ-NOT  	-  	101581  	-  	0.917
+JJ  	-  	9213  	-  	0.083
+-- Data: vaY
+JJ-NOT  	-  	11278  	-  	0.916
+JJ  	-  	1033  	-  	0.084
+-- Data: teY
+JJ-NOT  	-  	12556  	-  	0.918
+JJ  	-  	1123  	-  	0.082
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.938
+Valid accuracy: 0.935
+Test  accuracy: 0.932
+Regularization coef: 0.250
+
+Test accuracy:  0.932
+Test precision: 0.668
+Test recall: 0.346
+
+Features used: 1843.000
+Largest features: [ 590 1961 1603]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.917
+Valid accuracy: 0.916
+Test  accuracy: 0.918
+Regularization coef: 0.062
+
+Test accuracy:  0.918
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.917
+Valid accuracy: 0.916
+Test  accuracy: 0.918
+Regularization coef: 0.062
+
+Test accuracy:  0.918
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.917
+Valid accuracy: 0.917
+Test  accuracy: 0.918
+Regularization coef: 0.062
+
+Test accuracy:  0.918
+Test precision: 0.500
+Test recall: 0.003
+
+Features used: 3.000
+Largest feature: [2 1 0]
+
+
+-----> CONCEPT: JJR
+
+Dataset statistics
+-- Data: trY
+JJR-NOT  	-  	110483  	-  	0.997
+JJR  	-  	311  	-  	0.003
+-- Data: vaY
+JJR-NOT  	-  	12276  	-  	0.997
+JJR  	-  	35  	-  	0.003
+-- Data: teY
+JJR-NOT  	-  	13633  	-  	0.997
+JJR  	-  	46  	-  	0.003
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.998
+Test  accuracy: 0.998
+Regularization coef: 0.500
+
+Test accuracy:  0.998
+Test precision: 0.950
+Test recall: 0.413
+
+Features used: 620.000
+Largest features: [1602  641  541]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: JJS
+
+Dataset statistics
+-- Data: trY
+JJS-NOT  	-  	110569  	-  	0.998
+JJS  	-  	225  	-  	0.002
+-- Data: vaY
+JJS-NOT  	-  	12272  	-  	0.997
+JJS  	-  	39  	-  	0.003
+-- Data: teY
+JJS-NOT  	-  	13642  	-  	0.997
+JJS  	-  	37  	-  	0.003
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 0.999
+Test  accuracy: 0.998
+Regularization coef: 1.000
+
+Test accuracy:  0.998
+Test precision: 0.826
+Test recall: 0.514
+
+Features used: 471.000
+Largest features: [590  91 525]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 0.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [2 1 0]
+
+
+-----> CONCEPT: MD
+
+Dataset statistics
+-- Data: trY
+MD-NOT  	-  	110163  	-  	0.994
+MD  	-  	631  	-  	0.006
+-- Data: vaY
+MD-NOT  	-  	12236  	-  	0.994
+MD  	-  	75  	-  	0.006
+-- Data: teY
+MD-NOT  	-  	13594  	-  	0.994
+MD  	-  	85  	-  	0.006
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.997
+Test  accuracy: 0.998
+Regularization coef: 0.500
+
+Test accuracy:  0.998
+Test precision: 0.887
+Test recall: 0.741
+
+Features used: 399.000
+Largest features: [ 590 1763  503]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.994
+Valid accuracy: 0.994
+Test  accuracy: 0.994
+Regularization coef: 0.062
+
+Test accuracy:  0.994
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.994
+Valid accuracy: 0.994
+Test  accuracy: 0.994
+Regularization coef: 0.062
+
+Test accuracy:  0.994
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.994
+Valid accuracy: 0.994
+Test  accuracy: 0.994
+Regularization coef: 0.062
+
+Test accuracy:  0.994
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [2 0 1]
+
+
+-----> CONCEPT: NN
+
+Dataset statistics
+-- Data: trY
+NN-NOT  	-  	93887  	-  	0.847
+NN  	-  	16907  	-  	0.153
+-- Data: vaY
+NN-NOT  	-  	10499  	-  	0.853
+NN  	-  	1812  	-  	0.147
+-- Data: teY
+NN-NOT  	-  	11573  	-  	0.846
+NN  	-  	2106  	-  	0.154
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.911
+Valid accuracy: 0.903
+Test  accuracy: 0.904
+Regularization coef: 0.250
+
+Test accuracy:  0.904
+Test precision: 0.722
+Test recall: 0.607
+
+Features used: 1859.000
+Largest features: [1428 2038   56]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.846
+Valid accuracy: 0.852
+Test  accuracy: 0.846
+Regularization coef: 0.062
+
+Test accuracy:  0.846
+Test precision: 0.492
+Test recall: 0.073
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.848
+Valid accuracy: 0.856
+Test  accuracy: 0.847
+Regularization coef: 0.062
+
+Test accuracy:  0.847
+Test precision: 0.515
+Test recall: 0.119
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.849
+Valid accuracy: 0.855
+Test  accuracy: 0.848
+Regularization coef: 0.250
+
+Test accuracy:  0.848
+Test precision: 0.532
+Test recall: 0.121
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: NNP
+
+Dataset statistics
+-- Data: trY
+NNP-NOT  	-  	98353  	-  	0.888
+NNP  	-  	12441  	-  	0.112
+-- Data: vaY
+NNP-NOT  	-  	10936  	-  	0.888
+NNP  	-  	1375  	-  	0.112
+-- Data: teY
+NNP-NOT  	-  	12230  	-  	0.894
+NNP  	-  	1449  	-  	0.106
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.988
+Valid accuracy: 0.983
+Test  accuracy: 0.984
+Regularization coef: 0.250
+
+Test accuracy:  0.984
+Test precision: 0.920
+Test recall: 0.932
+
+Features used: 1413.000
+Largest features: [1462  926 2038]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.915
+Valid accuracy: 0.917
+Test  accuracy: 0.917
+Regularization coef: 0.062
+
+Test accuracy:  0.917
+Test precision: 0.647
+Test recall: 0.482
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.919
+Valid accuracy: 0.919
+Test  accuracy: 0.921
+Regularization coef: 0.062
+
+Test accuracy:  0.921
+Test precision: 0.668
+Test recall: 0.511
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.937
+Valid accuracy: 0.936
+Test  accuracy: 0.942
+Regularization coef: 0.062
+
+Test accuracy:  0.942
+Test precision: 0.764
+Test recall: 0.650
+
+Features used: 3.000
+Largest feature: [1 2 0]
+
+
+-----> CONCEPT: NNPS
+
+Dataset statistics
+-- Data: trY
+NNPS-NOT  	-  	110454  	-  	0.997
+NNPS  	-  	340  	-  	0.003
+-- Data: vaY
+NNPS-NOT  	-  	12274  	-  	0.997
+NNPS  	-  	37  	-  	0.003
+-- Data: teY
+NNPS-NOT  	-  	13637  	-  	0.997
+NNPS  	-  	42  	-  	0.003
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.998
+Test  accuracy: 0.998
+Regularization coef: 0.250
+
+Test accuracy:  0.998
+Test precision: 0.828
+Test recall: 0.571
+
+Features used: 515.000
+Largest features: [ 722 1744  590]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: NNS
+
+Dataset statistics
+-- Data: trY
+NNS-NOT  	-  	101800  	-  	0.919
+NNS  	-  	8994  	-  	0.081
+-- Data: vaY
+NNS-NOT  	-  	11285  	-  	0.917
+NNS  	-  	1026  	-  	0.083
+-- Data: teY
+NNS-NOT  	-  	12530  	-  	0.916
+NNS  	-  	1149  	-  	0.084
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.947
+Valid accuracy: 0.942
+Test  accuracy: 0.938
+Regularization coef: 1.000
+
+Test accuracy:  0.938
+Test precision: 0.701
+Test recall: 0.451
+
+Features used: 1985.000
+Largest features: [1428 1035  892]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.919
+Valid accuracy: 0.917
+Test  accuracy: 0.916
+Regularization coef: 0.062
+
+Test accuracy:  0.916
+Test precision: 0.308
+Test recall: 0.003
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.921
+Valid accuracy: 0.919
+Test  accuracy: 0.917
+Regularization coef: 0.062
+
+Test accuracy:  0.917
+Test precision: 0.562
+Test recall: 0.055
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.921
+Valid accuracy: 0.919
+Test  accuracy: 0.917
+Regularization coef: 0.125
+
+Test accuracy:  0.917
+Test precision: 0.559
+Test recall: 0.054
+
+Features used: 3.000
+Largest feature: [1 0 2]
+
+
+-----> CONCEPT: PDT
+
+Dataset statistics
+-- Data: trY
+PDT-NOT  	-  	110783  	-  	1.000
+PDT  	-  	11  	-  	0.000
+-- Data: vaY
+PDT-NOT  	-  	12311  	-  	1.000
+-- Data: teY
+PDT-NOT  	-  	13677  	-  	1.000
+PDT  	-  	2  	-  	0.000
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 5.000
+Largest features: [1426  387 1796]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: POS
+
+Dataset statistics
+-- Data: trY
+POS-NOT  	-  	110437  	-  	0.997
+POS  	-  	357  	-  	0.003
+-- Data: vaY
+POS-NOT  	-  	12256  	-  	0.996
+POS  	-  	55  	-  	0.004
+-- Data: teY
+POS-NOT  	-  	13642  	-  	0.997
+POS  	-  	37  	-  	0.003
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.250
+
+Test accuracy:  1.000
+Test precision: 0.973
+Test recall: 0.973
+
+Features used: 90.000
+Largest features: [1655 1556 1333]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.995
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.996
+Test  accuracy: 0.997
+Regularization coef: 0.125
+
+Test accuracy:  0.997
+Test precision: 0.333
+Test recall: 0.054
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.996
+Test  accuracy: 0.998
+Regularization coef: 0.250
+
+Test accuracy:  0.998
+Test precision: 0.643
+Test recall: 0.243
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: PRP
+
+Dataset statistics
+-- Data: trY
+PRP-NOT  	-  	109793  	-  	0.991
+PRP  	-  	1001  	-  	0.009
+-- Data: vaY
+PRP-NOT  	-  	12189  	-  	0.990
+PRP  	-  	122  	-  	0.010
+-- Data: teY
+PRP-NOT  	-  	13568  	-  	0.992
+PRP  	-  	111  	-  	0.008
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.996
+Test  accuracy: 0.995
+Regularization coef: 1.000
+
+Test accuracy:  0.995
+Test precision: 0.742
+Test recall: 0.622
+
+Features used: 889.000
+Largest features: [ 921 1372 1125]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.991
+Valid accuracy: 0.990
+Test  accuracy: 0.992
+Regularization coef: 0.062
+
+Test accuracy:  0.992
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.991
+Valid accuracy: 0.990
+Test  accuracy: 0.992
+Regularization coef: 0.062
+
+Test accuracy:  0.992
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.991
+Valid accuracy: 0.990
+Test  accuracy: 0.992
+Regularization coef: 0.062
+
+Test accuracy:  0.992
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: PRP$
+
+Dataset statistics
+-- Data: trY
+PRP$-NOT  	-  	110225  	-  	0.995
+PRP$  	-  	569  	-  	0.005
+-- Data: vaY
+PRP$-NOT  	-  	12250  	-  	0.995
+PRP$  	-  	61  	-  	0.005
+-- Data: teY
+PRP$-NOT  	-  	13598  	-  	0.994
+PRP$  	-  	81  	-  	0.006
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.998
+Test  accuracy: 0.997
+Regularization coef: 0.500
+
+Test accuracy:  0.997
+Test precision: 0.860
+Test recall: 0.605
+
+Features used: 484.000
+Largest features: [ 433  322 1454]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.995
+Valid accuracy: 0.995
+Test  accuracy: 0.994
+Regularization coef: 0.062
+
+Test accuracy:  0.994
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.995
+Valid accuracy: 0.995
+Test  accuracy: 0.994
+Regularization coef: 0.062
+
+Test accuracy:  0.994
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.995
+Valid accuracy: 0.995
+Test  accuracy: 0.994
+Regularization coef: 0.062
+
+Test accuracy:  0.994
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: RB
+
+Dataset statistics
+-- Data: trY
+RB-NOT  	-  	108000  	-  	0.975
+RB  	-  	2794  	-  	0.025
+-- Data: vaY
+RB-NOT  	-  	11990  	-  	0.974
+RB  	-  	321  	-  	0.026
+-- Data: teY
+RB-NOT  	-  	13288  	-  	0.971
+RB  	-  	391  	-  	0.029
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.983
+Valid accuracy: 0.982
+Test  accuracy: 0.979
+Regularization coef: 0.125
+
+Test accuracy:  0.979
+Test precision: 0.806
+Test recall: 0.361
+
+Features used: 1144.000
+Largest features: [1372 1484 1909]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.975
+Valid accuracy: 0.974
+Test  accuracy: 0.971
+Regularization coef: 0.062
+
+Test accuracy:  0.971
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.975
+Valid accuracy: 0.974
+Test  accuracy: 0.971
+Regularization coef: 0.062
+
+Test accuracy:  0.971
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.975
+Valid accuracy: 0.974
+Test  accuracy: 0.971
+Regularization coef: 0.062
+
+Test accuracy:  0.971
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [1 2 0]
+
+
+-----> CONCEPT: RBR
+
+Dataset statistics
+-- Data: trY
+RBR-NOT  	-  	110615  	-  	0.998
+RBR  	-  	179  	-  	0.002
+-- Data: vaY
+RBR-NOT  	-  	12293  	-  	0.999
+RBR  	-  	18  	-  	0.001
+-- Data: teY
+RBR-NOT  	-  	13661  	-  	0.999
+RBR  	-  	18  	-  	0.001
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 1.000
+
+Test accuracy:  0.999
+Test precision: 0.727
+Test recall: 0.444
+
+Features used: 443.000
+Largest features: [1489 1128  921]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [2 0 1]
+
+
+-----> CONCEPT: RBS
+
+Dataset statistics
+-- Data: trY
+RBS-NOT  	-  	110768  	-  	1.000
+RBS  	-  	26  	-  	0.000
+-- Data: vaY
+RBS-NOT  	-  	12311  	-  	1.000
+-- Data: teY
+RBS-NOT  	-  	13677  	-  	1.000
+RBS  	-  	2  	-  	0.000
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 15.000
+Largest features: [1018 1426  134]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: RP
+
+Dataset statistics
+-- Data: trY
+RP-NOT  	-  	110626  	-  	0.998
+RP  	-  	168  	-  	0.002
+-- Data: vaY
+RP-NOT  	-  	12297  	-  	0.999
+RP  	-  	14  	-  	0.001
+-- Data: teY
+RP-NOT  	-  	13655  	-  	0.998
+RP  	-  	24  	-  	0.002
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.250
+
+Test accuracy:  0.999
+Test precision: 0.769
+Test recall: 0.417
+
+Features used: 221.000
+Largest features: [ 133 1627  650]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.998
+Regularization coef: 0.062
+
+Test accuracy:  0.998
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.998
+Regularization coef: 0.062
+
+Test accuracy:  0.998
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.998
+Regularization coef: 0.062
+
+Test accuracy:  0.998
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [1 2 0]
+
+
+-----> CONCEPT: SPACE
+
+Dataset statistics
+-- Data: trY
+SPACE-NOT  	-  	90479  	-  	0.817
+SPACE  	-  	20315  	-  	0.183
+-- Data: vaY
+SPACE-NOT  	-  	10001  	-  	0.812
+SPACE  	-  	2310  	-  	0.188
+-- Data: teY
+SPACE-NOT  	-  	11120  	-  	0.813
+SPACE  	-  	2559  	-  	0.187
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 1.000
+Test recall: 1.000
+
+Features used: 91.000
+Largest features: [ 289 1078  715]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.888
+Valid accuracy: 0.887
+Test  accuracy: 0.886
+Regularization coef: 0.062
+
+Test accuracy:  0.886
+Test precision: 0.684
+Test recall: 0.728
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.933
+Valid accuracy: 0.932
+Test  accuracy: 0.931
+Regularization coef: 0.125
+
+Test accuracy:  0.931
+Test precision: 0.809
+Test recall: 0.825
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.980
+Valid accuracy: 0.980
+Test  accuracy: 0.979
+Regularization coef: 0.250
+
+Test accuracy:  0.979
+Test precision: 0.934
+Test recall: 0.958
+
+Features used: 3.000
+Largest feature: [2 0 1]
+
+
+-----> CONCEPT: SYM
+
+Dataset statistics
+-- Data: trY
+SYM-NOT  	-  	110793  	-  	1.000
+SYM  	-  	1  	-  	0.000
+-- Data: vaY
+SYM-NOT  	-  	12311  	-  	1.000
+-- Data: teY
+SYM-NOT  	-  	13679  	-  	1.000
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 5.000
+Largest features: [1426  831  387]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: TO
+
+Dataset statistics
+-- Data: trY
+TO-NOT  	-  	109969  	-  	0.993
+TO  	-  	825  	-  	0.007
+-- Data: vaY
+TO-NOT  	-  	12211  	-  	0.992
+TO  	-  	100  	-  	0.008
+-- Data: teY
+TO-NOT  	-  	13570  	-  	0.992
+TO  	-  	109  	-  	0.008
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.998
+Test  accuracy: 0.998
+Regularization coef: 0.250
+
+Test accuracy:  0.998
+Test precision: 0.918
+Test recall: 0.826
+
+Features used: 164.000
+Largest features: [277  72 313]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.993
+Valid accuracy: 0.992
+Test  accuracy: 0.992
+Regularization coef: 0.062
+
+Test accuracy:  0.992
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.992
+Valid accuracy: 0.992
+Test  accuracy: 0.992
+Regularization coef: 0.062
+
+Test accuracy:  0.992
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.992
+Valid accuracy: 0.991
+Test  accuracy: 0.992
+Regularization coef: 0.062
+
+Test accuracy:  0.992
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: UH
+
+Dataset statistics
+-- Data: trY
+UH-NOT  	-  	110792  	-  	1.000
+UH  	-  	2  	-  	0.000
+-- Data: vaY
+UH-NOT  	-  	12311  	-  	1.000
+-- Data: teY
+UH-NOT  	-  	13679  	-  	1.000
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 5.000
+Largest features: [1426  831  387]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: VB
+
+Dataset statistics
+-- Data: trY
+VB-NOT  	-  	108525  	-  	0.980
+VB  	-  	2269  	-  	0.020
+-- Data: vaY
+VB-NOT  	-  	12076  	-  	0.981
+VB  	-  	235  	-  	0.019
+-- Data: teY
+VB-NOT  	-  	13423  	-  	0.981
+VB  	-  	256  	-  	0.019
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.997
+Test  accuracy: 0.996
+Regularization coef: 0.500
+
+Test accuracy:  0.996
+Test precision: 0.900
+Test recall: 0.879
+
+Features used: 918.000
+Largest features: [1961  366 1998]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.988
+Valid accuracy: 0.987
+Test  accuracy: 0.988
+Regularization coef: 0.062
+
+Test accuracy:  0.988
+Test precision: 0.711
+Test recall: 0.605
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.988
+Valid accuracy: 0.987
+Test  accuracy: 0.988
+Regularization coef: 1.000
+
+Test accuracy:  0.988
+Test precision: 0.698
+Test recall: 0.605
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.988
+Valid accuracy: 0.987
+Test  accuracy: 0.988
+Regularization coef: 0.125
+
+Test accuracy:  0.988
+Test precision: 0.712
+Test recall: 0.617
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: VBD
+
+Dataset statistics
+-- Data: trY
+VBD-NOT  	-  	107340  	-  	0.969
+VBD  	-  	3454  	-  	0.031
+-- Data: vaY
+VBD-NOT  	-  	11924  	-  	0.969
+VBD  	-  	387  	-  	0.031
+-- Data: teY
+VBD-NOT  	-  	13246  	-  	0.968
+VBD  	-  	433  	-  	0.032
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.983
+Valid accuracy: 0.980
+Test  accuracy: 0.982
+Regularization coef: 0.125
+
+Test accuracy:  0.982
+Test precision: 0.823
+Test recall: 0.557
+
+Features used: 1034.000
+Largest features: [2038 1987  921]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.967
+Valid accuracy: 0.967
+Test  accuracy: 0.967
+Regularization coef: 0.062
+
+Test accuracy:  0.967
+Test precision: 0.262
+Test recall: 0.025
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.967
+Valid accuracy: 0.967
+Test  accuracy: 0.967
+Regularization coef: 0.250
+
+Test accuracy:  0.967
+Test precision: 0.275
+Test recall: 0.025
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.968
+Valid accuracy: 0.967
+Test  accuracy: 0.967
+Regularization coef: 0.062
+
+Test accuracy:  0.967
+Test precision: 0.289
+Test recall: 0.025
+
+Features used: 3.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: VBG
+
+Dataset statistics
+-- Data: trY
+VBG-NOT  	-  	108485  	-  	0.979
+VBG  	-  	2309  	-  	0.021
+-- Data: vaY
+VBG-NOT  	-  	12077  	-  	0.981
+VBG  	-  	234  	-  	0.019
+-- Data: teY
+VBG-NOT  	-  	13399  	-  	0.980
+VBG  	-  	280  	-  	0.020
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.988
+Valid accuracy: 0.986
+Test  accuracy: 0.985
+Regularization coef: 0.125
+
+Test accuracy:  0.985
+Test precision: 0.783
+Test recall: 0.361
+
+Features used: 1134.000
+Largest features: [1987  650  611]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.979
+Valid accuracy: 0.981
+Test  accuracy: 0.980
+Regularization coef: 0.062
+
+Test accuracy:  0.980
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.979
+Valid accuracy: 0.981
+Test  accuracy: 0.980
+Regularization coef: 0.062
+
+Test accuracy:  0.980
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.979
+Valid accuracy: 0.981
+Test  accuracy: 0.980
+Regularization coef: 0.062
+
+Test accuracy:  0.980
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: VBN
+
+Dataset statistics
+-- Data: trY
+VBN-NOT  	-  	107964  	-  	0.974
+VBN  	-  	2830  	-  	0.026
+-- Data: vaY
+VBN-NOT  	-  	12000  	-  	0.975
+VBN  	-  	311  	-  	0.025
+-- Data: teY
+VBN-NOT  	-  	13350  	-  	0.976
+VBN  	-  	329  	-  	0.024
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.985
+Valid accuracy: 0.983
+Test  accuracy: 0.984
+Regularization coef: 0.062
+
+Test accuracy:  0.984
+Test precision: 0.761
+Test recall: 0.465
+
+Features used: 741.000
+Largest features: [1961 1035 2038]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.974
+Valid accuracy: 0.975
+Test  accuracy: 0.976
+Regularization coef: 0.062
+
+Test accuracy:  0.976
+Test precision: 1.000
+Test recall: 0.006
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.974
+Valid accuracy: 0.975
+Test  accuracy: 0.976
+Regularization coef: 0.062
+
+Test accuracy:  0.976
+Test precision: 0.333
+Test recall: 0.006
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.975
+Valid accuracy: 0.976
+Test  accuracy: 0.976
+Regularization coef: 0.500
+
+Test accuracy:  0.976
+Test precision: 0.576
+Test recall: 0.058
+
+Features used: 3.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: VBP
+
+Dataset statistics
+-- Data: trY
+VBP-NOT  	-  	109658  	-  	0.990
+VBP  	-  	1136  	-  	0.010
+-- Data: vaY
+VBP-NOT  	-  	12189  	-  	0.990
+VBP  	-  	122  	-  	0.010
+-- Data: teY
+VBP-NOT  	-  	13528  	-  	0.989
+VBP  	-  	151  	-  	0.011
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.995
+Valid accuracy: 0.994
+Test  accuracy: 0.992
+Regularization coef: 0.250
+
+Test accuracy:  0.992
+Test precision: 0.738
+Test recall: 0.411
+
+Features used: 871.000
+Largest features: [1372  541 2038]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.990
+Valid accuracy: 0.990
+Test  accuracy: 0.989
+Regularization coef: 0.062
+
+Test accuracy:  0.989
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.990
+Valid accuracy: 0.990
+Test  accuracy: 0.989
+Regularization coef: 0.062
+
+Test accuracy:  0.989
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.990
+Valid accuracy: 0.990
+Test  accuracy: 0.989
+Regularization coef: 0.062
+
+Test accuracy:  0.989
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: VBZ
+
+Dataset statistics
+-- Data: trY
+VBZ-NOT  	-  	109024  	-  	0.984
+VBZ  	-  	1770  	-  	0.016
+-- Data: vaY
+VBZ-NOT  	-  	12108  	-  	0.984
+VBZ  	-  	203  	-  	0.016
+-- Data: teY
+VBZ-NOT  	-  	13467  	-  	0.985
+VBZ  	-  	212  	-  	0.015
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.992
+Valid accuracy: 0.990
+Test  accuracy: 0.990
+Regularization coef: 0.250
+
+Test accuracy:  0.990
+Test precision: 0.762
+Test recall: 0.528
+
+Features used: 1098.000
+Largest features: [2038 1035  503]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.984
+Valid accuracy: 0.983
+Test  accuracy: 0.984
+Regularization coef: 0.125
+
+Test accuracy:  0.984
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.984
+Valid accuracy: 0.983
+Test  accuracy: 0.985
+Regularization coef: 0.062
+
+Test accuracy:  0.985
+Test precision: 1.000
+Test recall: 0.014
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.984
+Valid accuracy: 0.983
+Test  accuracy: 0.985
+Regularization coef: 0.062
+
+Test accuracy:  0.985
+Test precision: 1.000
+Test recall: 0.014
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: WDT
+
+Dataset statistics
+-- Data: trY
+WDT-NOT  	-  	110441  	-  	0.997
+WDT  	-  	353  	-  	0.003
+-- Data: vaY
+WDT-NOT  	-  	12270  	-  	0.997
+WDT  	-  	41  	-  	0.003
+-- Data: teY
+WDT-NOT  	-  	13636  	-  	0.997
+WDT  	-  	43  	-  	0.003
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 1.000
+
+Test accuracy:  0.999
+Test precision: 0.868
+Test recall: 0.767
+
+Features used: 334.000
+Largest features: [1459  921 1482]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [1 0]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.997
+Test  accuracy: 0.997
+Regularization coef: 0.062
+
+Test accuracy:  0.997
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [1 2 0]
+
+
+-----> CONCEPT: WP
+
+Dataset statistics
+-- Data: trY
+WP-NOT  	-  	110592  	-  	0.998
+WP  	-  	202  	-  	0.002
+-- Data: vaY
+WP-NOT  	-  	12286  	-  	0.998
+WP  	-  	25  	-  	0.002
+-- Data: teY
+WP-NOT  	-  	13646  	-  	0.998
+WP  	-  	33  	-  	0.002
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.250
+
+Test accuracy:  0.999
+Test precision: 0.857
+Test recall: 0.545
+
+Features used: 97.000
+Largest features: [274 775 235]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.998
+Test  accuracy: 0.998
+Regularization coef: 0.062
+
+Test accuracy:  0.998
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.998
+Test  accuracy: 0.998
+Regularization coef: 0.062
+
+Test accuracy:  0.998
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.998
+Test  accuracy: 0.998
+Regularization coef: 0.062
+
+Test accuracy:  0.998
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]
+
+
+-----> CONCEPT: WP$
+
+Dataset statistics
+-- Data: trY
+WP$-NOT  	-  	110776  	-  	1.000
+WP$  	-  	18  	-  	0.000
+-- Data: vaY
+WP$-NOT  	-  	12309  	-  	1.000
+WP$  	-  	2  	-  	0.000
+-- Data: teY
+WP$-NOT  	-  	13679  	-  	1.000
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.500
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 67.000
+Largest features: [1859 1668   98]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.062
+
+Test accuracy:  1.000
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 2 1]
+
+
+-----> CONCEPT: WRB
+
+Dataset statistics
+-- Data: trY
+WRB-NOT  	-  	110623  	-  	0.998
+WRB  	-  	171  	-  	0.002
+-- Data: vaY
+WRB-NOT  	-  	12295  	-  	0.999
+WRB  	-  	16  	-  	0.001
+-- Data: teY
+WRB-NOT  	-  	13666  	-  	0.999
+WRB  	-  	13  	-  	0.001
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.999
+Valid accuracy: 1.000
+Test  accuracy: 0.999
+Regularization coef: 0.500
+
+Test accuracy:  0.999
+Test precision: 0.875
+Test recall: 0.538
+
+Features used: 160.000
+Largest features: [ 619 1455 1047]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.998
+Valid accuracy: 0.999
+Test  accuracy: 0.999
+Regularization coef: 0.062
+
+Test accuracy:  0.999
+Test precision: 0.667
+Test recall: 0.154
+
+Features used: 3.000
+Largest feature: [2 0 1]
+
+
+-----> CONCEPT: ``
+
+Dataset statistics
+-- Data: trY
+``-NOT  	-  	110484  	-  	0.997
+``  	-  	310  	-  	0.003
+-- Data: vaY
+``-NOT  	-  	12283  	-  	0.998
+``  	-  	28  	-  	0.002
+-- Data: teY
+``-NOT  	-  	13631  	-  	0.996
+``  	-  	48  	-  	0.004
+
+--- ALL dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 1.000
+Valid accuracy: 1.000
+Test  accuracy: 1.000
+Regularization coef: 0.250
+
+Test accuracy:  1.000
+Test precision: 1.000
+Test recall: 0.958
+
+Features used: 106.000
+Largest features: [1868  458 1384]
+
+--- TOP 1 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.998
+Test  accuracy: 0.996
+Regularization coef: 0.062
+
+Test accuracy:  0.996
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 1.000
+Largest feature: [0]
+
+--- TOP 2 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.998
+Test  accuracy: 0.996
+Regularization coef: 0.062
+
+Test accuracy:  0.996
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 2.000
+Largest feature: [0 1]
+
+--- TOP 3 dimensions
+
+Training a Logistic Regression Classifier...
+...completed.
+
+--> Logistic Regression results.
+Train accuracy: 0.997
+Valid accuracy: 0.998
+Test  accuracy: 0.996
+Regularization coef: 0.062
+
+Test accuracy:  0.996
+Test precision: 0.000
+Test recall: 0.000
+
+Features used: 3.000
+Largest feature: [0 1 2]

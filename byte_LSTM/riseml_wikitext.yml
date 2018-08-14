@@ -1,0 +1,20 @@
+project: byte-LSTM-wikitext
+train:
+  framework: tensorflow
+  image: tensorflow/tensorflow:latest-gpu-py3
+  tensorflow:
+    tensorboard: true
+    version: latest
+  install:
+    - apt-get update && apt-get install -y apt-utils libssl-dev libffi-dev wget python3-pip python3-dev build-essential
+    - wget https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py
+    - pip3 install -r requirements.txt
+  concurrency: 1
+  resources:
+    gpus: 1
+    cpus: 1
+    mem: 4096
+  run: 
+  - stdbuf -oL
+    bash start_train_wikitext.sh
+    2>&1 | tee /output/log_train.txt

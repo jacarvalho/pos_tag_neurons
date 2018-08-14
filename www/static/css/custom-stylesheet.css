@@ -1,0 +1,106 @@
+section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.form-check-inline > * {
+    margin-right:10px;
+}
+
+.form-inline > * {
+    margin-right:10px;
+}
+
+.d {
+    display: inline-block;
+    width: 30px;
+    font-family: 'Cousine';
+    font-size: 14px;
+    /* font-weight: bold; */ 
+}
+
+.d_reviews {
+    display: inline-block;
+    width: 20px;
+    font-family: 'Cousine';
+    font-size: 14px;
+    /* font-weight: bold; */ 
+}
+
+.vis {
+    margin: 0 auto;
+    font-family: 'Cousine';
+}
+
+.d_pos_tag {
+    display: inline-block;
+    width: 30px;
+    font-family: 'Cousine';
+    font-size: 7px;
+    /* font-weight: bold; */ 
+}
+
+.card {
+    margin-bottom: 50px;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 50px;
+}
+
+
+#sentiment_bar {
+    width: 100%;
+    background-color: #F8F8F8;
+}
+
+#sentiment_value_base {
+    display: inline-block;
+    width: 33%;
+    background-color: #F8F8F8;
+}
+
+#sentiment_value_pos {
+    display: inline-block;
+    width: 16.6%;
+    background-color: #1a1aff;
+    text-align: center;
+    color: white;
+    font-size: 12px;    
+}
+
+#sentiment_value_neg {
+    display: inline-block;
+    width: 16.6%;
+    background-color: #ff0000;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+}
+
+#prob_bar {
+    width: 100%;
+    background-color: #F8F8F8;
+}
+
+#prob_value_pos {
+    display: inline-block;
+    width: 50%;
+    background-color: #1a1aff;
+    text-align: center;
+    color: white;
+    font-size: 12px;    
+}
+
+#prob_value_neg {
+    display: inline-block;
+    width: 50%;
+    background-color: #ff0000;
+    text-align: center;
+    color: white;
+    font-size: 12px;    
+}
+
+.table {
+    font-size: 10px;
+}

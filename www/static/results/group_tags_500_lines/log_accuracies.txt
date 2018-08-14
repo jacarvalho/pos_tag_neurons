@@ -1,0 +1,66 @@
+Reading file and POS tagging...
+...completed.
+
+POS tag distribution
+Identified pairs (word, tag): 100372
+SPACE  	-  	50186  	-  	0.500
+NN  	-  	9101  	-  	0.091
+NNP  	-  	7342  	-  	0.073
+VB  	-  	5795  	-  	0.058
+IN  	-  	5709  	-  	0.057
+DT  	-  	4525  	-  	0.045
+JJ  	-  	3087  	-  	0.031
+OTHER  	-  	2773  	-  	0.028
+,  	-  	2596  	-  	0.026
+CD  	-  	2361  	-  	0.024
+.  	-  	2047  	-  	0.020
+CC  	-  	1359  	-  	0.014
+RB  	-  	1180  	-  	0.012
+TO  	-  	846  	-  	0.008
+PRP  	-  	762  	-  	0.008
+)  	-  	294  	-  	0.003
+(  	-  	294  	-  	0.003
+MD  	-  	115  	-  	0.001
+
+2273.782 seconds to transform 2048 examples
+Identified pairs (bytes, tag): 259243
+NN  	-  	54073  	-  	0.209
+SPACE  	-  	50186  	-  	0.194
+NNP  	-  	43006  	-  	0.166
+VB  	-  	31971  	-  	0.123
+JJ  	-  	18854  	-  	0.073
+IN  	-  	16379  	-  	0.063
+DT  	-  	12090  	-  	0.047
+CD  	-  	6871  	-  	0.027
+OTHER  	-  	6403  	-  	0.025
+RB  	-  	6239  	-  	0.024
+CC  	-  	4015  	-  	0.015
+,  	-  	2596  	-  	0.010
+.  	-  	2047  	-  	0.008
+PRP  	-  	1788  	-  	0.007
+TO  	-  	1692  	-  	0.007
+MD  	-  	445  	-  	0.002
+)  	-  	294  	-  	0.001
+(  	-  	294  	-  	0.001
+
+-----> Test results
+
+- all
+Test accuracy:  0.864
+Test precision: 0.859
+Test recall: 0.864
+
+- top1
+Test accuracy:  0.466
+Test precision: 0.343
+Test recall: 0.466
+
+- top2
+Test accuracy:  0.540
+Test precision: 0.433
+Test recall: 0.540
+
+- top3
+Test accuracy:  0.617
+Test precision: 0.513
+Test recall: 0.617
