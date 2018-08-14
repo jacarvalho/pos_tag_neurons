@@ -28,13 +28,15 @@ concepts_grouped = ['(', ')', ',', '.', 'CC', 'CD', 'DT', 'IN', 'JJ', 'MD',
 """
 Restore pre-trained tensorflow model for Wikitext
 """
+"""
 print('Loading models...')
 trained_model = os.path.join(
     extern_data, 'byte_LSTM_trained_models/wikitext/save/95/')
 model_path = os.path.abspath(trained_model)
 with open(os.path.join(model_path, 'config.pkl'), 'rb') as f:
     model_saved_args = pickle.load(f)
-
+"""
+"""
 # Create an instance of the RNN tensorflow model.
 tf.reset_default_graph()
 lstm_model = Model(model_saved_args, sampling=True)
@@ -64,9 +66,11 @@ for dataset in dataset_options:
     for log_reg_file in log_reg_files:
         lr_classifiers[dataset][log_reg_file] = pickle.load(open(log_reg_file,
                                                                  'rb'))
+"""
 
 """
 Restore pre-trained tensorflow model for Amazon product reviews
+"""
 """
 print('Loading models...')
 trained_model = os.path.join(
@@ -93,6 +97,7 @@ print('...completed.')
 
 # Load Logistic Regression Classifier
 lr_model_amazon = pickle.load(open('models/amazon/log_reg_model.sav', 'rb'))
+"""
 
 """
 Flask web app
