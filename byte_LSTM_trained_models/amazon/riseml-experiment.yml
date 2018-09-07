@@ -1,0 +1,18 @@
+framework: tensorflow
+image:
+  install:
+  - pip install -r requirements.txt
+  name: gcr.io/tensorflow/tensorflow:latest-gpu-py3
+project: byte-LSTM-amazon_reviews-80M
+resources:
+  cpus: 1
+  gpus: 1
+  mem: 4096
+revision: ab41f18498d3ce78a7d3bee62302ad720525c62b
+run:
+- stdbuf -oL bash start_train.sh 2>&1 | tee /output/log_train.txt
+tensorflow:
+- distributed: null
+  horovod: null
+  tensorboard: true
+  version: null

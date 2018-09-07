@@ -1,3 +1,7 @@
+"""
+Copyright 2018 University of Freiburg
+Joao Carvalho <carvalhj@cs.uni-freiburg.de>
+"""
 import tensorflow as tf
 import numpy as np
 import time

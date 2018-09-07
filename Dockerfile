@@ -1,3 +1,9 @@
+# Joao Carvalho <carvalhj@cs.uni-freiburg.de>
+# Copyright 2018
+
+# This Dockerfile builds a docker image and runs a webapp to showcase the
+# results of the master project
+
 FROM ubuntu:16.04
 MAINTAINER Joao Carvalho <carvalhj@cs.uni-freiburg.de>
 
@@ -8,23 +14,21 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade virtualenv
 RUN pip3 install --upgrade setuptools pip
 
-# Copy necessary files to /code
-RUN mkdir -p /code
-COPY . /code/
+# Copy necessary files to /
+COPY . /
 
-# Install python libraries
-RUN pip3 install -r /code/requirements.txt
-RUN python3 -m nltk.downloader treebank
-RUN python3 -m nltk.downloader maxent_treebank_pos_tagger
-RUN python3 -m nltk.downloader punkt
-RUN python3 -m nltk.downloader averaged_perceptron_tagger
+# cd to / directory
+WORKDIR /
 
-# cd to /code/www/ directory
-WORKDIR /code
-
-# Start the webapp - NOTE: a dockerfile can have only one CMD
-# CMD ["python3", "app.py"]
+# Install python libraries and packages
+RUN pip3 install -r requirements.txt
+RUN python3 setup.py install
+ 
+# Start the webapp
+# NOTE: a dockerfile can have only one CMD
+WORKDIR /www
+CMD ["python3", "/www/app.py"]
 
 
-# docker build -t code .
-# docker run -it -p 5000:5000 -v /nfs/students/joao-carvalho/:/extern/data code
+# docker build -t project .
+# docker run -it -p 5000:5000 -v /abs/path/to/repository/:/extern/data project

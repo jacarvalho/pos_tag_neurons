@@ -25,6 +25,9 @@ NUM_EPOCHS=3
 LR=0.0005
 PRINT_EVERY=100
 
+
+######################## TRAINING ########################
+
 let "TRAINING_BYTES = $NUM_EPOCHS * $DATASET_BYTES * $NUM_TRAIN_SHARDS/$TOTAL_SHARDS"
 
 for i in $(seq $INITIAL_TRAIN_SHARD $FINAL_TRAIN_SHARD); do

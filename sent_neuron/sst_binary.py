@@ -1,11 +1,13 @@
 """
-Replicates results from the sentiment neuron paper from openAI
+Copyright 2018 University of Freiburg
+Joao Carvalho <carvalhj@cs.uni-freiburg.de>
+
+Replicates the results from the sentiment neuron paper from openAI
 Script partly adapted from
 https://github.com/openai/generating-reviews-discovering-sentiment
 """
 import sys
 import os
-sys.path.insert(0, os.path.abspath('..'))
 from utils_sst import sst_binary, train_with_reg_cv
 from byte_LSTM.model import Model
 import pickle

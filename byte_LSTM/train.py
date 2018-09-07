@@ -1,3 +1,7 @@
+"""
+Copyright 2018 University of Freiburg
+Joao Carvalho <carvalhj@cs.uni-freiburg.de>
+"""
 import argparse
 from model import Model
 import tensorflow as tf

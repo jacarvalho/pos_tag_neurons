@@ -1,5 +1,9 @@
 """
-Raw script (rapidly coded) to generate html tables from log files resulting
+2018, University of Freiburg.
+Joao Carvalho <carvalhj@cs.uni-freiburg.de>
+"""
+"""
+Raw script (fast coded) to generate html tables from log files resulting
 from training the logistic regression classifiers.
 """
 import re

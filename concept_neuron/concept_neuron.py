@@ -4,7 +4,6 @@ Joao Carvalho <carvalhj@cs.uni-freiburg.de>
 """
 import sys
 import os
-sys.path.insert(0, os.path.abspath('..'))
 from byte_LSTM.model import Model
 import argparse
 import nltk

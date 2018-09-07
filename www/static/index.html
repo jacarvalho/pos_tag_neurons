@@ -8,7 +8,9 @@
     <meta name="description" content="MSc. Computer Science - Master Project">
     <meta name="author" content="João Carvalho, carvalhj@cs.uni-freiburg.de">
 
-    <title>Master Project</title>
+    <title>Concept Neurons</title>
+
+    <link href="favicon.ico" rel="shortcut icon">
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +26,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
       <div class="container">
-        <a target="_blank" rel="noopener noreferrer" class="navbar-brand js-scroll-trigger" href="#page-top">Master Project</a>
+        <a target="_blank" rel="noopener noreferrer" class="navbar-brand js-scroll-trigger" href="#page-top">Concept Neurons</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -67,6 +69,8 @@
           <div class="col-lg-12 mx-auto">
             <h2>Introduction</h2>
 
+            <p>This webpage showcases the master project developed by <a href="mailto:carvalhj@cs.uni-freiburg.de">João Carvalho</a> at the <a target="blank_" href="http://ad.informatik.uni-freiburg.de/front-page-en?set_language=en">Chair of Algorithms and Data Structures of the University of Freiburg</a>, as part of the MSc degree in Computer Science.</p>
+
             <p>In this project we explored the capabilities of neural language models. More precisely, we questioned if a neural network would be able to encode Part-of-Speech (POS) tags in its neurons, just by training a simple language model.</p>
 
             <p>We first trained a byte-level language model with a Long Short-Term Memory (LSTM) network using a large collection of text. Then, taking a sentence, which can be viewed as a byte sequence, we used its inner representations (the cell states of the LSTM), along with its corresponding POS tags, as the inputs and targets to train a logistic regression classifier. Looking at the classifier weights, we observed that some concepts (POS tags) are encoded in one neuron, i.e., the POS tag of a byte can be derived from one neuron's activation value, while others are derived with more than one neuron together with the logistic regression classifier. For some tags, using three neurons yielded satisfactory results.</p>
@@ -89,7 +93,7 @@
 
             <p>When analysing / processing language, there are two fundamentally different approaches (Manning et al, 1999). On the one hand, <i>rationalists</i> (usually connected to Noam Chomksy's ideas) assume language is an innate characteristic of humans, not derived by the senses, but rather somehow encoded in the genome. On the other hand, <i>empiricists</i> assume the brain has some initial cognitive ability to learn and organize language, but ultimately the structure is not innate, but rather something that needs to be learned. The difference between these views can sometimes be subtle, but a clear distinction can be found, because the two parties describe different things. <i>Rationalists</i> seek to describe how the human mind modules language, for instance in the form of grammars, by viewing written or spoken language as an indirect method. <i>Empiricists</i> describe language as it occurs.</p>
 
-            <p>In this work we will analyse language from the <i>empiricists'</i> perspective. Due to large amount of written and spoken language in a digital form, which can be easily used by computers, we can employ statistical methods to analyse it. This approach is commonly referred as Statistical NLP, since it performs statistical inference in natural language. In this setting, we model language using probability distributions instead of formal grammars (Manning et al, 1999).</p>
+            <p>In this work we will analyse language from the <i>empiricists'</i> perspective. Due to large amount of written and spoken language in a digital form, which can be easily used by computers, we can employ statistical methods to analyse it. This approach is commonly referred as Statistical NLP, since it performs statistical inference and prediction in natural language. In this setting, we model language using probability distributions instead of formal grammars (Manning et al, 1999).</p>
 
 
             <h3>Language model</h3>
@@ -111,7 +115,7 @@
 
             <p>By modelling this probability distribution, we can use it to infer the most probable word after a sequence of words. For instance, in the sentence \(s = \text{I am going to the gym to [x]} \), \(\text{[x]}\) is to be replaced by the word (from the seen vocabulary) that maximizes \(P(s)\) (for example, exercise).</p>
 
-            <p>The goal of Statistical NLP is to model the language by finding the underlying conditional probability distribution inherent to it, such that the inference of a new word giving a previous set of words is maximized. For that we present two different approaches: n-grams and neural language models.</p>
+            <p>The goal of Statistical NLP is to model language by finding the underlying conditional probability distribution inherent to it, such that the inference of a new word giving a previous set of words is maximized. For that we present two different approaches: n-grams and neural language models.</p>
 
 
             <h3>n-gram models</h3>
@@ -139,9 +143,9 @@
 
             <p>N-gram models suffer from the <i>curse of dimensionality</i>, a problem encountered when solving machine learning problems with a large number of features (Domingos, 2015). Particularly, for a vocabulary \(V\) of size \(|V|\), there are \(|V|^n\) possible n-grams, i.e., the number of possible n-grams grows exponentially for a fixed-size vocabulary. Since not all n-grams occur in the training set, at prediction time the model is just doing a nearest-neighbor look up on the input space (Bengio et al, 2016).</p>
             
-            <p>To overcome this problem, a solution proposed by (Bengio et al, 2013) does not represent words as traditional n-gram models in a one-hot representation, but uses a <i>distributed representation</i>. In the literature, these are also called <i>word embeddings</i>. In this approach, a word is represented as a vector of real numbers of dimension \(D\). In a one-hot vector representation, words like "father", "mother" and "sun" would be at an euclidean distance of \(\sqrt{2} \) of each other, whilst in a distributed representation we expect the distance between "father" and "mother" to be closer than "father" and "sun". This desire has some roots in neuroscience, but more importantly, because empirically, learning algorithms achieve better performances in language tasks if similar words are closer in the feature space (Mikolov et al, 2013).</p>
+            <p>To overcome this problem, a solution proposed by (Bengio et al, 2013) does not represent words as traditional n-gram models in a one-hot representation, but uses a <i>distributed representation</i> (in the literature, these are also called <i>word embeddings</i>). In this approach, a word is represented as a vector of real numbers of dimension \(D\). In a one-hot vector representation, words like "father", "mother" and "sun" would be at an euclidean distance of \(\sqrt{2} \) of each other, whilst in a distributed representation we expect the distance between "father" and "mother" to be closer than "father" and "sun". This desire has some roots in neuroscience, but more importantly, because empirically, learning algorithms achieve better performances in language tasks if similar words are closer in the feature space (Mikolov et al, 2013).</p>
 
-            <p>In neural language models there are two (not separate) tasks: learning the mapping from the input-space (word) to the feature-space (word-embedding); and learning the underlying joint probability distribution of a sequence of words, in terms of the word-embeddings. The model can be seen as a function \(h(w) = g(f(w))\), in which \(f\) maps a word to its embedding, and \(g\), which transforms an embedding into a probability distribution.</p>
+            <p>In neural language models there are two (not separate) tasks: learning the mapping from the input-space (word) to the feature-space (word-embedding); and learning the underlying joint probability distribution of a sequence of words, in terms of the word-embeddings. The model can be seen as a composition of functions \(h(w) = g(f(w))\), in which \(f\) maps a word to its embedding, and \(g\) transforms an embedding into a probability distribution.</p>
 
             $$
             f : \mathbb{N}^{|V|} \rightarrow \mathbb{R}^D \text{, } g : \mathbb{R}^D \rightarrow \mathbb{R}^{|V|} \text{, } h : \mathbb{N}^{|V|} \rightarrow \mathbb{R}^{|V|}
@@ -161,13 +165,12 @@
 
             <h3>Byte-level language models</h3>
 
-            <p>In this project we used byte-level language models instead of word-level models (all the details above are nevertheless aplicable). There are some reasons to prefer these models over character or word-level ones (Baisa, 2016):
+            <p>In this project we used byte-level language models instead of word-level models (all the details above are nonetheless aplicable). There are some reasons to prefer these models over character or word-level ones (Baisa, 2016):
                 <ul>
                     <li>In English, character-level models are already byte-level models, since each English character is encoded in one byte (ASCII encoding);</li>
                     <li>The input-space of a byte is \(2^8 = 256\), and thus smaller than a character space, since its vocabulary does not change with the number of unique characters;</li>
                     <li>Since any character of any language can be encoded in its byte representation (for instance, via UTF-8 encoding), the model can be applied to any language;</li>
-                    <li>For some languages, the input-space (equal to the number of unique characters) is very large (Chinese has around 100,000 different characters);</li>
-                    <li>In digital computers, data is directly represented in bytes, so there's no need for special pre-processing.</li>
+                    <li>For some languages, the input-space (equal to the number of unique characters) is very large (Chinese has around 100,000 different characters).</li>
                 </ul>
 
             </p>
@@ -196,9 +199,9 @@
             \boldsymbol{h}^{(t)} = f(\boldsymbol{h}^{(t-1)}, \boldsymbol{x}^{(t)}; \theta)
             $$
 
-            <p>From this relation we notice that a RNN is by construction a recursive function, where the hidden state changes with time, but the parameters are fixed and shared. Morevover, since \(\boldsymbol{h}^{(t)}\) depends on  \(\boldsymbol{h}^{(t-1)}\), the hidden state is sometimes regarded as model's memory, because (in theory) it stores the information from all the previously processed inputs.</p>
+            <p>From this relation we notice that a RNN is by construction a recursive function, where the hidden state changes with time, but the parameters are fixed and shared. Morevover, since \(\boldsymbol{h}^{(t)}\) depends on  \(\boldsymbol{h}^{(t-1)}\), the hidden state is sometimes regarded as the model's memory, because (in theory) it stores the information from all the previously processed inputs.</p>
 
-            <p>In the byte-level language modelling problem we are interested in describing how a byte is deduced from previous ones. Such architecture produces an output at each time step and has recurrent connections between hidden units. The following picture and equations depict this idea:</p>
+            <p>In the byte-level language modelling problem we are interested in describing how a byte is deduced from previous ones. For this task, we used an RNN architecture that produces an output at each time step and has recurrent connections between hidden units. The following picture and equations depict this idea:</p>
 
             <figure class="figure-center text-center">
                   <img src="/img/RNN.png" class="figure-img img-fluid" alt="Recurrent Neural Network." width="512" height="342">
@@ -222,7 +225,7 @@
                                                                & = -\sum_{t=1}^n \log (\hat{\boldsymbol{y}}^{(t)}[\boldsymbol{y}^{(t)} == 1])
             \end{align}
 
-            <p>In the equation above \(\hat{\boldsymbol{y}}^{(t)}[\boldsymbol{y}^{(t)} == 1]\) denotes the entry of \(\hat{\boldsymbol{y}}^{(t)}\) where \(\boldsymbol{y}^{(t)}\) is equal to 1. Minimizing the cross-entropy loss is the same as maximizing the log-likelihood (the logarithm is used to increase numerical stability). Intuitively, the cross-entropy between random variables \(p\) and \(q\), denoted by \(H(p, q)\), measures the average number of bits needed to represent a symbol from \(p\), given that its coding scheme was derived with the probability distribution governing the random variable \(q\). If \(q\) follows the exact same distribution as \(p\), then the cross entropy is the entropy itself. Moreover, this also yields the minimization of the Kullback–Leibler divergence - a measure of how distant two probability distribution are. In the end, we want the estimated probability distribution \(\hat{\boldsymbol{y}}^{(t)}\) to be as close as possible to the true one \(\boldsymbol{y}^{(t)}\).</p>
+            <p>In the equation above \(\hat{\boldsymbol{y}}^{(t)}[\boldsymbol{y}^{(t)} == 1]\) denotes the entry of \(\hat{\boldsymbol{y}}^{(t)}\) where \(\boldsymbol{y}^{(t)}\) is equal to 1. Minimizing the cross-entropy loss is the same as maximizing the log-likelihood (the logarithm is used for numerical stability). Intuitively, the cross-entropy between random variables \(p\) and \(q\), denoted by \(H(p, q)\), measures the average number of bits needed to represent a symbol from \(p\), given that its coding scheme was derived with the probability distribution governing the random variable \(q\). If \(q\) follows the exact same distribution as \(p\), then the cross entropy is the entropy itself. Moreover, this also yields the minimization of the Kullback–Leibler divergence - a measure of how distant two probability distribution are. In the end, we want the estimated probability distribution \(\hat{\boldsymbol{y}}^{(t)}\) to be as close as possible to the true one \(\boldsymbol{y}^{(t)}\).</p>
 
 
             <h4>Training RNNs</h4>
@@ -233,19 +236,19 @@
             \boldsymbol{W} \leftarrow \boldsymbol{W} - \eta \nabla_{\boldsymbol{W}} L
             $$            
 
-            <p>Where \(\eta\) is the learning rate and \(\nabla_{\boldsymbol{W}} L\) the derivative of the loss with respect to the weigths \(\boldsymbol{W}\). In our experiments we used a variation of the traditional gradient descent, the ADAM method (Kingma et al, 2014). Also, from the multiple ways to update the learning rate during training, we chose to linearly  decay the initial learning rate to zero throughout the iterations. In feed forward NNs, the gradients \( \nabla_{\boldsymbol{W}}\) are computed using a dynamic programming approach called back-propagation (Bengio et al, 2016). The difference of computing gradients of RNNs and feed forward NNs is that the back-propagation is done through time - Back-Propagation Through Time (BPTT). This means that a parameter is updated by summing all the contributions to the loss over time. For instance, the derivative of the loss with respect to the output matrix \(\boldsymbol{V}\) is given by (Bengio et al, 2016):</p>
+            <p>Where \(\eta\) is the learning rate and \(\nabla_{\boldsymbol{W}} L\) the derivative of the loss with respect to the weigths \(\boldsymbol{W}\). In our experiments we used a variation of the traditional gradient descent, the ADAM method (Kingma et al, 2014). Also, from the multiple ways to update the learning rate during training, we chose to linearly  decay the initial learning rate to zero throughout the iterations. In feed forward NNs, the gradients \( \nabla_{\boldsymbol{W}}\) are computed using a dynamic programming approach called back-propagation (Bengio et al, 2016). The difference of computing gradients of RNNs and feed forward NNs is that the back-propagation is done through time - Back-Propagation Through Time (BPTT). This means that a parameter is updated by adding all the contributions to the loss over time. For instance, the derivative of the loss with respect to the output matrix \(\boldsymbol{V}\) is given by (Bengio et al, 2016):</p>
 
             $$
             \nabla_{\boldsymbol{V}}L = \sum_{t}(\nabla_{\boldsymbol{o}^{(t)}}L)\boldsymbol{h}^{(t)}
             $$
 
-            <p>Two problems related to the gradient computation arise when training RNNs (Pascanu et al, 2013). The two issues appear because when computing the gradient of the loss at time \(t\) with respect to the parameters, a sum over \(k\) of the terms \( \frac{\partial \boldsymbol{h}^{(t)}}{\partial \boldsymbol{h}^{(k)}} = \prod_{t \geq i > k} \frac{\partial \boldsymbol{h}^{(t)}}{\partial \boldsymbol{h}^{(i-1)}} \) arises. Since \( \frac{\partial \boldsymbol{h}^{(t)}}{\partial \boldsymbol{h}^{(t-1)}} = \boldsymbol{W} \tanh'(\boldsymbol{W} \boldsymbol{h}^{(t-1)}) \), the product from the previous equation has a term equal to \( \boldsymbol{W}^{t-k} \). The <i>vanishing gradient</i> problem comes from the fact that, assuming \(\boldsymbol{W}\) to have an eigendecomposition, the <i>eigenvalues</i> of \(\boldsymbol{W}\) that are less than 1 decrease exponentially to zero with \( t \), while the <i>exploding gradient</i> problem exists if the <i>eingenvalues</i> are greater than 1. Both situations are not desirable when training the network. The first one leads to a slower convergence, while the latter can move the gradient descent trajectory out of the descent path.</p>
+            <p>Two problems related to the gradient computation arise when training RNNs (Pascanu et al, 2013): <i>vanishing</i> and <i>exploding</i> gradients. They appear because when computing the gradient of the loss at time \(t\) with respect to the parameters, a sum over \(k\) of the terms \( \frac{\partial \boldsymbol{h}^{(t)}}{\partial \boldsymbol{h}^{(k)}} = \prod_{t \geq i > k} \frac{\partial \boldsymbol{h}^{(i)}}{\partial \boldsymbol{h}^{(i-1)}} \) arises (see (Pascanu et al, 2013) for a detailed derivation). Since \( \frac{\partial \boldsymbol{h}^{(t)}}{\partial \boldsymbol{h}^{(t-1)}} = \boldsymbol{W} \tanh'(\boldsymbol{W} \boldsymbol{h}^{(t-1)}) \), the product from the previous equation results in a term equal to \( \boldsymbol{W}^{t-k} \). The <i>vanishing gradient</i> problem comes from the fact that, assuming \(\boldsymbol{W}\) to have an eigendecomposition, the <i>eigenvalues</i> of \(\boldsymbol{W}\) that are less than 1 decrease exponentially to zero with \( t \), while the <i>exploding gradient</i> problem exists if the <i>eingenvalues</i> are greater than 1. Both situations are not desirable when training the network. The first one leads to a slower convergence, while the latter can move the gradient descent trajectory out of the descent path.</p>
 
-            <p>A practical solution for the <i>exploding gradients</i> proposed in (Pascanu et al, 2013) is to clip the gradients if they are higher than a <i>threshold</i> (empirical value), by scaling the gradient, but keeping its direction. A solution to the <i>vanishing gradients</i> is to not propagate the loss through all time steps, but to perform a Truncated Back-Propagation Through Time (TBPTT). In this setting, instead of training a whole sequence \(\boldsymbol{X} = {\boldsymbol{x}_1, \ldots, \boldsymbol{x}_n}\) from \(1\) to \(n\), we choose a value \( 1 \leq \tau \leq n \), for which when computing the loss we only consider the sequence from \(\tau\) to \(n\). Naturally, TBPTT also accelerates the training procedure. A second approach is to use another type of RNN architecture, the Long Short-Term Memory (LSTM) architecture, which we will briefly mention.</p>
+            <p>A practical solution for the <i>exploding gradients</i> proposed in (Pascanu et al, 2013) is to clip the gradients if they are higher than a <i>threshold</i> (empirical value), by scaling the gradient, but keeping its direction. A solution to the <i>vanishing gradients</i> is to not propagate the loss through all time steps, but to perform a Truncated Back-Propagation Through Time (TBPTT). In this setting, instead of training on a whole sequence \(\boldsymbol{X} = {\boldsymbol{x}_1, \ldots, \boldsymbol{x}_n}\) from \(1\) to \(n\), we choose a value \( 1 \leq \tau \leq n \), for which when computing the loss we only consider the sequence from \(\tau\) to \(n\). Naturally, TBPTT also accelerates the training procedure. A second approach is to use another type of RNN architecture, the Long Short-Term Memory (LSTM) architecture, which we mention in a section below.</p>
 
             <p>Using Truncated Back-Propagation Through Time there are two possibilities to deal with hidden state of the RNN when moving between training batches. In <i>stateful</i> RNNs we have reason to believe that the dependencies in the data span over the truncated sequence, so we keep the hidden state across batches in order to simulate a full back-propagation. While in <i>stateless</i> RNNs, the hidden state is reseted after processing a training sequence, if the there are no long term dependencies in the data.</p>
 
-            <p>In our experiments, we used the TBPTT to solve the vanishing gradient and memory related problems, and we used stateful RNNs, because in a language modelling task, we wish to keep the information from previously processed text.</p>
+            <p>In our experiments, we used the TBPTT to solve the vanishing gradient and memory related problems, and we used stateful RNNs, because in a language modelling task, we wish to keep the long range information from previously processed text.</p>
 
 
             <h4>Sampling RNNs</h4>
@@ -262,7 +265,7 @@
 
             <p>
               <ul>
-                <li>Take the word with <b>maximum probability</b>. Simply choose the index of \(\hat{\boldsymbol{y}}^{(t)}\) as \( i =  \underset{i}{\arg\max} \text{ } \hat{\boldsymbol{y}}^{(t)} \). With this approach we observed that the sampling process enter a looping state and starts to repeat itself after some time steps.</li>
+                <li>Take the word with <b>maximum probability</b>. Simply take the index of \(\hat{\boldsymbol{y}}^{(t)}\) as \( i =  \underset{i}{\arg\max} \text{ } \hat{\boldsymbol{y}}^{(t)} \). With this approach we observed that the sampling process enters a looping state and outputs repetitive text.</li>
                 <li>Take the word as a sample from the <b>multinomial distribution</b> represented by \( \hat{\boldsymbol{y}}^{(t)} \). In this case the model picks the index \( i \) with probability \( \hat{\boldsymbol{y}}_i^{(t)} \). We observed that, contrary to taking the maximum probability, this approach prevents the sample to loop. Additionally, for sampling, one can introduce another parameter called <i>temperature</i> (Hinton et al, 2015). <i>Temperature</i> (\( T \)) is a parameter used to control the randomness of the predictions. With this parameter each entry of the vector \( \hat{\boldsymbol{y}}^{(t)} \) is modified to:
 
                 $$
@@ -278,9 +281,9 @@
 
             <h3>Long Short-Term Memory Networks (LSTMs)</h3>
 
-            <p>As previously explained, simple RNNs suffer from the <i>vanishing</i> and <i>exploding</i> gradient problems. LSTM networks (Schmidhuber et al, 1997) share the same principles of RNNs, but have an architecture that prevents these two identified problems. So, they are capable of learning long-term dependencies more effectively than traditional RNNs. For this reason, we used in our language model this type of architecture.</p>
+            <p>As previously explained, simple RNNs suffer from the <i>vanishing</i> and <i>exploding</i> gradient problems. LSTM networks (Schmidhuber et al, 1997) share the same principles of RNNs, but their architecture prevents these two identified problems. So, they are capable of learning long-term dependencies more effectively than traditional RNNs. For this reason, we used in our language model this type of architecture.</p>
 
-            <p>While RNNs' hidden states are computed using a linear transformation followed by a non-linearity, LSTMs replace this computation with LSTM cells, and additionally to the hidden state they introduce a <i>cell state</i>. Intuitively, the hidden state can be perceived as the working memory and the cell state as the long term memory. The inputs to LSTMs cell are: the previous hidden state \(\boldsymbol{h}^{(t-1)}\); the previous cell state \(\boldsymbol{c}^{(t-1)}\); and the current input \(\boldsymbol{x}^{(t)}\). The outputs are: the current hidden state \(\boldsymbol{h}^{(t)}\); and the current cell state \(\boldsymbol{c}^{(t)}\). The output prediction is computed as with RNNs by performing a linear operation with the hidden states followed by a softmax function. The following equations define LSTMs in general:</p>
+            <p>While RNNs' hidden states are computed using a linear transformation followed by a non-linearity, LSTMs replace this computation with LSTM cells, and additionally to the hidden state they introduce a <i>cell state</i>. Intuitively, the hidden state can be perceived as the working (short term) memory and the cell state as the long term memory. The inputs to LSTMs cell are: the previous hidden state \(\boldsymbol{h}^{(t-1)}\); the previous cell state \(\boldsymbol{c}^{(t-1)}\); and the current input \(\boldsymbol{x}^{(t)}\). The outputs are: the current hidden state \(\boldsymbol{h}^{(t)}\); and the current cell state \(\boldsymbol{c}^{(t)}\). The output prediction is computed as with RNNs by performing a linear operation with the hidden states followed by a softmax function. The following equations define LSTMs in general:</p>
 
             \begin{align}
             \boldsymbol{f}^{(t)} & = \sigma (\boldsymbol{W}_f [\boldsymbol{h}^{(t-1)}, \boldsymbol{x}^{(t)}]) \\
@@ -311,7 +314,7 @@
             L(\boldsymbol{y}, \boldsymbol{\hat{y}}) = \sum_{i=1}^{N} -y_i\log(\hat{y}_i) - (1-y_i) \log(1 - \hat{y}_i)
             $$
 
-            <p>To overcome overfitting it is common practice to use a regularizer to penalize the loss function. We used a \( L_1 \) regularizer to enforce sparse models, which results in the loss:</p>
+            <p>To prevent overfitting it is common practice to use a regularizer to penalize the loss function. We used a \( L_1 \) regularizer to enforce sparse models, which results in the loss:</p>
 
             $$
             L_R = L(\boldsymbol{y}, \boldsymbol{\hat{y}}) + \lambda \sum_{i=1}^D |W_i|
@@ -328,7 +331,7 @@
             j = \underset{j = 1, \ldots, C}{\arg\max} \text{ } \boldsymbol{x} \boldsymbol{W}_n^{(j)} + b_n^{(j)}
             $$
 
-            <p>Where \( \boldsymbol{W}_n^{(j)} = \boldsymbol{W}^{(j)} / \left\lVert \boldsymbol{W}^{(j)} \right\rVert _2 \)   and \( b_n^{(j)} = b^{(j)} / \left\lVert \boldsymbol{W}^{(j)} \right\rVert _2 \) are the normalized parameters.</p>
+            <p>Where \( \boldsymbol{W}_n^{(j)} = \boldsymbol{W}^{(j)} / \left\lVert \boldsymbol{W}^{(j)} \right\rVert _2 \)   and \( b_n^{(j)} = b^{(j)} / \left\lVert \boldsymbol{W}^{(j)} \right\rVert _2 \) are the normalized pre-trained parameters.</p>
 
 
 
@@ -381,13 +384,7 @@
 
             <h3>Implementation details</h3>
 
-            <p>The language models based on LSTMs were implemented in <a target="_blank" href="https://www.tensorflow.org/">Tensorflow</a> with simple matrix multiplications (we only left the gradient computation to the Tensorflow optimizer routine). We used a mini-batch <i>stochastic gradient descent</i>, with \( m \) as the batch size, and updated the parameters (here \(\boldsymbol{W}\) as an example) with:</p>
-
-            $$
-            \boldsymbol{W} \leftarrow \boldsymbol{W} - \eta \frac{1}{m} \sum_{i=1}^{m} \nabla_{\boldsymbol{W}} L(\boldsymbol{x}_i, \boldsymbol{y}_i, \boldsymbol{W})
-            $$
-
-            <p>For classification tasks, we used the logistic regression classifier from the PYTHON package sickit-learn.</p>
+            <p>The language models based on LSTMs were implemented in <a target="_blank" href="https://www.tensorflow.org/">Tensorflow</a> using simple matrix multiplications (we only left the gradient computation to the Tensorflow optimizer routine). For classification tasks, we used the logistic regression classifier module from the PYTHON package sickit-learn.</p>
 
           </div>
         </div>
@@ -445,7 +442,7 @@
             
             <h4>Results</h4>
 
-            <p>At the end of training, the model achieved training and validation losses close to 1.37 and 1.31 bits, respectively, and accuracies close to 0.72 and 0.73, respectively. It is important to refer that accuracy is computed by picking the entry of the estimated vector \(\boldsymbol{\hat{y}}\) with the max probability. In the following figure we can see the evolution of these quantities during training. We observe that by the end of training, the training loss starts to increase. An explanation for this could be that the learning rate is not small enough, and so the model starts to escape a local minima. This can be altered further by ajdusting the learning rate decreasing schedule. However, we left the model as is, since we our goal was not to obtain the best possible model, but rather one with <i>reasonable</i> loss / accuracy that could be the basis for further analysis.</p>
+            <p>At the end of training, the model achieved training and validation losses close to 1.37 and 1.31 bits, respectively, and accuracies close to 0.72 and 0.73, respectively. Accuracy is computed by picking the entry of the estimated vector \(\boldsymbol{\hat{y}}\) with the max probability. In the following figure we can see the evolution of these quantities during training. We observe that by the end of training, the training loss starts to increase. An explanation for this could be that the learning rate is not small enough, and so the model starts to escape a local minima. This can be altered further by ajdusting the learning rate decreasing schedule. However, we left the model as is, since we our goal was not to obtain the best possible model, but rather one with <i>reasonable</i> loss / accuracy that could be the basis for further analysis.</p>
 
             <div class="row" style="margin-top: 50px">
                 <div class="col-md-6">
@@ -528,7 +525,7 @@
 
             <h3>Sentiment neuron</h3>
               
-            <p>During this project we implemented and tried to replicate to some extent the results from the openAI paper (Radford et al, 2017), which discovered a dimension of the cell state (a neuron) that is closely related to sentiment.</p>
+            <p>During this project we implemented and tried to replicate to some extent the results from the openAI paper (Radford et al, 2017), which discovered a dimension of the cell state (a neuron) that is closely related to concept of sentiment.</p>
 
             <p>The approach by openAI was to first train a large unsupervised byte-level language model from a collection of reviews (around 80 million) from the Amazon product reviews dataset (He et al, 2016), and to train a logistic regression classifier on top of the cell state representation of a review. The inputs for the classifier are then the LSTM cell states obtained after processing a review, and the target is the review score (positive or negative).</p>
 
@@ -549,7 +546,7 @@
             
             <h4>Dataset - logistic regression classifier</h4>
 
-            <p>To test the ability of the model to generalize to data from another dataset, the logistic regression classifier was trained using the binary version of the Stanford Sentiment Treebank (SST) dataset (Socher et al). This dataset is composed of 9613 movie reviews (train, valid, test: 6921, 873, 1822), with binary sentiment classification (positive, negative).</p>
+            <p>To test the ability of the model to generalize to data from another dataset, the logistic regression classifier was trained using the binary version of the Stanford Sentiment Treebank (SST) dataset (Socher et al). This dataset is composed of 9613 movie reviews (train, valid, test: 6921, 873, 1822), with binary sentiment classification (positive or negative).</p>
 
       
             <h4>LSTM and training parameters</h4>
@@ -588,7 +585,7 @@
               <img src="/img/sentiment_classifier_weights.png" class="figure-img img-fluid" alt="Logistic regression classifier weights." width="640" height="480">
             </figure>
 
-            <p>Taking the value of the largest weight as our sentiment neuron, we can see in the next figure that its value alone is a good indicator of the sentiment present in a review. This figure is produced by taking each review from the SST training dataset, compute its LSTM cell state representation, and take the cell state value at dimension 981. We then plot how often this value arised from processing all reviews. Furthermore, we color positive reviews in blue, and negative ones in red. By visual inspection we see that this neuron value alone is able to separate positive from negative reviews. If the neuron value is less than 0 we classify the review as positive, and if it is greater than 0 we classify it as negative.</p>
+            <p>Taking the value of the largest weight as our sentiment neuron, we can see in the next figure that its value alone is a good indicator of the sentiment present in a review. This figure is produced by taking each review from the SST training dataset, compute its LSTM cell state representation, and take the cell state value at dimension 981. We then plot how often this value arised from processing all the reviews. Furthermore, we color positive reviews in blue, and negative ones in red. By visual inspection we see that this neuron value alone is able to separate positive from negative reviews. If the neuron value is less than 0 we classify the review as positive, and if it is greater than 0 we classify it as negative.</p>
 
             <figure class="figure-center text-center">
               <img src="/img/sentiment_unit.png" class="figure-img img-fluid" alt="Logistic regression classifier weights." width="640" height="480">
@@ -599,7 +596,7 @@
             <div class="card card-body">
               <div class="card-text">
                 <p>
-                Predicted, Label, Review<br>
+                Predicted, True Label, Review<br>
                 0, 1, Sometimes, nothing satisfies like old-fashioned swashbuckling.<br>
                 1, 0, Enough similarities to Gymkata and Howie Long's Firestorm that my fingernails instinctively crawled towards my long-suffering eyeballs.<br>
                 0, 1, Here's a British flick gleefully unconcerned with plausibility, yet just as determined to entertain you.<br>
@@ -664,7 +661,7 @@
 
             <h4>Classify reviews</h4>
 
-            <p>Here it is possible to classify a review by using the pre-trained logistic regression classifier and using only the sentiment neuron value.</p>
+            <p>Here it is possible to classify a review by either using the pre-trained logistic regression classifier or using only the sentiment neuron value.</p>
 
             <div id="classify_review">
 
@@ -728,7 +725,7 @@
 
             <h4>Methodology</h4>
 
-            <p>We used the approach of (Radford et al, 2017) using the cell states of a pre-trained unsupervised LSTM neural language model as an input to a supervised classification task. More recently, the idea of using language models as a pre-processing step to solve language related tasks has shown empirical advances (Radford et al, 2018).</p>
+            <p>We used the approach of (Radford et al, 2017) using the cell states of a pre-trained unsupervised LSTM neural language model as an input to a supervised classification task. More recently, the idea of using language models as a pre-processing step to solve language related tasks has shown empirical advances in many NLP tasks (Radford et al, 2018).</p>
 
             <p>Our method works as follows:</p>
 
@@ -737,8 +734,8 @@
                 <li>Use a POS-tagger to obtain the tags for each word in the sentence. We used the tagger from the PYTHON package <i>Natural Language Toolkit</i> (nltk), which outputs tags from the <a target="_blank" rel="noopener noreferrer" href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">Penn Treebank tagset</a>, by implementing a <a target="_blank" rel="noopener noreferrer" href="https://explosion.ai/blog/part-of-speech-pos-tagger-in-python"> Greedy Averaged Perceptron</a>. This tagger works on tokenized sentences and does not include whitespace characters. So, after tagging, we add the additional tag \( \text{SPACE} \) between each word or punctuation, to represent these kind of characters. Therefore, we associate each byte with a POS tag and we have a sequence \(X_{\text{tag}} = x_{1_{\text{tag}}}, \ldots, x_{n_{\text{tag}}} \), where \(x_{i_{\text{tag}}}\) is the tag of byte \(\boldsymbol{x}_i\). Alternatively, we can use a set of manually tagged sentences;</li>
                 <li>Obtain the cell states of each byte by transforming \(\boldsymbol{X}\) through a previously trained LSTM language model, obtaining a sequence of cell states \( \boldsymbol{X}_{t} = \boldsymbol{x}_{1_{t}}, \ldots, \boldsymbol{x}_{n_{t}} \), where \(\boldsymbol{x}_{i_{t}} \in \mathbb{R}^{D} \) (\(D\) is the LSTM cell state size);</li>
                 <li>For each identified POS tag (or the set of desired POS tags to analyse), train a binary logistic regression classifier \( \mathcal{L} = \text{LRC}(\boldsymbol{X}_{\text{LRC}}, \boldsymbol{Y}_{\text{LRC}}) \) in a One-vs-All manner. The input data \(\boldsymbol{X}_{\text{LRC}}\) is the collection of cell states of each processed byte. The target data \(\boldsymbol{Y}_{\text{LRC}}\) are the corresponding POS tags. With \(n\) processed bytes, \( \boldsymbol{X}_{\text{LRC}} \in \mathbb{R}^{n \times D} \) and \( \boldsymbol{Y}_{\text{LRC}} \in \mathbb{R}^{n} \). The classifier \( \mathcal{L} \) produces a vector of weights \(\boldsymbol{W}_{c} \in \mathbb{R}^{D}\) for each unique class \(c\) from the set of POS tags of \( \boldsymbol{Y}_{\text{LRC}} \).</li>
-                <li>Note the dimensions of top \( k \) weights, i.e., the weights with the largest absolute values and sort them by decreasing value in \( \text{largest_weights} = [d_1, \ldots, d_j, \ldots, d_k] \) (we used in our experiments \( k = 3\));</li>
-                <li>Train further \(k\) logistic regression classifiers as \( \mathcal{L}_j = \text{LRC}(\boldsymbol{X}^{(1 \ldots j)}_{\text{LRC}}, \boldsymbol{Y}_{\text{LRC}}) \), where the input \( \boldsymbol{X}^{(1 \ldots j)}_{\text{LRC}} \in \mathbb{R}^{j} \) are the entries of \( \boldsymbol{X}_{\text{LRC}} \) indexed by \( [d_1, \ldots, d_j] \), i.e., the cell state values corresponding to the largest absolute weights of \( \mathcal{L} \).</li>
+                <li>Note the dimensions of the top \( k \) weights, i.e., the weights with the largest absolute values, and sort them by decreasing value in \( \text{largest_weights} = [d_1, \ldots, d_j, \ldots, d_k] \) (we used in our experiments \( k = 3\));</li>
+                <li>Train \(k\) logistic regression classifiers, where the inputs dimensions vary from \(1\) to \(k\). For instance, for \(k=3\) classifiers use as input for the first classifier the dimension of the cell state with largest weight (\(d_1\)), for the second classifier use dimensions (\(d_1, d_2\)) and for the third one use (\(d_1, d_2, d_3\)). More formally, train further \(k\) logistic regression classifiers as \( \mathcal{L}_j = \text{LRC}(\boldsymbol{X}^{(1 \ldots j)}_{\text{LRC}}, \boldsymbol{Y}_{\text{LRC}}) \), where the input \( \boldsymbol{X}^{(1 \ldots j)}_{\text{LRC}} \in \mathbb{R}^{j} \) are the entries of \( \boldsymbol{X}_{\text{LRC}} \) indexed by \( [d_1, \ldots, d_j] \), i.e., the cell state values corresponding to the largest absolute weights of \( \mathcal{L} \).</li>
             </ol>
 
             <p>The method above is described using only one sentence. Naturally, it is easily extended to use more sentences, by concatenating them to \( \boldsymbol{X}_{\text{LRC}} \) .</p>
@@ -904,7 +901,7 @@
                 </div>
             </div>
 
-            <p style="margin-top: 50px">There are concepts that do not have a clear neuron that encodes them, but which can be predicted through a combination of neurons. For instance, the tag \(\text{SPACE}\) is one of such. Inspecting the classifier weights for this concept (following figure on the left), we observe that no weight clearly stands out. Nevertheless, we take the neuron 289, the one with largest absolute value, and plot its histogram of activations. We can see that, just like for the \(\text{RB}\) tag, the neuron alone cannot identify if the byte it is processing belongs to a space. This can be further visualized in text right under the figures, where we color each byte with the hyperbolic tangent of the cell state value of neuron 289. By visual inspection, we observe that the neuron's value alone is not a good predictor.</p> 
+            <p style="margin-top: 50px">There are concepts that do not have a clear neuron that encodes them, but which can be predicted through a combination of neurons. For instance, the tag \(\text{SPACE}\) is one of such. Inspecting the classifier weights for this concept (following figure on the left), we observe that no weight clearly stands out. Nevertheless, we take the neuron 289, the one with largest absolute value, and plot its histogram of activations. We can see that, just like for the \(\text{RB}\) tag, the neuron alone cannot identify if the byte it is processing belongs to a space. This can be further visualized in the text right under the figures, where we color each byte with the hyperbolic tangent of the cell state value of neuron 289. By visual inspection, we observe that the neuron's value alone is not a good predictor.</p> 
 
             <div class="row" style="margin-top: 50px">
                 <div class="col-md-6">
@@ -947,7 +944,7 @@
               <div class="col-md-12">
                 <h4>Demo</h4>
                 <!--Concept neuron experiments-->
-                    <p>In this section it is possible to experiment with the trained classifiers by following the steps:</p>
+                    <p>In this section it is possible to experiment with the trained classifiers by following the steps (hit Submit after each step):</p>
                     <ol>
                         <li>Select a trained classifier. You can see at the end of the demo a table with the results for the individual classifiers;</li>
                         <li>Select a POS tag from the list to analyse (consult its meaning in the <a target="_blank" rel="noopener noreferrer" href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">Penn Treebank tagset</a>);</li>

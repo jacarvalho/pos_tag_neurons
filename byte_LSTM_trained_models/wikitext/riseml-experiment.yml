@@ -1,0 +1,21 @@
+framework: tensorflow
+image:
+  install:
+  - apt-get update && apt-get install -y apt-utils libssl-dev libffi-dev wget python3-pip
+    python3-dev build-essential
+  - wget https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py
+  - pip3 install -r requirements.txt
+  name: tensorflow/tensorflow:latest-gpu-py3
+project: byte-LSTM-wikitext
+resources:
+  cpus: 1
+  gpus: 1
+  mem: 4096
+revision: fe09810bac15a9422d80f3e65eb27718aa58951c
+run:
+- stdbuf -oL bash start_train_wikitext.sh 2>&1 | tee /output/log_train.txt
+tensorflow:
+- distributed: null
+  horovod: null
+  tensorboard: true
+  version: latest
