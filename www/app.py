@@ -19,80 +19,80 @@ extern_data = '/extern/data/'
 
 
 """
-Grouped concepts
+Grouped concepts for POS tagging.
 """
 concepts_grouped = ['(', ')', ',', '.', 'CC', 'CD', 'DT', 'IN', 'JJ', 'MD',
                     'NN', 'NNP', 'PRP', 'RB', 'TO', 'VB']
 
+
 """
-Restore pre-trained tensorflow model for Wikitext
+Restore pre-trained tensorflow LSTM language models and logistic regression
+classifiers for Wikitext and Amazon reviews datasets.
 """
-print('Loading models...')
-trained_model = os.path.join(
-    extern_data, 'byte_LSTM_trained_models/wikitext/save/95/')
-model_path = os.path.abspath(trained_model)
-with open(os.path.join(model_path, 'config.pkl'), 'rb') as f:
-    model_saved_args = pickle.load(f)
+def restore_tf_lstm_model(path_to_tf_model):
+    """
+    Restores a pre-trained TensorFlow lstm model.
 
-# Create an instance of the RNN tensorflow model.
-tf.reset_default_graph()
-lstm_model = Model(model_saved_args, sampling=True)
+    Args:
+        path_to_tf_model (str): path to relative directory containing the
+                                trained tensorflow language model.
+        
+    Returns:
+        trained_model (byteLSTM.Model): a byteLTSM.Model instance.
+        tf_sess (tensorflow.Session): a TensorFlow session to run the trained
+                                      model.
 
-tf_sess = tf.Session()
-tf_sess.run(tf.global_variables_initializer())
-saver = tf.train.Saver(tf.global_variables())
-if not tf.train.get_checkpoint_state(model_path):
-    print('Unable to find checkpoint file.')
-    sys.exit()
-model_path = os.path.join(
-    model_path, tf.train.get_checkpoint_state(model_path)
-                    .model_checkpoint_path.split('/')[-1])
-saver.restore(tf_sess, model_path)
-print('...completed.')
+    """
+    print('Loading models...')
+    trained_model = os.path.join(
+        extern_data, path_to_tf_model)
+    model_path = os.path.abspath(trained_model)
+    with open(os.path.join(model_path, 'config.pkl'), 'rb') as f:
+        model_saved_args = pickle.load(f)
 
-# Load pre-trained logistic regression classifiers
+    # Create an instance of the RNN tensorflow model.
+    tf.reset_default_graph()
+    lstm_model = Model(model_saved_args, sampling=True)
+
+    tf_sess = tf.Session()
+    tf_sess.run(tf.global_variables_initializer())
+    saver = tf.train.Saver(tf.global_variables())
+    if not tf.train.get_checkpoint_state(model_path):
+        print('Unable to find checkpoint file.')
+        sys.exit()
+    model_path = os.path.join(
+        model_path, tf.train.get_checkpoint_state(model_path)
+                        .model_checkpoint_path.split('/')[-1])
+    saver.restore(tf_sess, model_path)
+    print('...completed.')
+
+    return lstm_model, tf_sess
+
+
+lstm_model_wikitext, tf_sess_wikitext = restore_tf_lstm_model(
+    'byte_LSTM_trained_models/wikitext/save/95/')
+
+lstm_model_amazon, tf_sess_amazon = restore_tf_lstm_model(
+    'byte_LSTM_trained_models/amazon/save/806/')
+
+# Load pre-trained logistic regression classifiers for Wikitext
 dataset_options = ['group_tags_250_lines', 'not_group_tags_250_lines',
                    'group_tags_500_lines', 'not_group_tags_500_lines',
                    'group_tags_nltk_data_1000',
                    'not_group_tags_nltk_data_1000']
 
-lr_classifiers = {}
+lr_model_wikitext = {}
 for dataset in dataset_options:
-    lr_classifiers[dataset] = {}
+    lr_model_wikitext[dataset] = {}
     log_reg_dir = 'static/results/' + dataset + '/'
     log_reg_files = glob(os.path.join(log_reg_dir, 'log_reg_model_*'))
     for log_reg_file in log_reg_files:
-        lr_classifiers[dataset][log_reg_file] = pickle.load(open(log_reg_file,
-                                                                 'rb'))
+        lr_model_wikitext[dataset][log_reg_file] = pickle.load(
+            open(log_reg_file, 'rb'))
 
-"""
-Restore pre-trained tensorflow model for Amazon product reviews
-"""
-print('Loading models...')
-trained_model = os.path.join(
-    extern_data, 'byte_LSTM_trained_models/amazon/save/806/')
-model_path = os.path.abspath(trained_model)
-with open(os.path.join(model_path, 'config.pkl'), 'rb') as f:
-    model_saved_args = pickle.load(f)
-
-# Create an instance of the RNN tensorflow model.
-tf.reset_default_graph()
-lstm_model_amazon = Model(model_saved_args, sampling=True)
-
-tf_sess_amazon = tf.Session()
-tf_sess_amazon.run(tf.global_variables_initializer())
-saver = tf.train.Saver(tf.global_variables())
-if not tf.train.get_checkpoint_state(model_path):
-    print('Unable to find checkpoint file.')
-    sys.exit()
-model_path = os.path.join(
-    model_path, tf.train.get_checkpoint_state(model_path)
-                    .model_checkpoint_path.split('/')[-1])
-saver.restore(tf_sess_amazon, model_path)
-print('...completed.')
-
-# Load Logistic Regression Classifier
+# Load pre-trained logistic regression classifier for Amazon
 lr_model_amazon = pickle.load(open('models/amazon/log_reg_model.sav', 'rb'))
+
 
 """
 Flask web app
@@ -100,16 +100,29 @@ Flask web app
 app = Flask(__name__, static_url_path='')
 
 
-# Base index page
 @app.route('/')
 def index_page():
+    """
+    Serves the index.html file.
+    
+    Returns:
+        index.html file.
+    """
     return app.send_static_file('index.html')
 
 
-# Sample the pre-trained rnn model
-@app.route('/sample', methods=['POST'])
-def sample_model():
-    # Parse request
+"""
+Methods to process Wikitext requests.
+"""
+@app.route('/sample_wikitext', methods=['POST'])
+def sample_wikitext_model():
+    """
+    Samples the pre-trained wikitext lstm language model.
+
+    Returns:
+        The generated bytes.
+    """
+    # Parse the request.
     n_samples = int(request.form['n_samples'])
     prime = str(request.form['prime'])
     if not prime:
@@ -117,19 +130,25 @@ def sample_model():
     sample_type = int(request.form['sample_type'])
     temperature = float(request.form['temperature'])
 
-    # Sample the model
-    pred_bytes, _, _, _ = lstm_model.sample(
-        tf_sess, n_samples=n_samples, prime=prime, sample_type=sample_type,
-        temperature=temperature)
+    # Generate sample.
+    pred_bytes, _, _, _ = lstm_model_wikitext.sample(
+        tf_sess_wikitext, n_samples=n_samples, prime=prime,
+        sample_type=sample_type, temperature=temperature)
 
     response_msg = pred_bytes.decode(encoding='utf-8', errors='ignore')
 
     return jsonify(response_msg)
 
 
-# Set dataset for logistic regression classifier
-@app.route('/set_dataset', methods=['POST'])
-def set_dataset():
+@app.route('/concept_neuron_table_lr_metrics', methods=['POST'])
+def concept_neuron_table_lr_metrics():
+    """
+    Sends a table with the POS tagging metric results from the trained logitic
+    regression classifiers.
+
+    Returns:
+        The html table with the logistic regression metric results.
+    """
     # Send image paths of results
     dataset = str(request.form['dataset'])
     table_results_html = open('static/results/' + dataset +
@@ -141,10 +160,16 @@ def set_dataset():
     return jsonify(response)
 
 
-# Retrieve concept neuron images
-@app.route('/concept_plots', methods=['POST'])
-def concept_neuron_results():
-    # Send image paths of results
+@app.route('/concept_neuron_lr_weights_histogram', methods=['POST'])
+def concept_neuron_lr_weights_histogram():
+    """
+    Send logistic regression weights and histogram of activations of the
+    concept neuron.
+
+    Returns:
+        The logistic regression weights and histogram of activations
+        image paths. 
+    """
     dataset = str(request.form['dataset'])
     concept = str(request.form['concept'])
     lr_weights_img_path = '/static/results/' + dataset + \
@@ -152,7 +177,6 @@ def concept_neuron_results():
     concept_neuron_hist_img_path = '/static/results/' + dataset + \
                                    '/concept_unit_' + concept + \
                                    '_cell_states.png'
-
     response = {}
     response["lr_weights"] = lr_weights_img_path
     response["concept_neuron_hist"] = concept_neuron_hist_img_path
@@ -160,9 +184,110 @@ def concept_neuron_results():
     return jsonify(response)
 
 
-# Return the cell states of the input text
+def pos_tag_sentences(input_text):
+    """
+    POS tags sentences from input_text.
+
+    Args:
+        input_text (str): a string with the text to POS tag.
+
+    Returns:
+        input_text_pos_tag (list): list with POS tags for each sentence.
+    """
+    input_text_split = input_text.split('\n')
+    input_text_pos_tag = []
+    for sentence in input_text_split:
+        if sentence != '':  # For cases like \n\n.
+            tokens = word_tokenize(sentence, language='english')
+            input_text_pos_tag.append(pos_tag(tokens, lang='eng'))
+    return input_text_pos_tag
+
+
+def preprocess_sentence_pos_tags(sentence_pos_tag, group_concepts):
+    """
+    Add POS tags to the bytes of sentence_pos_tag. The same POS tag is assigned
+    to the bytes consituting the utf-8 encoding of a word.
+    
+    Args:
+        sentence_pos_tag (list): (word, tag) pairs of a sentence.
+        group_concepts (boolean): if True group related POS tags into one.
+
+    Return:
+        s (str): string containing words from sentence_pos_tag separated by
+                 a space.
+        pos_tag_sentence (list): POS tag for each byte of sentence.
+    """
+    s = ''
+    pos_tag_sentence = []
+    for word, tag in sentence_pos_tag:
+        s += word + ' '
+        for _ in range(len(word.encode('utf-8'))):
+            if group_concepts:
+                if re.match('VB.*$', tag):  # Group all verbs
+                    tag = 'VB'
+                elif re.match('JJ.*$', tag):  # Group all adjectives
+                    tag = 'JJ'
+                elif re.match('NN$|NNS$', tag):  # Group all nouns
+                    tag = 'NN'
+                elif re.match('NNP$|NNPS$', tag):  # Group all proper nouns
+                    tag = 'NNP'
+                elif re.match('RB.*$', tag):  # Group all adverbs
+                    tag = 'RB'
+
+                if tag in concepts_grouped:
+                    pass
+                else:
+                    tag = 'OTHER'
+            pos_tag_sentence.append(tag)
+        pos_tag_sentence.append('SPACE')
+    return s, pos_tag_sentence
+
+
+def post_process_states(input_t_str, states, pos_tag_sentence):
+    """
+    Post-processes the states (either lstm cell states or probabilities of
+    a byte belonging to a POS tag) of input_t_str.
+    If a unicode char of input_t_str has more than one byte in utf-8, take the
+    state associated with the last byte.
+
+    Args:
+        input_t_str (str): text to parse.
+        states (list): list of neuron activations for each byte in
+                       input_t_str, or probabilities of each byte belonging
+                       to a POS tag.
+        pos_tag_sentence (list): pos tag for each byte of input_t_str.
+
+    Returns:
+        states_tmp (list): list of lstm activations / probabilities for each
+                           byte.
+        pos_tags (list): list of pos tags for each byte.
+    """
+    states_tmp = []
+    pos_tags = []
+    i = 0
+    for ch in input_t_str:
+        n_bytes = len(ch.encode('utf-8'))
+        if n_bytes == 1:
+            states_tmp.append(states[i])
+            pos_tags.append(pos_tag_sentence[i])
+            i += 1
+        else:
+            states_tmp.append(states[i + n_bytes - 1])
+            pos_tags.append(pos_tag_sentence[i + n_bytes - 1])
+            i += n_bytes
+    return states_tmp, pos_tags
+
+
 @app.route('/sample_concept_neuron', methods=['POST'])
 def sample_concept_neuron():
+    """
+    Determines the POS tags of each byte from an input text, and computes the
+    LSTM cell state activations of a given dimension (concept neuron).
+
+    Returns:
+        The input text, the concept neuron activation for each byte of the input
+        text, and the corresponding POS tags.
+    """
     input_text = str(request.form['input_text'])
     neuron = int(request.form['neuron'])
     dataset = str(request.form['dataset'])
@@ -171,81 +296,46 @@ def sample_concept_neuron():
     else:
         group_concepts = True
 
-    # Split text into parts, separated by newline
-    input_text_split = input_text.split('\n')
-    input_text_pos_tag = []
-    for sentence in input_text_split:
-        if sentence != '':  # For cases like \n\n
-            tokens = word_tokenize(sentence, language='english')
-            input_text_pos_tag.append(pos_tag(tokens, lang='eng'))
+    input_text_pos_tag = pos_tag_sentences(input_text)
 
-    # Preprocess before transforming the text in the RNN
     response = {}
     response['input_text'] = []
     response['cell_states'] = []
     response['pos_tag'] = []
     for sentence_pos_tag in input_text_pos_tag:
-        s = ''
-        pos_tag_sentence = []
-        for word, tag in sentence_pos_tag:
-            s += word + ' '
-            for _ in range(len(word.encode('utf-8'))):
-                # Group tags if the option is selected
-                if group_concepts:
-                    # Preprocess tags
-                    if re.match('VB.*$', tag):  # Group all verbs
-                        tag = 'VB'
-                    elif re.match('JJ.*$', tag):  # Group all adjectives
-                        tag = 'JJ'
-                    elif re.match('NN$|NNS$', tag):  # Group all nouns
-                        tag = 'NN'
-                    elif re.match('NNP$|NNPS$', tag):  # Group all proper nouns
-                        tag = 'NNP'
-                    elif re.match('RB.*$', tag):  # Group all adverbs
-                        tag = 'RB'
+        s, pos_tag_sentence = preprocess_sentence_pos_tags(sentence_pos_tag,
+                                                           group_concepts)
 
-                    if tag in concepts_grouped:
-                        pass
-                    else:
-                        tag = 'OTHER'
-
-                pos_tag_sentence.append(tag)
-
-            pos_tag_sentence.append('SPACE')
-
-        input_text_t = lstm_model.transform(tf_sess, [s])
+        input_text_t = lstm_model_wikitext.transform(tf_sess_wikitext, [s])
 
         input_t_str = input_text_t['X_bytes'][0].decode('utf-8')
+
         input_t_states = [state.tolist()[neuron]
                           for sublist in input_text_t['cell_states']
                           for state in sublist]
-        pos_tags = []
 
-        # If a unicode char has more than one byte, take the state associated
-        # with the last byte.
-        i = 0
-        input_t_states_tmp = []
-        for ch in input_t_str:
-            n_bytes = len(ch.encode('utf-8'))
-            if n_bytes == 1:
-                input_t_states_tmp.append(input_t_states[i])
-                pos_tags.append(pos_tag_sentence[i])
-                i += 1
-            else:
-                input_t_states_tmp.append(input_t_states[i + n_bytes - 1])
-                pos_tags.append(pos_tag_sentence[i + n_bytes - 1])
-                i += n_bytes
+        input_t_states, pos_tags = post_process_states(input_t_str,
+                                                       input_t_states,
+                                                       pos_tag_sentence)
 
         response['input_text'].append(input_t_str)
-        response['cell_states'].append(input_t_states_tmp)
+        response['cell_states'].append(input_t_states)
         response['pos_tag'].append(pos_tags)
 
     return jsonify(response)
 
 
-# Return the cell states of the input text
-@app.route('/sample_concept_classifier', methods=['POST'])
-def sample_concept_classifier():
+@app.route('/sample_concept_lr_classifier', methods=['POST'])
+def sample_concept_lr_classifier():
+    """
+    Computes the probability of each byte, from an input text, belonging to
+    a given POS tag, according to pre-trained logistic regression classifiers.
+
+    Returns:
+        The input text, the probabilities of each byte belonging to a POS tag
+        according to the results of a logistic regression classifier, and the
+        corresponding POS tags.
+    """
     input_text = str(request.form['input_text'])
     dataset = str(request.form['dataset'])
     concept = str(request.form['concept'])
@@ -259,25 +349,19 @@ def sample_concept_classifier():
     # largest weights
     lr_model_all_file = 'static/results/' + dataset + \
                         '/log_reg_model_' + concept + '_all.sav'
-    lr_model_all = lr_classifiers[dataset][lr_model_all_file]
+    lr_model_all = lr_model_wikitext[dataset][lr_model_all_file]
     top_weights = np.argsort(-np.abs(lr_model_all.coef_)).squeeze()
 
     # Load logistic regression classifier
     lr_model_file = 'static/results/' + dataset + '/log_reg_model_' + \
                     concept + '_' + concept_classifier + '.sav'
-    lr_model = lr_classifiers[dataset][lr_model_file]
+    lr_model = lr_model_wikitext[dataset][lr_model_file]
     if '-NOT' in lr_model.classes_[0]:
         concept_class_index = 1
     else:
         concept_class_index = 0
 
-    # Split text into parts, separated by newline
-    input_text_split = input_text.split('\n')
-    input_text_pos_tag = []
-    for sentence in input_text_split:
-        if sentence != '':  # For cases like \n\n
-            tokens = word_tokenize(sentence, language='english')
-            input_text_pos_tag.append(pos_tag(tokens, lang='eng'))
+    input_text_pos_tag = pos_tag_sentences(input_text)
 
     # Preprocess before transforming the text in the RNN
     response = {}
@@ -285,92 +369,61 @@ def sample_concept_classifier():
     response['probabilities'] = []
     response['pos_tag'] = []
     for sentence_pos_tag in input_text_pos_tag:
-        s = ''
-        pos_tag_sentence = []
-        for word, tag in sentence_pos_tag:
-            s += word + ' '
-            for _ in range(len(word.encode('utf-8'))):
-                if group_concepts:
-                    # Preprocess tags
-                    if re.match('VB.*$', tag):  # Group all verbs
-                        tag = 'VB'
-                    elif re.match('JJ.*$', tag):  # Group all adjectives
-                        tag = 'JJ'
-                    elif re.match('NN$|NNS$', tag):  # Group all nouns
-                        tag = 'NN'
-                    elif re.match('NNP$|NNPS$', tag):  # Group all proper
-                        tag = 'NNP'
-                    elif re.match('RB.*$', tag):  # Group all adverbs
-                        tag = 'RB'
+        s, pos_tag_sentence = preprocess_sentence_pos_tags(sentence_pos_tag,
+                                                           group_concepts)
 
-                    if tag in concepts_grouped:
-                        pass
-                    else:
-                        tag = 'OTHER'
-
-                pos_tag_sentence.append(tag)
-            pos_tag_sentence.append('SPACE')
-
-        input_text_t = lstm_model.transform(tf_sess, [s])
+        input_text_t = lstm_model_wikitext.transform(tf_sess_wikitext, [s])
 
         input_t_str = input_text_t['X_bytes'][0].decode('utf-8')
 
-        # Predict probability of each each byte belonging to the concept
+        # Predict probability of each each byte belonging to the POS tag.
+        lr_types = {'top1': 1, 'top2': 2, 'top3': 3}
+
         if 'all' in lr_model_file:
-            states = [state for sublist in input_text_t['cell_states']
-                      for state in sublist]
-            probabilities = [lr_model.predict_proba(state.reshape(1, -1))
-                             .squeeze()[concept_class_index]
-                             for state in states]
+            lr_type = 'all'
         elif 'top1' in lr_model_file:
-            states = [state[top_weights[0]]
-                      for sublist in input_text_t['cell_states']
-                      for state in sublist]
-            probabilities = [lr_model.predict_proba(state.reshape(1, -1))
-                             .squeeze()[concept_class_index]
-                             for state in states]
+            lr_type = 'top1'
         elif 'top2' in lr_model_file:
-            states = [state[top_weights[0:2]]
-                      for sublist in input_text_t['cell_states']
-                      for state in sublist]
-            probabilities = [lr_model.predict_proba(state.reshape(1, -1))
-                             .squeeze()[concept_class_index]
-                             for state in states]
+            lr_type = 'top2'
         elif 'top3' in lr_model_file:
-            states = [state[top_weights[0:3]]
+            lr_type = 'top3'
+
+        if lr_type == 'all':
+            states = [state
                       for sublist in input_text_t['cell_states']
                       for state in sublist]
-            probabilities = [lr_model.predict_proba(state.reshape(1, -1))
-                             .squeeze()[concept_class_index]
-                             for state in states]
+        else:
+            states = [state[top_weights[0:lr_types[lr_type]]]
+                      for sublist in input_text_t['cell_states']
+                      for state in sublist]
 
-        pos_tags = []
+        probabilities = [lr_model.predict_proba(state.reshape(1, -1))
+                         .squeeze()[concept_class_index]
+                         for state in states]
 
-        # If a unicode char has more than one byte, take the state associated
-        # with the last byte.
-        i = 0
-        probabilities_tmp = []
-        for ch in input_t_str:
-            n_bytes = len(ch.encode('utf-8'))
-            if n_bytes == 1:
-                probabilities_tmp.append(probabilities[i])
-                pos_tags.append(pos_tag_sentence[i])
-                i += 1
-            else:
-                probabilities_tmp.append(probabilities[i + n_bytes - 1])
-                pos_tags.append(pos_tag_sentence[i + n_bytes - 1])
-                i += n_bytes
+        probabilities, pos_tags = post_process_states(input_t_str,
+                                                       probabilities,
+                                                       pos_tag_sentence)
 
         response['input_text'].append(input_t_str)
-        response['probabilities'].append(probabilities_tmp)
+        response['probabilities'].append(probabilities)
         response['pos_tag'].append(pos_tags)
 
     return jsonify(response)
 
 
-# Sample a review
-@app.route('/sample_reviews', methods=['POST'])
+@app.route('/sample_amazon_reviews', methods=['POST'])
 def sample_reviews(sent_neuron=981):
+    """
+    Samples the pre-trained amazon reviews lstm language model.
+
+    Args:
+        sent_neuron (int): the sentiment neuron index.
+
+    Returns:
+        The generated review and the lstm cell state activations of each byte
+        along the sentiment neuron dimension.
+    """
     n_samples = int(request.form['n_samples'])
     prime = '\n'
     sample_type = int(request.form['sample_type'])
@@ -384,15 +437,27 @@ def sample_reviews(sent_neuron=981):
     for byte, probs, state in zip(pred_bytes, pred_probs, cell_states):
         if isinstance(probs, int):
             probs = np.array([1])
-        response.append([[chr(byte)], probs.tolist(),
-                         state.tolist()[sent_neuron]])
+        response.append([[chr(byte)], state.tolist()[sent_neuron]])
 
     return jsonify(response)
 
 
-# Classify a review with the sentiment neuron
 @app.route('/classify_review', methods=['POST'])
 def classify_review(sent_neuron=981):
+    """
+    Classify a review using the sentiment neuron value and the logistic
+    regression classifier.
+    A review is processed byte-by-byte in the lstm network, to obtain a
+    cell state representation (neuron activations).
+
+    Args:
+        sent_neuron (int): the sentiment neuron index.
+
+    Returns:
+        The sentiment neuron activation of the cell state representation.
+        The sentiment (positive or negative) probability of the cell state
+        representation as processed by the logitic regression classifier.
+    """
     review_text = str(request.form['review_text'])
 
     # Preprocess.
@@ -416,4 +481,5 @@ def classify_review(sent_neuron=981):
 
 
 if __name__ == "__main__":
+    # Running on host 0.0.0.0 to serve the webapp from any IP address.
     app.run(host='0.0.0.0')

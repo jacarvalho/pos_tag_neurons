@@ -447,13 +447,13 @@
             <div class="row" style="margin-top: 50px">
                 <div class="col-md-6">
                     <figure class="figure">
-                        <img src="/img/lm_losses.png" class="figure-img img-fluid" alt="Losses." width="640" height="480">
+                        <img src="img/lm_losses.png" class="figure-img img-fluid" alt="Losses." width="640" height="480">
                         <figcaption class="figure-caption" style="text-align: center;">Losses.</figcaption>
                     </figure>
                 </div>
                 <div class="col-md-6">
                     <figure class="figure">
-                        <img src="/img/lm_accuracies.png" class="figure-img img-fluid" alt="Accuracies." width="640" height="480">
+                        <img src="img/lm_accuracies.png" class="figure-img img-fluid" alt="Accuracies." width="640" height="480">
                         <figcaption class="figure-caption" style="text-align: center;">Accuracies.</figcaption>
                     </figure>
                 </div>
@@ -461,40 +461,59 @@
 
 
             <h3>Sampling</h3>
-              <p>Here it is possible to sample the pre-trained model and observe the empirical results of language generation by playing with the previously explained parameters. In most experiments we observed that model clearly learned the syntactic structure of language, but sometimes failed to produce a sentence with a clear meaning.</p>
+            <p>A qualitative way to assess the training of language models is to generate samples to observe if the language's syntax and morphology is correct, and also if the model was capable of generating sentences with satisfiable semantics. The following is an example of sampling 500 bytes from the prime text "Riemann was a German mathematician who made contributions to analysis ", choosing bytes from a multinomial distribution, with temperature 0.4 (obtaining <i>good</i> sentences is very dependent on the temperature hyperparameter, and there's no straightforward rule for setting it, but rather observing the generated sentences).</p>
 
-              <div class="form-row">
-                <div class="form-group col-md-2">
-                  <label for="n_samples"><b>Bytes to sample</b></label>
-                  <input type="number" class="form-control" id="n_samples" placeholder="500" value="500" min="0" step="1">
-                </div>
+            <!-- Display the result of sampling -->
+            <div class="container">
+              <div class="row" style="margin-top: 10px">
+                <div class="container">  
+                  <div class="card card-body">
+                    <div class="card-text">
+                      <p>Riemann was a German mathematician who made contributions to analysis , the Star brothers , and the professor of the student movement , the Chief Restaurant and Man of the Sun , which includes the discovery of the common star , and the contract of the project as a model for the first series .
 
-                <div class="form-group col-md-1"></div>
-
-                <div class="form-group col-md-4">
-                  <p><b>Sample type</b></p>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="sample_type_option" id="sample_type_max_prob">
-                    <label class="form-check-label" for="sample_type_max_prob">Max probability</label>
-                    <input class="form-check-input" type="radio" name="sample_type_option" id="sample_type_multinomial" checked="checked">
-                    <label class="form-check-label" for="sample_type_multinomial">Multinomial distribution</label>
+The March 2010 issue of the series is a compilation of the first sequel , The Adventures of Tintin , and was released in the United States on March 18 , 2007 .</p>
+                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                <div class="form-group col-md-1"></div>
+            <p>Analysing the generated text it's easy to see that although syntax and morphology are well formed, semantics is not so easy to obtain.</p>
 
-                <div class="form-group col-md-2">
-                  <label for="temperature"><b>Temperature</b></label>
-                  <input type="number" class="form-control" id="temperature" value="1.0" min="0.0" max="1.0" step="0.05">
+            <p>Here it is possible to sample the pre-trained model and observe the empirical results of language generation by changing with the previously explained parameters. In most experiments we observed that model clearly learned the syntactic structure of language, but sometimes failed to produce a sentences with a clear meaning.</p>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="n_samples"><b>Bytes to sample</b></label>
+                <input type="number" class="form-control" id="n_samples" placeholder="500" value="500" min="0" step="1">
+              </div>
+
+              <div class="form-group col-md-1"></div>
+
+              <div class="form-group col-md-4">
+                <p><b>Sample type</b></p>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="sample_type_option" id="sample_type_max_prob">
+                  <label class="form-check-label" for="sample_type_max_prob">Max probability</label>
+                  <input class="form-check-input" type="radio" name="sample_type_option" id="sample_type_multinomial" checked="checked">
+                  <label class="form-check-label" for="sample_type_multinomial">Multinomial distribution</label>
                 </div>
               </div>
 
-              <div class="form-group">
-                <label for="prime_text"></label>
-                <textarea class="form-control" id="prime_text" rows="1">Insert here text to begin sampling from...</textarea>
-              </div>
+              <div class="form-group col-md-1"></div>
 
-              <button class="btn btn-primary" onclick="sample_model()">Sample</button>
+              <div class="form-group col-md-2">
+                <label for="temperature"><b>Temperature</b></label>
+                <input type="number" class="form-control" id="temperature" value="1.0" min="0.0" max="1.0" step="0.05">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="prime_text"></label>
+              <textarea class="form-control" id="prime_text" rows="1">Insert here text to begin sampling from...</textarea>
+            </div>
+
+            <button class="btn btn-primary" onclick="sample_wikitext()">Sample</button>
 
           </div>
         </div>
@@ -576,19 +595,19 @@
             <p>Training the language model on this giant dataset takes a lot of time (for openAI it took approximately a month). So, we stopped training after processing around 65 million reviews (22 days of training). We obtained a loss close to the results from openAI (~1.21 vs ~1.18 - LSTM, for ~1 900 000 updates) (these values are not directly comparable due to the different LSTM internal sizes and backpropagation length used. Although they provide a guideline).</p>
 
             <figure class="figure-center text-center">
-              <img src="/img/sentiment_losses.png" class="figure-img img-fluid" alt="Language model training loss." width="640" height="480">
+              <img src="img/sentiment_losses.png" class="figure-img img-fluid" alt="Language model training loss." width="640" height="480">
             </figure>            
 
             <p>The trained logistic regression classifier obtained an 84.8% accuracy on the SST dataset (vs 91.8% obtained by openAI). The sentiment neuron alone achieves an 80% accuracy. The following figure shows the value of each weight after training the logistic regression classifier. We observe that one weight stands out, namely the one at dimension 981.</p>
 
             <figure class="figure-center text-center">
-              <img src="/img/sentiment_classifier_weights.png" class="figure-img img-fluid" alt="Logistic regression classifier weights." width="640" height="480">
+              <img src="img/sentiment_classifier_weights.png" class="figure-img img-fluid" alt="Logistic regression classifier weights." width="640" height="480">
             </figure>
 
             <p>Taking the value of the largest weight as our sentiment neuron, we can see in the next figure that its value alone is a good indicator of the sentiment present in a review. This figure is produced by taking each review from the SST training dataset, compute its LSTM cell state representation, and take the cell state value at dimension 981. We then plot how often this value arised from processing all the reviews. Furthermore, we color positive reviews in blue, and negative ones in red. By visual inspection we see that this neuron value alone is able to separate positive from negative reviews. If the neuron value is less than 0 we classify the review as positive, and if it is greater than 0 we classify it as negative.</p>
 
             <figure class="figure-center text-center">
-              <img src="/img/sentiment_unit.png" class="figure-img img-fluid" alt="Logistic regression classifier weights." width="640" height="480">
+              <img src="img/sentiment_unit.png" class="figure-img img-fluid" alt="Logistic regression classifier weights." width="640" height="480">
             </figure>
 
             <p>The reviews that overlap are also not easy for humans to decipher. The following is a set of missclassified reviews by just taking the sentiment neuron's value:</p>
@@ -639,7 +658,7 @@
                   </div>
                 </div>
 
-                <button class="btn btn-primary" onclick="sample_reviews()" id="sample_reviews">Sample</button>
+                <button class="btn btn-primary" onclick="sample_amazon_reviews()" id="sample_reviews">Sample</button>
 
                 
                 <br>
@@ -774,7 +793,7 @@
             <p>To evaluate the overall results of the classifiers we take a sentence, transform each byte into its cell state representation, and predicted the label (POS tag) using the full or the top 1, 2 or 3 dimensions as input to the \( C \) classifiers \( \mathcal{L} \) (assuming there are \(|C|\) unique classes). In the multiclass classification setting, we take the label of the most probable tag as the predicted one. The results obtained in the test set of each experiment are depicted in the next table. The individual results for each classifier can be consulted in table further down.</p>
 
             <div class="container">
-                <div class='col-md-10'>
+                <div class='col-md-12'>
                     <table class="table">
                       <caption>Results on the test set of different datasets and grouping options. Acc stands for accuracy; Prec for precision; Recall for recall. The precision and recall in the multiclass task are computed by averaging the metrics for each class and performing a weighted average with the number of the true instances of each class. In this way, we account for results in imbalanced datasets.</caption>
                       <thead>
@@ -852,14 +871,14 @@
             <div class="row" style="margin-top: 50px">
                 <div class="col-md-6">
                     <figure class="figure">
-                        <img src="/results/not_group_tags_250_lines/classifier_weights_VB_cell_states.png" class="figure-img img-fluid" alt="Logistic Regression weights for concept 'VB'." width="640" height="480">
+                        <img src="results/not_group_tags_250_lines/classifier_weights_VB_cell_states.png" class="figure-img img-fluid" alt="Logistic Regression weights for concept 'VB'." width="640" height="480">
                         <figcaption class="figure-caption" style="text-align: center;">Logistic Regression Weights for concept \(\text{VB}\) of the model not_group_tags_250_lines</figcaption>
                     </figure>
                 </div>
 
                 <div class="col-md-6">
                     <figure class="figure">
-                        <img src="/results/not_group_tags_250_lines/concept_unit_VB_cell_states.png" class="figure-img img-fluid" alt="Histogram of neuron 1961 activation." width="640" height="480">
+                        <img src="results/not_group_tags_250_lines/concept_unit_VB_cell_states.png" class="figure-img img-fluid" alt="Histogram of neuron 1961 activation." width="640" height="480">
                         <figcaption class="figure-caption" style="text-align: center;">Histogram of neuron 1961 activations</figcaption>
                     </figure>
                 </div>
@@ -876,7 +895,7 @@
             <div class="row" style="margin-top: 50px">
                 <div class="col-md-12">
                     <figure class="figure">
-                        <img src="/img/sample_activation_VB.png" class="figure-img img-fluid" alt="Activation of neuron 1961 for tag VB.">
+                        <img src="img/sample_activation_VB.png" class="figure-img img-fluid" alt="Activation of neuron 1961 for tag VB.">
                         <figcaption class="figure-caption" style="text-align: center;">Activation of neuron 1961 for tag \(\text{VB}\)</figcaption>
                     </figure>
                 </div>
@@ -888,14 +907,14 @@
             <div class="row" style="margin-top: 50px">
                 <div class="col-md-6">
                     <figure class="figure">
-                        <img src="/results/not_group_tags_250_lines/classifier_weights_RB_cell_states.png" class="figure-img img-fluid" alt="Logistic Regression weights for concept RB - adverb." width="640" height="480">
+                        <img src="results/not_group_tags_250_lines/classifier_weights_RB_cell_states.png" class="figure-img img-fluid" alt="Logistic Regression weights for concept RB - adverb." width="640" height="480">
                         <figcaption class="figure-caption" style="text-align: center;">Logistic Regression Weights for concept \(\text{RB}\) of the model not_group_tags_250_lines</figcaption>
                     </figure>
                 </div>
 
                 <div class="col-md-6">
                     <figure class="figure">
-                        <img src="/results/not_group_tags_250_lines/concept_unit_RB_cell_states.png" class="figure-img img-fluid" alt="Histogram of neuron 261 activation." width="640" height="480">
+                        <img src="results/not_group_tags_250_lines/concept_unit_RB_cell_states.png" class="figure-img img-fluid" alt="Histogram of neuron 261 activation." width="640" height="480">
                         <figcaption class="figure-caption" style="text-align: center;">Histogram of neuron 261 activation</figcaption>
                     </figure>
                 </div>
@@ -906,14 +925,14 @@
             <div class="row" style="margin-top: 50px">
                 <div class="col-md-6">
                     <figure class="figure">
-                        <img src="/results/not_group_tags_250_lines/classifier_weights_SPACE_cell_states.png" class="figure-img img-fluid" alt="Logistic Regression weights for concept 'VB'." width="640" height="480">
+                        <img src="results/not_group_tags_250_lines/classifier_weights_SPACE_cell_states.png" class="figure-img img-fluid" alt="Logistic Regression weights for concept 'VB'." width="640" height="480">
                         <figcaption class="figure-caption" style="text-align: center;">Logistic Regression Weights for concept \(\text{SPACE}\) of the model not_group_tags_250_lines</figcaption>
                     </figure>
                 </div>
 
                 <div class="col-md-6">
                     <figure class="figure">
-                        <img src="/results/not_group_tags_250_lines/concept_unit_SPACE_cell_states.png" class="figure-img img-fluid" alt="Histogram of neuron 1961 activation." width="640" height="480">
+                        <img src="results/not_group_tags_250_lines/concept_unit_SPACE_cell_states.png" class="figure-img img-fluid" alt="Histogram of neuron 1961 activation." width="640" height="480">
                         <figcaption class="figure-caption" style="text-align: center;">Histogram of neuron 289 activations</figcaption>
                     </figure>
                 </div>
@@ -922,7 +941,7 @@
             <div class="row" style="margin-top: 50px">
                 <div class="col-md-12">
                     <figure class="figure">
-                        <img src="/img/sample_activation_SPACE.png" class="figure-img img-fluid" alt="Activation of neuron 289 for tag SPACE.">
+                        <img src="img/sample_activation_SPACE.png" class="figure-img img-fluid" alt="Activation of neuron 289 for tag SPACE.">
                         <figcaption class="figure-caption" style="text-align: center;">Activation of neuron 289 for tag \(\text{SPACE}\)</figcaption>
                     </figure>
                 </div>
@@ -933,7 +952,7 @@
             <div class="row" style="margin-top: 50px">
                 <div class="col-md-12">
                     <figure class="figure">
-                        <img src="/img/sample_activation_SPACE_top3_classifier.png" class="figure-img img-fluid" alt="Activation of neuron 289 for tag SPACE.">
+                        <img src="img/sample_activation_SPACE_top3_classifier.png" class="figure-img img-fluid" alt="Activation of neuron 289 for tag SPACE.">
                         <figcaption class="figure-caption" style="text-align: center;">Coloring of the probability of a byte belonging to the tag \(\text{SPACE}\) (0 is white, 1 is blue)</figcaption>
                     </figure>
                 </div>
@@ -976,7 +995,7 @@
                       </select>
                     </div>
                     <div class="col-md-1">
-                      <button class="btn btn-primary" onclick="concept_neuron_lr_results()">2. Submit</button>
+                      <button class="btn btn-primary" onclick="concept_neuron_lr_weights_histogram()">2. Submit</button>
                     </div>
                   </div>
               </div>

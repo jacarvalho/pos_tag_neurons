@@ -52,6 +52,7 @@ Files / Directories:
 How to run:
 
     - To launch the webapp run: 
-        - sh setup_directory.sh
+        - svn co https://ad-svn.informatik.uni-freiburg.de/student-projects/joao-carvalho
+        - cd joao-carvalho
         - docker build -t project .
-        - docker run -it -p 5000:5000 -v /abs/path/to/repository/:/extern/data project
+        - docker run -it -p 5000:5000 -v /nfs/students/joao-carvalho:/extern/data project
