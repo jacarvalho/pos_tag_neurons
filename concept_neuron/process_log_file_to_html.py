@@ -1,12 +1,12 @@
 """
 2018, University of Freiburg.
 Joao Carvalho <carvalhj@cs.uni-freiburg.de>
-"""
-"""
+
 Raw script (fast coded) to generate html tables from log files resulting
 from training the logistic regression classifiers.
 """
 import re
+
 
 log_file = 'results/group_tags_nltk_data_1000/log.txt'
 table_entry = '<tr>\n'
