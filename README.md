@@ -6,10 +6,10 @@ This folder contains the code and results from the Master Project developed in t
 
 ### Contents:
 
-    - Code to train and sample LSTM language models from raw text
-    - Code to find the [sentiment neuron](https://blog.openai.com/unsupervised-sentiment-neuron/) discovered by openAI 
-    - Code to analyse and discover Part-of-Speech (POS) tags neurons
-    - A webapp to showcase the work done and experiment with the trained models
+- Code to train and sample LSTM language models from raw text
+- Code to find the [sentiment neuron](https://blog.openai.com/unsupervised-sentiment-neuron/) discovered by openAI 
+- Code to analyse and discover Part-of-Speech (POS) tags neurons
+- A webapp to showcase the work done and experiment with the trained models
 
 
 
