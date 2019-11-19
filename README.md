@@ -1,6 +1,5 @@
-Author: João Carvalho - carvalhj@cs.uni-freiburg.de
+Check the description of this project in the [Algorithms and Datastructures](http://ad.informatik.uni-freiburg.de/) chair of the Technical Faculty at the University of Freiburg: [http://ad-publications.informatik.uni-freiburg.de/student-projects/concept-neurons](http://ad-publications.informatik.uni-freiburg.de/student-projects/concept-neurons)
 
-This folder contains the code and results from the Master Project developed in the [Algorithms and Datastructures](http://ad.informatik.uni-freiburg.de/) chair of the Technical Faculty at the University of Freiburg, as a requirement for the MSc in Computer Science.
 
 ---
 
