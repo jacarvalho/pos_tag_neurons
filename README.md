@@ -1,4 +1,8 @@
-Check the description of this project in the [Algorithms and Datastructures](http://ad.informatik.uni-freiburg.de/) chair of the Technical Faculty at the University of Freiburg: [http://ad-publications.informatik.uni-freiburg.de/student-projects/concept-neurons](http://ad-publications.informatik.uni-freiburg.de/student-projects/concept-neurons)
+# Concept Neurons
+
+This project studies the capabilities of LSTM networks to train language models from byte sequences, and investigates the ability of the hidden representation to encode information on Part-Of-Speech (POS) tags. 
+
+Check the full report in [http://ad-publications.informatik.uni-freiburg.de/student-projects/concept-neurons](http://ad-publications.informatik.uni-freiburg.de/student-projects/concept-neurons). Run the code as instructed below to get a fully interactive webpage.
 
 
 ---
@@ -8,7 +12,7 @@ Check the description of this project in the [Algorithms and Datastructures](htt
 - Code to train and sample LSTM language models from raw text
 - Code to find the [sentiment neuron](https://blog.openai.com/unsupervised-sentiment-neuron/) discovered by openAI 
 - Code to analyse and discover Part-of-Speech (POS) tags neurons
-- A webapp to showcase the work done and experiment with the trained models
+- A webapp to experiment with the trained language models
 
 
 
